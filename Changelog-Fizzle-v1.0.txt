@@ -1,0 +1,5 @@
+commit 4c6933314459a27e174d9e8ff01aa119170f87ec
+Author: phyber <phyber@wowace>
+Date:   Sun Oct 5 18:54:44 2008 +0100
+
+    Initial git commit
