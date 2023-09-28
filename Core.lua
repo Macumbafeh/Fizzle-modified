@@ -2357,22 +2357,56 @@ local gemTextPositions = {
 }
 
 	local gemImagesByID = {
-	-- Red
+	-- Red --
+		-- Uncommon
+		-- "Interface\\Icons\\inv_misc_gem_bloodgem_02",
+		-- rare
+		-- "Interface\\Icons\\inv_jewelcrafting_livingruby_03",
+		-- epic
     ["3118"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
 	["3117"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
-	-- Yellow
-	["3286"] = "Interface\\Icons\\inv_jewelcrafting_pyrestone_02",
-	-- Blue
-	-- Orange
+	
+	-- Yellow --
+		-- Uncommon
+		-- "Interface\\Icons\\inv_misc_gem_goldendraenite_02",
 		-- rare
-		["3081"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
-	 -- epic
+		-- "Interface\\Icons\\inv_jewelcrafting_dawnstone_03",
+		-- epic
+	["3286"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	
+	-- Blue --
+		-- Uncommon
+		-- "Interface\\Icons\\inv_misc_gem_azuredraenite_02",
+		-- rare
+		-- "Interface\\Icons\\inv_jewelcrafting_starofelune_03",
+		-- epic
+		-- "Interface\\Icons\\inv_jewelcrafting_empyreansapphire_02",
+	
+	-- Orange --
+		-- Uncommon
+		-- "Interface\\Icons\\inv_misc_gem_flamespessarite_02",
+		-- rare
+	["3081"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+		-- epic
 	["3141"] = "Interface\\Icons\\inv_jewelcrafting_pyrestone_02",
-	-- Green
-	-- Purple
+	
+	-- Green --
+		-- Uncommon
+		-- "Interface\\Icons\\inv_misc_gem_deepperidot_02",
+		-- rare
+		-- "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+		-- epic
+		-- "Interface\\Icons\\inv_jewelcrafting_seasprayemerald_02",
+	-- Purple --
+		-- Uncommon
+		-- "Interface\\Icons\\inv_misc_gem_ebondraenite_02",
+		-- rare
+		-- "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+		-- epic
 	["3138"] = "Interface\\Icons\\inv_jewelcrafting_shadowsongamethyst_02",
 	["3137"] = "Interface\\Icons\\inv_jewelcrafting_shadowsongamethyst_02",
-	-- Meta
+	
+	-- Meta --
 	 -- Earthstorm
 	["2835"] = "Interface\\Icons\\inv_misc_gem_diamond_06",
 	["3274"] = "Interface\\Icons\\inv_misc_gem_diamond_06",
