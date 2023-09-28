@@ -2269,20 +2269,57 @@ local enchantAttributes = {
 }
 
 local gemAttributes = {
-	-- Red
+	-- Red --
+		-- Uncommon
+	
+		-- rare
+	
+		-- epic
     ["3118"] = "+12 SP",
 	["3117"] = "+22 Heal & +8 SP",
-	-- Yellow
+	
+	-- Yellow --
+		-- Uncommon
+	
+		-- rare
+	
+		-- epic
 	["3286"] = "+5 Sp.Haste & +6 SP",
-	-- Blue
-	-- Orange
+	
+	-- Blue --
+		-- Uncommon
+	
+		-- rare
+	
+		-- epic
+		
+		
+	-- Orange --
+		-- Uncommon
+	
+		-- rare
 	["3081"] = "+11 Heal +4 SP & +4 Spell Crit",
+		-- epic
 	["3141"] = "+11 Heal +4 SP & +5 Intel",
-	-- Green
-	-- Purple
+	
+	-- Green --
+		-- Uncommon
+	
+		-- rare
+	
+		-- epic
+		
+		
+	-- Purple --
+		-- Uncommon
+	["3201"] = "+7 Heal +3 SP & +3 Spirit",
+		-- rare
+	["3202"] = "+9 Heal +3 SP & +4 Spirit",
+		-- epic
 	["3137"] = "+5 SP & +7 Stamina",
 	["3138"] = "+11 Heal +4 SP & +2 MP5",
-	-- Meta
+	
+	-- Meta --
 	 -- Earthstorm
 	["2835"] = "+12 Intel & +Chance Restore mana",
 	["3274"] = "+12 Defense & +10% Shield Block",
@@ -2301,90 +2338,38 @@ local gemAttributes = {
 	["2970"] = "+12 SP & +Minor Run Speed",
 	["3261"] = "+12 Spell Crit & +3% Crit Damage",
 	["2828"] = "+Chance Spell Cast Speed Increase",
-	["2827"] = "+12 Spell Crit & 1% Spell Reflect",
+	["2827"] = "+14 Spell Crit & 1% Spell Reflect",
 }
 
-local enchantTextPositions = {
-	-- left
-    Head = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
-	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
-	Back = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 25 },
-	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
-	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -35, y = -15 },
-	
-	
-	-- Right
-	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
-	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
-	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
-	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
-	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
-    
-		
-	-- Bottom
-	MainHand = { point = "RIGHT", relativePoint = "LEFT", x = 35, y = -15 },
-	SecondaryHand = { point = "LEFT", relativePoint = "RIGHT", x = -35, y = -15 },
-	Ranged = { point = "TOP", relativePoint = "TOP", x = 0, y = -15 },
-	}
-	
-
-	
-
-	
-local gemTextPositions = {
-	-- Left
-    Head = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
-	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 30, y = 10 },
-	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
-	Back = { point = "LEFT", relativePoint = "RIGHT", x = 30, y = 10 },
-	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
-	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -25, y = 45 },
-	
-	
-	-- Right
-	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 20 },
-	Waist = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 15 },
-	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 28 },
-	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 18 },
-	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 20 },
-	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 20 },
-    
-		
-	-- Bottom
-	MainHand = { point = "LEFT", relativePoint = "RIGHT", x = -25, y = 60 },
-	SecondaryHand = { point = "LEFT", relativePoint = "RIGHT", x = -20, y = 25 },
-	Ranged = { point = "LEFT", relativePoint = "RIGHT", x = 0, y = 55 },
-}
-
-	local gemImagesByID = {
+local gemImagesByID = {
 	-- Red --
 		-- Uncommon
-		-- "Interface\\Icons\\inv_misc_gem_bloodgem_02",
+	-- "Interface\\Icons\\inv_misc_gem_bloodgem_02",
 		-- rare
-		-- "Interface\\Icons\\inv_jewelcrafting_livingruby_03",
+	-- "Interface\\Icons\\inv_jewelcrafting_livingruby_03",
 		-- epic
     ["3118"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
 	["3117"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
 	
 	-- Yellow --
 		-- Uncommon
-		-- "Interface\\Icons\\inv_misc_gem_goldendraenite_02",
+	-- "Interface\\Icons\\inv_misc_gem_goldendraenite_02",
 		-- rare
-		-- "Interface\\Icons\\inv_jewelcrafting_dawnstone_03",
+	-- "Interface\\Icons\\inv_jewelcrafting_dawnstone_03",
 		-- epic
 	["3286"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
 	
 	-- Blue --
 		-- Uncommon
-		-- "Interface\\Icons\\inv_misc_gem_azuredraenite_02",
+	-- "Interface\\Icons\\inv_misc_gem_azuredraenite_02",
 		-- rare
-		-- "Interface\\Icons\\inv_jewelcrafting_starofelune_03",
+	-- "Interface\\Icons\\inv_jewelcrafting_starofelune_03",
 		-- epic
-		-- "Interface\\Icons\\inv_jewelcrafting_empyreansapphire_02",
+	-- "Interface\\Icons\\inv_jewelcrafting_empyreansapphire_02",
 	
 	-- Orange --
 		-- Uncommon
-		-- "Interface\\Icons\\inv_misc_gem_flamespessarite_02",
+	-- "Interface\\Icons\\inv_misc_gem_flamespessarite_02",
 		-- rare
 	["3081"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
 		-- epic
@@ -2392,16 +2377,19 @@ local gemTextPositions = {
 	
 	-- Green --
 		-- Uncommon
-		-- "Interface\\Icons\\inv_misc_gem_deepperidot_02",
+	-- "Interface\\Icons\\inv_misc_gem_deepperidot_02",
 		-- rare
-		-- "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	-- "Interface\\Icons\\inv_jewelcrafting_talasite_03",
 		-- epic
-		-- "Interface\\Icons\\inv_jewelcrafting_seasprayemerald_02",
+	-- "Interface\\Icons\\inv_jewelcrafting_seasprayemerald_02",
+	
 	-- Purple --
 		-- Uncommon
-		-- "Interface\\Icons\\inv_misc_gem_ebondraenite_02",
+	["3201"] = "Interface\\Icons\\inv_misc_gem_pearl_08",
+	-- "Interface\\Icons\\inv_misc_gem_ebondraenite_02",
 		-- rare
-		-- "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3202"] = "Interface\\Icons\\inv_misc_gem_pearl_07", -- gem pearl
+	-- "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
 		-- epic
 	["3138"] = "Interface\\Icons\\inv_jewelcrafting_shadowsongamethyst_02",
 	["3137"] = "Interface\\Icons\\inv_jewelcrafting_shadowsongamethyst_02",
@@ -2427,6 +2415,56 @@ local gemTextPositions = {
 	["2828"] = "Interface\\Icons\\inv_misc_gem_diamond_07",
 	["2827"] = "Interface\\Icons\\inv_misc_gem_diamond_07",
 }
+
+local enchantTextPositions = {
+	-- left
+    Head = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
+	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 3, y = 25 },
+	Back = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 25 },
+	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
+	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -35, y = -15 },
+	
+	
+	-- Right
+	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
+	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
+	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
+	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
+	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
+    
+		
+	-- Bottom
+	MainHand = { point = "RIGHT", relativePoint = "LEFT", x = 35, y = -15 },
+	SecondaryHand = { point = "LEFT", relativePoint = "RIGHT", x = -35, y = -15 },
+	Ranged = { point = "TOP", relativePoint = "TOP", x = 0, y = -15 },
+	}
+	
+	
+local gemTextPositions = {
+	-- Left
+    Head = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
+	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 30, y = 10 },
+	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 17, y = 15 },
+	Back = { point = "LEFT", relativePoint = "RIGHT", x = 30, y = 10 },
+	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
+	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -25, y = 45 },
+	
+	
+	-- Right
+	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 20 },
+	Waist = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 15 },
+	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 28 },
+	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 18 },
+	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 20 },
+	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 20 },
+    
+		
+	-- Bottom
+	MainHand = { point = "LEFT", relativePoint = "RIGHT", x = -25, y = 60 },
+	SecondaryHand = { point = "LEFT", relativePoint = "RIGHT", x = -20, y = 25 },
+	Ranged = { point = "LEFT", relativePoint = "RIGHT", x = 0, y = 55 },
+}
+
 
 local emptysocketPositions = {
 	-- Left
