@@ -409,13 +409,13 @@ local enchantAttributes = {
 	["203"] = "10% On Get Hit: Shadow Bolt (50 Damage)",
 	["204"] = "10% On Get Hit: Shadow Bolt (60 Damage)",
 	["205"] = "10% On Get Hit: Shadow Bolt (70 Damage)",
-	["206"] = "+2 Healing",
-	["207"] = "+4 Healing",
-	["208"] = "+7 Healing",
-	["209"] = "+9 Healing",
-	["210"] = "+11 Healing",
-	["211"] = "+13 Healing",
-	["212"] = "+15 Healing",
+	["206"] = "+2 Heal",
+	["207"] = "+4 Heal",
+	["208"] = "+7 Heal",
+	["209"] = "+9 Heal",
+	["210"] = "+11 Heal",
+	["211"] = "+13 Heal",
+	["212"] = "+15 Heal",
 	["213"] = "+1 Fire SP",
 	["214"] = "+3 Fire SP",
 	["215"] = "+4 Fire SP",
@@ -526,16 +526,16 @@ local enchantAttributes = {
 	["410"] = "+13 Strength",
 	["411"] = "+14 Stamina",
 	["412"] = "+14 Strength",
-	["423"] = "+1 Healing & SP",
-	["424"] = "+2 Healing & SP",
-	["425"] = "ZZOLD +4 Healing & SP",
-	["426"] = "+5 Healing & SP",
-	["427"] = "+6 Healing & SP",
-	["428"] = "+7 Healing & SP",
-	["429"] = "+8 Healing & SP",
-	["430"] = "+9 Healing & SP",
-	["431"] = "+11 Healing & SP",
-	["432"] = "+12 Healing & SP",
+	["423"] = "+1 Heal & SP",
+	["424"] = "+2 Heal & SP",
+	["425"] = "ZZOLD +4 Heal & SP",
+	["426"] = "+5 Heal & SP",
+	["427"] = "+6 Heal & SP",
+	["428"] = "+7 Heal & SP",
+	["429"] = "+8 Heal & SP",
+	["430"] = "+9 Heal & SP",
+	["431"] = "+11 Heal & SP",
+	["432"] = "+12 Heal & SP",
 	["433"] = "+11 Fire SP",
 	["434"] = "+13 Fire SP",
 	["435"] = "+14 Fire SP",
@@ -543,9 +543,9 @@ local enchantAttributes = {
 	["437"] = "+11 Frost SP",
 	["438"] = "+13 Frost SP",
 	["439"] = "+14 Frost SP",
-	["440"] = "+12 Healing",
-	["441"] = "+20 Healing & +7 SP",
-	["442"] = "+22 Healing",
+	["440"] = "+12 Heal",
+	["441"] = "+20 Heal & +7 SP",
+	["442"] = "+22 Heal",
 	["443"] = "+11 Nature SP",
 	["444"] = "+13 Nature SP",
 	["445"] = "+14 Nature SP",
@@ -1499,44 +1499,44 @@ local enchantAttributes = {
 	["2304"] = "+51 Nature SP",
 	["2305"] = "+53 Nature SP",
 	["2306"] = "+54 Nature SP",
-	["2307"] = "+2 Healing & +1 SP",
-	["2308"] = "+4 Healing & +2 SP",
-	["2309"] = "+7 Healing & +3 SP",
-	["2310"] = "+9 Healing & +3 SP",
-	["2311"] = "+11 Healing & +4 SP",
-	["2312"] = "+13 Healing & +5 SP",
-	["2313"] = "+15 Healing & +5 SP",
-	["2314"] = "+18 Healing & +6 SP",
-	["2315"] = "+20 Healing & +7 SP",
-	["2316"] = "+22 Healing & +8 SP",
-	["2317"] = "+24 Healing & +8 SP",
-	["2318"] = "+26 Healing & +9 SP",
-	["2319"] = "+29 Healing & +10 SP",
-	["2320"] = "+31 Healing & +11 SP",
-	["2321"] = "+33 Healing & +11 SP",
-	["2322"] = "+35 Healing & +12 SP",
-	["2323"] = "+37 Healing & +13 SP",
-	["2324"] = "+40 Healing & +14 SP",
-	["2325"] = "+42 Healing & +14 SP",
-	["2326"] = "+44 Healing & +15 SP",
-	["2327"] = "+46 Healing & +16 SP",
-	["2328"] = "+48 Healing & +16 SP",
-	["2329"] = "+51 Healing & +17 SP",
-	["2330"] = "+53 Healing & +18 SP",
-	["2331"] = "+55 Healing & +19 SP",
-	["2332"] = "+57 Healing & +19 SP",
-	["2333"] = "+59 Healing & +20 SP",
-	["2334"] = "+62 Healing & +21 SP",
-	["2335"] = "+64 Healing & +22 SP",
-	["2336"] = "+66 Healing & +22 SP",
-	["2337"] = "+68 Healing & +23 SP",
-	["2338"] = "+70 Healing & +24 SP",
-	["2339"] = "+73 Healing & +25 SP",
-	["2340"] = "+75 Healing & +25 SP",
-	["2341"] = "+77 Healing & +26 SP",
-	["2342"] = "+79 Healing & +27 SP",
-	["2343"] = "+81 Healing",
-	["2344"] = "+84 Healing & +28 SP",
+	["2307"] = "+2 Heal & +1 SP",
+	["2308"] = "+4 Heal & +2 SP",
+	["2309"] = "+7 Heal & +3 SP",
+	["2310"] = "+9 Heal & +3 SP",
+	["2311"] = "+11 Heal & +4 SP",
+	["2312"] = "+13 Heal & +5 SP",
+	["2313"] = "+15 Heal & +5 SP",
+	["2314"] = "+18 Heal & +6 SP",
+	["2315"] = "+20 Heal & +7 SP",
+	["2316"] = "+22 Heal & +8 SP",
+	["2317"] = "+24 Heal & +8 SP",
+	["2318"] = "+26 Heal & +9 SP",
+	["2319"] = "+29 Heal & +10 SP",
+	["2320"] = "+31 Heal & +11 SP",
+	["2321"] = "+33 Heal & +11 SP",
+	["2322"] = "+35 Heal & +12 SP",
+	["2323"] = "+37 Heal & +13 SP",
+	["2324"] = "+40 Heal & +14 SP",
+	["2325"] = "+42 Heal & +14 SP",
+	["2326"] = "+44 Heal & +15 SP",
+	["2327"] = "+46 Heal & +16 SP",
+	["2328"] = "+48 Heal & +16 SP",
+	["2329"] = "+51 Heal & +17 SP",
+	["2330"] = "+53 Heal & +18 SP",
+	["2331"] = "+55 Heal & +19 SP",
+	["2332"] = "+57 Heal & +19 SP",
+	["2333"] = "+59 Heal & +20 SP",
+	["2334"] = "+62 Heal & +21 SP",
+	["2335"] = "+64 Heal & +22 SP",
+	["2336"] = "+66 Heal & +22 SP",
+	["2337"] = "+68 Heal & +23 SP",
+	["2338"] = "+70 Heal & +24 SP",
+	["2339"] = "+73 Heal & +25 SP",
+	["2340"] = "+75 Heal & +25 SP",
+	["2341"] = "+77 Heal & +26 SP",
+	["2342"] = "+79 Heal & +27 SP",
+	["2343"] = "+81 Heal & +27 SP",
+	["2344"] = "+84 Heal & +28 SP",
 	["2363"] = "+1 MP5",
 	["2364"] = "+1 MP5",
 	["2365"] = "+1 MP5",
@@ -1623,29 +1623,29 @@ local enchantAttributes = {
 	["2488"] = "+5 All Resists",
 	["2503"] = "+5 Defense",
 	["2504"] = "+30 SP",
-	["2505"] = "+55 Healing & +19 SP",
+	["2505"] = "+55 Heal & +19 SP",
 	["2506"] = "+28 Crit",
 	["2523"] = "+30 Hit",
 	["2543"] = "+10 Haste",
-	["2544"] = "+8 Healing & SP",
+	["2544"] = "+8 Heal & SP",
 	["2545"] = "+12 Dodge",
 	["2563"] = "+15 Strength",
 	["2564"] = "+15 Agility",
 	["2565"] = "+4 MP5",
-	["2566"] = "+24 Healing & +8 SP",
+	["2566"] = "+24 Heal & +8 SP",
 	["2567"] = "+20 Spirit",
 	["2568"] = "+22 Intel",
-	["2583"] = "+10 Defense, +10 Stamina, +15 Block Value",
-	["2584"] = "+7 Defense, +10 Stamina, +24 Healing",
+	["2583"] = "+10 Defense/+10 Stamina/+15 Block Value",
+	["2584"] = "+7 Defense, +10 Stamina, +24 Heal",
 	["2585"] = "+28 AP/+12 Dodge",
 	["2586"] = "+24 Ranged AP, +10 Stamina, +10 Hit",
-	["2587"] = "+13 Healing & SP/+15 Intel",
-	["2588"] = "+18 Healing & SP/+8 Spell Hit",
-	["2589"] = "+18 Healing & SP/+10 Stamina",
-	["2590"] = "+4 MP5/+10 Stamina/+24 Healing",
-	["2591"] = "+10 Intel/+10 Stamina/+24 Healing",
+	["2587"] = "+13 Heal & SP/+15 Intel",
+	["2588"] = "+18 Heal & SP/+8 Spell Hit",
+	["2589"] = "+18 Heal & SP/+10 Stamina",
+	["2590"] = "+4 MP5/+10 Stamina/+24 Heal",
+	["2591"] = "+10 Intel/+10 Stamina/+24 Heal",
 	["2603"] = "Eternium Line",
-	["2604"] = "+33 Healing & +11 SP",
+	["2604"] = "+33 Heal & +11 SP",
 	["2605"] = "+18 SP",
 	["2606"] = "+30 AP",
 	["2607"] = "+12 SP",
@@ -1658,7 +1658,7 @@ local enchantAttributes = {
 	["2614"] = "+20 Shadow SP",
 	["2615"] = "+20 Frost SP",
 	["2616"] = "+20 Fire SP",
-	["2617"] = "+30 Healing & +10 SP",
+	["2617"] = "+30 Heal & +10 SP",
 	["2618"] = "+15 Agility",
 	["2619"] = "+15 Fire Resist",
 	["2620"] = "+15 Nature Resist",
@@ -1693,7 +1693,7 @@ local enchantAttributes = {
 	["2649"] = "+12 Stamina",
 	["2650"] = "+15 SP",
 	["2651"] = "+12 SP",
-	["2652"] = "+20 Healing & +7 SP",
+	["2652"] = "+20 Heal & +7 SP",
 	["2653"] = "+18 Block Value",
 	["2654"] = "+12 Intel",
 	["2655"] = "+15 Shield Block",
@@ -1731,7 +1731,7 @@ local enchantAttributes = {
 	["2687"] = "+8 Agility",
 	["2688"] = "+8 Stamina",
 	["2689"] = "+8 MP5",
-	["2690"] = "+13 Healing & +5 SP",
+	["2690"] = "+13 Heal & +5 SP",
 	["2691"] = "+6 Strength",
 	["2692"] = "+7 SP",
 	["2693"] = "+6 Agility",
@@ -1746,17 +1746,17 @@ local enchantAttributes = {
 	["2702"] = "+12 Agility (2 Red Gems)",
 	["2703"] = "+4 Agility per different colored gem",
 	["2704"] = "+12 Strength if 4 blue gems equipped",
-	["2705"] = "+7 Healing +3 SP & +3 Intel",
+	["2705"] = "+7 Heal +3 SP & +3 Intel",
 	["2706"] = "+3 Defense & +4 Stamina",
 	["2707"] = "+1 Mana every 5 Sec & +3 Intel",
 	["2708"] = "+4 SP & +4 Stamina",
-	["2709"] = "+7 Healing +3 SP & +1 MP5",
+	["2709"] = "+7 Heal +3 SP & +1 MP5",
 	["2710"] = "+3 Agility & +4 Stamina",
 	["2711"] = "+3 Strength & +4 Stamina",
 	["2712"] = "Sharpened (+12 Damage)",
 	["2713"] = "Sharpened (+14 Crit & +12 Damage)",
 	["2714"] = "Felsteel Spike (26-38)",
-	["2715"] = "+31 Healing +11 SP & 5 MP5",
+	["2715"] = "+31 Heal +11 SP & 5 MP5",
 	["2716"] = "+16 Stamina & +100 Armor",
 	["2717"] = "+26 AP & +14 Crit",
 	["2718"] = "Lesser Rune of Warding",
@@ -1768,7 +1768,7 @@ local enchantAttributes = {
 	["2724"] = "Scope (+28 Crit)",
 	["2725"] = "+8 Strength",
 	["2726"] = "+8 Agility",
-	["2727"] = "+18 Healing & +6 SP",
+	["2727"] = "+18 Heal & +6 SP",
 	["2728"] = "+9 SP",
 	["2729"] = "+16 AP",
 	["2730"] = "+8 Dodge",
@@ -1782,12 +1782,12 @@ local enchantAttributes = {
 	["2738"] = "+4 Strength & +6 Stamina",
 	["2739"] = "+4 Agility & +6 Stamina",
 	["2740"] = "+5 SP & +6 Stamina",
-	["2741"] = "+9 Healing +3 SP & +2 MP5",
-	["2742"] = "+9 Healing +3 SP & +4 Intel",
+	["2741"] = "+9 Heal +3 SP & +2 MP5",
+	["2742"] = "+9 Heal +3 SP & +4 Intel",
 	["2743"] = "+4 Defense & +6 Stamina",
 	["2744"] = "+4 Intel & +2 MP5",
-	["2745"] = "+46 Healing +16 SP & +15 Stamina",
-	["2746"] = "+66 Healing +22 SP & +20 Stamina",
+	["2745"] = "+46 Heal +16 SP & +15 Stamina",
+	["2746"] = "+66 Heal +22 SP & +20 Stamina",
 	["2747"] = "+25 SP & +15 Stamina",
 	["2748"] = "+35 SP & +20 Stamina",
 	["2749"] = "+12 Intel",
@@ -1853,7 +1853,7 @@ local enchantAttributes = {
 	["2809"] = "+$i Nature Damage",
 	["2810"] = "+$i Frost Damage",
 	["2811"] = "+$i Shadow Damage",
-	["2812"] = "+$i Healing",
+	["2812"] = "+$i Heal",
 	["2813"] = "+$i Defense",
 	["2814"] = "+$i Health MP5",
 	["2815"] = "+$i Dodge",
@@ -1873,7 +1873,7 @@ local enchantAttributes = {
 	["2829"] = "+24 AP & Minor Speed",
 	["2830"] = "+12 Crit& 5% Snare & Root Resist",
 	["2831"] = "+18 Stamina& 5% Stun Resist",
-	["2832"] = "+26 Healing +9 SP & 2% Reduced Threat",
+	["2832"] = "+26 Heal +9 SP & 2% Reduced Threat",
 	["2833"] = "+12 Defense& +Chance Restore Health",
 	["2834"] = "+3 Melee Damage & Chance to Stun Target",
 	["2835"] = "+12 Intel & +Chance Restore mana",
@@ -1913,7 +1913,7 @@ local enchantAttributes = {
 	["2869"] = "+4 Intel",
 	["2870"] = "+3 Parry",
 	["2871"] = "+4 Dodge",
-	["2872"] = "+9 Healing & +3 SP",
+	["2872"] = "+9 Heal & +3 SP",
 	["2873"] = "+4 Hit",
 	["2874"] = "+4 Crit",
 	["2875"] = "+3 Spell Crit",
@@ -1948,7 +1948,7 @@ local enchantAttributes = {
 	["2907"] = "+2 Parry",
 	["2908"] = "+4 Spell Hit",
 	["2909"] = "+2 Spell Hit",
-	["2910"] = "+3 Healing & SP",
+	["2910"] = "+3 Heal & SP",
 	["2911"] = "+10 Strength",
 	["2912"] = "+12 SP",
 	["2913"] = "+10 Crit",
@@ -1967,7 +1967,7 @@ local enchantAttributes = {
 	["2927"] = "+4 Strength",
 	["2928"] = "+12 SP",
 	["2929"] = "+2 Weapon Damage",
-	["2930"] = "+20 Healing & +7 SP",
+	["2930"] = "+20 Heal & +7 SP",
 	["2931"] = "+4 All Stats",
 	["2932"] = "+4 Defense",
 	["2933"] = "+15 Resi",
@@ -1995,7 +1995,7 @@ local enchantAttributes = {
 	["2955"] = "Weighted (+14 Crit & +12 Damage)",
 	["2956"] = "+4 Strength",
 	["2957"] = "+4 Agility",
-	["2958"] = "+9 Healing & +3 SP",
+	["2958"] = "+9 Heal & +3 SP",
 	["2959"] = "+5 SP",
 	["2960"] = "+8 AP",
 	["2961"] = "+6 Stamina",
@@ -2011,13 +2011,13 @@ local enchantAttributes = {
 	["2971"] = "+12 AP",
 	["2972"] = "+4 Block",
 	["2973"] = "+6 AP",
-	["2974"] = "+7 Healing +3 SP",
+	["2974"] = "+7 Heal +3 SP",
 	["2975"] = "+5 Block Value",
 	["2976"] = "+2 Defense",
 	["2977"] = "+13 Dodge",
 	["2978"] = "+15 Dodge & +10 Defense",
-	["2979"] = "+29 Healing & +10 SP",
-	["2980"] = "+33 Healing +11 SP & +4 MP5",
+	["2979"] = "+29 Heal & +10 SP",
+	["2980"] = "+33 Heal +11 SP & +4 MP5",
 	["2981"] = "+15 Spell Power",
 	["2982"] = "+18 Spell Power & +10 Spell Crit",
 	["2983"] = "+26 AP",
@@ -2030,7 +2030,7 @@ local enchantAttributes = {
 	["2990"] = "+13 Defense",
 	["2991"] = "+15 Defense & +10 Dodge",
 	["2992"] = "+5 MP5",
-	["2993"] = "+6 MP5 & +22 Healing",
+	["2993"] = "+6 MP5 & +22 Heal",
 	["2994"] = "+13 Spell Crit",
 	["2995"] = "+15 Spell Crit & +12 SP",
 	["2996"] = "+13 Crit",
@@ -2038,7 +2038,7 @@ local enchantAttributes = {
 	["2998"] = "+7 All Resists",
 	["2999"] = "+16 Defense & +17 Dodge",
 	["3000"] = "+18 Stamina, +12 Dodge, & +12 Resi",
-	["3001"] = "+35 Healing +12 SP & 7 MP5",
+	["3001"] = "+35 Heal +12 SP & 7 MP5",
 	["3002"] = "+22 Spell Power & +14 Spell Hit",
 	["3003"] = "+34 AP & +16 Hit",
 	["3004"] = "+18 Stamina & +20 Resi",
@@ -2083,12 +2083,12 @@ local enchantAttributes = {
 	["3043"] = "Rockbiter 8",
 	["3044"] = "Rockbiter 8",
 	["3045"] = "+5 Strength & +6 Stamina",
-	["3046"] = "+11 Healing +4 SP & +4 Intel",
+	["3046"] = "+11 Heal +4 SP & +4 Intel",
 	["3047"] = "+6 Stamina & +5 Spell Crit",
 	["3048"] = "+5 Agility & +6 Stamina",
 	["3049"] = "+5 Crit & +2 MP5",
 	["3050"] = "+6 SP & +4 Intel ",
-	["3051"] = "+11 Healing +4 SP & +6 Stamina",
+	["3051"] = "+11 Heal +4 SP & +6 Stamina",
 	["3052"] = "+10 AP & +4 Hit",
 	["3053"] = "+5 Defense & +4 Dodge",
 	["3054"] = "+6 SP & +6 Stamina",
@@ -2101,12 +2101,12 @@ local enchantAttributes = {
 	["3061"] = "+6 SP & +5 Spell Hit",
 	["3062"] = "+6 Crit & +5 Dodge",
 	["3063"] = "+5 Parry & +6 Stamina",
-	["3064"] = "+5 Spirit & +9 Healing +3 SP",
+	["3064"] = "+5 Spirit & +9 Heal +3 SP",
 	["3065"] = "+8 Strength",
 	["3066"] = "+6 SP & +5 Spell Penetration",
 	["3067"] = "+10 AP & +6 Stamina",
 	["3068"] = "+5 Dodge & +4 Hit",
-	["3069"] = "+11 Healing +4 SP & +4 Resi",
+	["3069"] = "+11 Heal +4 SP & +4 Resi",
 	["3070"] = "+8 AP & +5 Crit",
 	["3071"] = "+5 Intel & +6 Stamina",
 	["3072"] = "+5 Strength & +4 Crit",
@@ -2118,12 +2118,12 @@ local enchantAttributes = {
 	["3078"] = "+6 Stamina & +5 Defense",
 	["3079"] = "+8 AP & +5 Resi",
 	["3080"] = "+6 Stamina & +5 Resi",
-	["3081"] = "+11 Healing +4 SP & +4 Spell Crit",
+	["3081"] = "+11 Heal +4 SP & +4 Spell Crit",
 	["3082"] = "+5 Defense & 2 MP5",
 	["3083"] = "+6 SP & +4 Spirit",
 	["3084"] = "+5 Dodge & +4 Resi",
 	["3085"] = "+6 Stamina & +5 Crit",
-	["3086"] = "+11 Healing +4 SP & 2 MP5",
+	["3086"] = "+11 Heal +4 SP & 2 MP5",
 	["3087"] = "+5 Strength & +4 Resi",
 	["3088"] = "+5 Spell Hit & +6 Stamina",
 	["3089"] = "+5 Spell Hit & 2 MP5",
@@ -2135,9 +2135,9 @@ local enchantAttributes = {
 	["3095"] = "+8 Resist All",
 	["3096"] = "+17 Strength & +16 Intel",
 	["3097"] = "+2 Spirit",
-	["3098"] = "+4 Healing +2 SP",
+	["3098"] = "+4 Heal +2 SP",
 	["3099"] = "+6 SP & +6 Stamina",
-	["3100"] = "+11 Healing +4 SP & +6 Stamina",
+	["3100"] = "+11 Heal +4 SP & +6 Stamina",
 	["3101"] = "+10 AP & +6 Stamina",
 	["3102"] = "Poison",
 	["3103"] = "+8 Strength",
@@ -2154,7 +2154,7 @@ local enchantAttributes = {
 	["3114"] = "+4 AP",
 	["3115"] = "+10 Strength",
 	["3116"] = "+10 Agility",
-	["3117"] = "+22 Healing & +8 SP",
+	["3117"] = "+22 Heal & +8 SP",
 	["3118"] = "+12 SP",
 	["3119"] = "+20 AP",
 	["3120"] = "+10 Dodge",
@@ -2175,10 +2175,10 @@ local enchantAttributes = {
 	["3135"] = "+10 AP & +7 Stamina",
 	["3136"] = "+10 AP & +2 MP5",
 	["3137"] = "+6 SP & +7 Stamina",
-	["3138"] = "+11 Healing +4 SP & +2 MP5",
+	["3138"] = "+11 Heal +4 SP & +2 MP5",
 	["3139"] = "+5 Crit & +5 Strength",
 	["3140"] = "+5 Spell Crit & +6 SP",
-	["3141"] = "+11 Healing +4 SP & +5 Intel",
+	["3141"] = "+11 Heal +4 SP & +5 Intel",
 	["3142"] = "+5 Hit & +5 Agility",
 	["3143"] = "+5 Spell Hit & +6 SP",
 	["3144"] = "+5 Crit & +10 AP",
@@ -2188,14 +2188,14 @@ local enchantAttributes = {
 	["3148"] = "+5 Crit & +7 Stamina",
 	["3149"] = "+2 Agility",
 	["3150"] = "+6 MP5",
-	["3151"] = "+4 Healing +2 SP",
+	["3151"] = "+4 Heal +2 SP",
 	["3152"] = "+2 Spell Crit",
 	["3153"] = "+2 SP",
 	["3154"] = "+12 Agility & 3% Increased CritDamage",
 	["3155"] = "Chance to Increase Melee/Ranged Attack Speed ",
 	["3156"] = "+8 AP & +6 Stamina",
 	["3157"] = "+4 Intel & +6 Stamina",
-	["3158"] = "+9 Healing +3 SP & +4 Spirit",
+	["3158"] = "+9 Heal +3 SP & +4 Spirit",
 	["3159"] = "+8 AP & +4 Crit",
 	["3160"] = "+5 SP & +4 Intel",
 	["3161"] = "+4 Stamina & +4 Spell Crit",
@@ -2205,9 +2205,9 @@ local enchantAttributes = {
 	["3197"] = "+20 AP",
 	["3198"] = "+5 SP",
 	["3199"] = "+170 Armor",
-	["3200"] = "+4 Spirit & +9 Healing",
-	["3201"] = "+7 Healing +3 SP & +3 Spirit",
-	["3202"] = "+9 Healing +3 SP & +4 Spirit",
+	["3200"] = "+4 Spirit & +9 Heal",
+	["3201"] = "+7 Heal +3 SP & +3 Spirit",
+	["3202"] = "+9 Heal +3 SP & +4 Spirit",
 	["3204"] = "+3 Spell Crit",
 	["3205"] = "+3 Crit",
 	["3206"] = "+8 Agility",
@@ -2215,7 +2215,7 @@ local enchantAttributes = {
 	["3208"] = "+24 AP",
 	["3209"] = "+12 Agility",
 	["3210"] = "+14 SP",
-	["3211"] = "+26 Healing & +9 SP",
+	["3211"] = "+26 Heal & +9 SP",
 	["3212"] = "+18 Stamina",
 	["3213"] = "+5 MP5",
 	["3214"] = "+12 Spirit",
@@ -2251,14 +2251,14 @@ local enchantAttributes = {
 	["3280"] = "+4 Dodge & +6 Stamina",
 	["3281"] = "+20 AP",
 	["3282"] = "+12 SP",
-	["3283"] = "+22 Healing & +8 SP",
+	["3283"] = "+22 Heal & +8 SP",
 	["3284"] = "+5 Resi & +7 Stamina",
 	["3285"] = "+5 Spell Haste & +7 Stamina",
 	["3286"] = "+5 Spell Haste & +6 SP",
 	["3287"] = "+10 Spell Haste",
 	["3289"] = "+10% Mount Speed",
 	["3315"] = "+3% Mount Speed",
-	["3318"] = "+11 Healing +4 SP & +5 Spirit",
+	["3318"] = "+11 Heal +4 SP & +5 Spirit",
 	["3335"] = "+20 AP",
 	["3336"] = "+10 Spell Crit",
 	["3337"] = "+10 AP, +5 Crit",
@@ -2418,51 +2418,51 @@ local gemImagesByID = {
 
 local enchantTextPositions = {
 	-- left
-    Head = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
-	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 3, y = 25 },
-	Back = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 25 },
-	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
+    Head = { point = "LEFT", relativePoint = "RIGHT", x = 4, y = 25 },
+	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
+	Back = { point = "LEFT", relativePoint = "RIGHT", x = 17, y = 25 },
+	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 4, y = 25 },
 	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -35, y = -15 },
 	
 	
 	-- Right
-	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
-	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
-	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
-	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
-	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
+	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = -7 },
+	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = -5 },
+	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = -5 },
+	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 10 },
+	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 10 },
     
 		
 	-- Bottom
-	MainHand = { point = "RIGHT", relativePoint = "LEFT", x = 35, y = -15 },
+	MainHand = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = -10 },
 	SecondaryHand = { point = "LEFT", relativePoint = "RIGHT", x = -35, y = -15 },
-	Ranged = { point = "TOP", relativePoint = "TOP", x = 0, y = -15 },
+	Ranged = { point = "TOP", relativePoint = "TOP", x = 67, y = -5 },
 	}
 	
 	
 local gemTextPositions = {
 	-- Left
-    Head = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
+    Head = { point = "LEFT", relativePoint = "RIGHT", x = 17, y = 12 },
 	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 30, y = 10 },
-	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 17, y = 15 },
-	Back = { point = "LEFT", relativePoint = "RIGHT", x = 30, y = 10 },
-	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
-	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -25, y = 45 },
+	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 16, y = 12 },
+	Back = { point = "LEFT", relativePoint = "RIGHT", x = 27, y = 10 },
+	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 17, y = 12 },
+	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -22, y = 40 },
 	
 	
 	-- Right
-	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 20 },
-	Waist = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 15 },
-	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 28 },
-	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 18 },
-	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 20 },
-	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 20 },
+	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
+	Waist = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
+	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 28 },
+	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 18 },
+	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 20 },
+	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 20 },
     
 		
 	-- Bottom
-	MainHand = { point = "LEFT", relativePoint = "RIGHT", x = -25, y = 60 },
-	SecondaryHand = { point = "LEFT", relativePoint = "RIGHT", x = -20, y = 25 },
-	Ranged = { point = "LEFT", relativePoint = "RIGHT", x = 0, y = 55 },
+	MainHand = { point = "LEFT", relativePoint = "RIGHT", x = -25, y = 52 },
+	SecondaryHand = { point = "LEFT", relativePoint = "RIGHT", x = -20, y = 20 },
+	Ranged = { point = "LEFT", relativePoint = "RIGHT", x = 5, y = 50 },
 }
 
 
@@ -2486,9 +2486,9 @@ local emptysocketPositions = {
     
 		
 	-- Bottom
-	MainHand = { point = "LEFT", relativePoint = "RIGHT", x = -25, y = 60 },
+	MainHand = { point = "LEFT", relativePoint = "RIGHT", x = -37, y = 52 },
 	SecondaryHand = { point = "LEFT", relativePoint = "RIGHT", x = -20, y = 40 },
-	Ranged = { point = "TOP", relativePoint = "TOP", x = 0, y = 55 },
+	Ranged = { point = "TOP", relativePoint = "TOP", x = 5, y = 50 },
 }
 
 -- Utility function to reverse a table
@@ -2585,7 +2585,15 @@ end
     
 	
 		-- gems
-if itemLink then
+if not itemLink then
+	if gemElements[item] then
+     for _, element in ipairs(gemElements[item]) do
+            element:Hide()
+        end
+    else
+        gemElements[item] = {}
+	end
+else
     if gemElements[item] then
         for _, element in ipairs(gemElements[item]) do
             element:Hide()
@@ -2605,6 +2613,7 @@ if itemLink then
     tooltip:SetHyperlink(itemLink)
     local socketCount = 0
 	local socketColors = {}  -- To store the colors of the empty sockets
+	local usedSockets = 0  -- Initialize count of used sockets
     for i = 1, tooltip:NumLines() do
         local line = _G["MyTooltipTextLeft"..i]:GetText()
         if line and string.find(line, "Socket") and not string.find(line, "Socket Bonus") then
@@ -2624,7 +2633,7 @@ if itemLink then
     end
 
 
-    local usedSockets = 0  -- Initialize count of used sockets
+    
 	table.reverse(socketColors)
     -- First loop to deal with filled gem slots
     for i, gemID in ipairs(gems) do
@@ -2656,7 +2665,7 @@ if itemLink then
             end
         end
     end
-	
+
     -- Calculate the number of empty sockets
     local emptySockets = socketCount - usedSockets
 	
@@ -2686,14 +2695,45 @@ if itemLink then
 				gemImage:Show()
 
                 table.insert(gemElements[item], gemImage)
-                socketCount = socketCount - 1  -- Decrement remaining sockets to be displayed
+                socketCount = usedSockets - 1  -- Decrement remaining sockets to be displayed
 
                 yOffset = yOffset - 11
             end
-        end
+        
+		 if usedSockets > 0 and usedSockets < 3 then	
+		 local socketColor = table.remove(socketColors) or "Unknown"
+			local emptySocketPosition = emptysocketPositions["Empty" .. item] or emptysocketPositions[item]  -- Fallback to regular position if empty-specific is not available
+    
+                local texturePath = ""
 
+                if socketColor == "Red" then
+                    texturePath = "Interface\\ITEMSOCKETINGFRAME\\UI-EmptySocket-Red"
+                elseif socketColor == "Blue" then
+                    texturePath = "Interface\\ITEMSOCKETINGFRAME\\UI-EmptySocket-Blue"
+                elseif socketColor == "Yellow" then
+                    texturePath = "Interface\\ITEMSOCKETINGFRAME\\UI-EmptySocket-Yellow"
+				elseif socketColor == "Meta" then
+					texturePath = "Interface\\ITEMSOCKETINGFRAME\\UI-EmptySocket-Meta"
+                end
 
+                local gemImage = str:GetParent():CreateTexture(nil, "OVERLAY")
+                gemImage:SetTexture(texturePath)
+                gemImage:SetWidth(12)
+                gemImage:SetHeight(12)
+                gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x, position.y + yOffset)
+				gemImage:Show()
 
+                table.insert(gemElements[item], gemImage)
+                socketCount = usedSockets - 1  -- Decrement remaining sockets to be displayed
+
+                yOffset = yOffset - 11
+				
+			
+			end
+			if emptySockets == 0 then
+				table.remove(socketColors)
+			end
+		end
          
 		-- Colour the borders of ND items
 		if db.Border then
