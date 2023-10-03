@@ -29,13 +29,7 @@ local bordersCreated = false
 local items, nditems -- our item slot tables
 local gemElements = {}
 
-CharacterModelFrameRotateRightButton:Hide()
-CharacterModelFrameRotateLeftButton:Hide()
-for i=1,5 do _G["MagicResFrame" .. i]:Hide()end
-PlayerStatFrameLeftDropDown:Hide()
-PlayerStatFrameRightDropDown:Hide()
 
-CharacterAttributesFrame:Hide()
 
 -- Return an options table full of goodies!
 local function getOptions()
@@ -2018,8 +2012,8 @@ local enchantAttributes = {
 	["2978"] = "+15 Dodge & +10 Defense",
 	["2979"] = "+29 Heal & +10 SP",
 	["2980"] = "+33 Heal +11 SP & +4 MP5",
-	["2981"] = "+15 Spell Power",
-	["2982"] = "+18 Spell Power & +10 Spell Crit",
+	["2981"] = "+15 SP",
+	["2982"] = "+18 SP & +10 Spell Crit",
 	["2983"] = "+26 AP",
 	["2984"] = "+8 Shadow Resist",
 	["2985"] = "+8 Fire Resist",
@@ -2039,7 +2033,7 @@ local enchantAttributes = {
 	["2999"] = "+16 Defense & +17 Dodge",
 	["3000"] = "+18 Stamina, +12 Dodge, & +12 Resi",
 	["3001"] = "+35 Heal +12 SP & 7 MP5",
-	["3002"] = "+22 Spell Power & +14 Spell Hit",
+	["3002"] = "+22 SP & +14 Spell Hit",
 	["3003"] = "+34 AP & +16 Hit",
 	["3004"] = "+18 Stamina & +20 Resi",
 	["3005"] = "+20 Nature Resist",
@@ -2270,53 +2264,247 @@ local enchantAttributes = {
 
 local gemAttributes = {
 	-- Red --
+	    -- Common
+	["2957"] = "+4 Agility",
+	["2960"] = "+8 AP",
+	["2959"] = "+5 SP",
+	["2956"] = "+4 Strength",
+	["2958"] = "+9 Heal +3 SP",
 		-- Uncommon
-	
+	["2971"] = "+12 AP",
+	["2691"] = "+6 Strength",
+	["2693"] = "+6 Agility",
+	["2692"] = "+7 SP",
+	["2690"] = "+13 Heal & +5 SP",
 		-- rare
-	
+	["3065"] = "+8 Strength",
+	["3103"] = "+8 Strength",
+	["2924"] = "+8 SP",
+	["2896"] = "+8 SP",
+	["2944"] = "+14 AP",
+	["2943"] = "+14 AP",
+	["2726"] = "+8 Agility",
+	["2728"] = "+9 SP",
+	["2725"] = "+8 Strength",
+	["2729"] = "+16 AP",
+	["2730"] = "+8 Dodge",
+	["2754"] = "+8 Parry",
+	["2727"] = "+18 Healing & +6 SP",
 		-- epic
-    ["3118"] = "+12 SP",
+	["2945"] = "+20 AP", -- PvP
+	["3339"] = "+12 SP", -- PvP
+	["3118"] = "+12 SP",
 	["3117"] = "+22 Heal & +8 SP",
+	["3119"] = "+20 AP",
+	["3116"] = "+10 Agility",
+	["3209"] = "+12 Agility",
+	["3211"] = "+26 Heal & +9 SP",
+	["3121"] = "+10 Parry",
+	["3115"] = "+10 Strength",
+	["3208"] = "+24 AP",
+    ["3210"] = "+14 SP",
+    ["3120"] = "+10 Dodge",
 	
 	-- Yellow --
+	    -- Common
+	["2968"] = "+4 Defense",
+	["2966"] = "+4 Hit",
+	["2965"] = "+4 Crit",
+	["2964"] = "+4 Intel",
+	["2967"] = "+4 Spell Crit",
 		-- Uncommon
-	
+	["3104"] = "+6 Spell Hit",
+	["2694"] = "+6 Intel",
+	["2695"] = "+6 Spell Crit",
+	["2696"] = "+6 Defense",
+	["2697"] = "+6 Hit",
+	["2942"] = "+6 Crit",
 		-- rare
-	
+	["2735"] = "+8 Crit",
+	["2764"] = "+8 Hit",
+	["3105"] = "+8 Spell Hit",
+	["2737"] = "+8 Defense",
+	["2734"] = "+8 Intel",
+	["2759"] = "+8 Resi",
+	["3270"] = "+8 Spell Haste",
+	["2736"] = "+8 Spell Crit",
 		-- epic
+	["2891"] = "+10 Resi",
+	["3340"] = "+10 Crit", -- PvP
+	["2914"] = "+10 Spell Crit", -- PvP
+	["3129"] = "+10 Spell Crit",
+	["3287"] = "+10 Spell Haste",
+	["3132"] = "+10 Spell Hit",
+	["3128"] = "+10 Hit",
+	["3127"] = "+10 Crit",
+	["3126"] = "+10 Intel",
+	["3220"] = "+12 Crit",
+	["3218"] = "+12 Spell Hit",
+	["3130"] = "+10 Defense",
+	["3217"] = "+12 Spell Crit",
+	["3131"] = "+10 Resi",
+	["3215"] = "+12 Resi",
+	["3221"] = "+12 Defense",
+	["3219"] = "+12 Hit",
+	["3216"] = "+12 Intel",
 	["3286"] = "+5 Sp.Haste & +6 SP",
 	
 	-- Blue --
+	    -- Common
+	["2962"] = "+4 Spirit",
+	["2963"] = "+1 MP5",
+	["2961"] = "+6 Stamina",
 		-- Uncommon
-	
+	["2701"] = "+2 MP5",
+	["2700"] = "+8 Spell Penetration",
+	["2698"] = "+9 Stamina",
+	["2699"] = "+6 Spirit",
 		-- rare
-	
+	["3268"] = "+15 Stamina",
+	["2731"] = "+12 Stamina",
+	["2732"] = "+8 Spirit",
+	["2733"] = "+3 MP5",
+	["2765"] = "+10 Spell Penetration",
 		-- epic
-		
+	["3262"] = "+15 Stamina",
+	["3214"] = "+12 Spirit",
+	["3123"] = "+10 Spirit",
+	["3124"] = "+4 MP5",
+	["3212"] = "+18 Stamina",
+	["3122"] = "+15 Stamina",
+	["3125"] = "+13 Spell Penetration",
 		
 	-- Orange --
 		-- Uncommon
-	
+	["3110"] = "+3 Spell Hit & +4 SP",
+	["3113"] = "+3 Crit & +6 AP",
+	["2755"] = "+3 Hit & +3 Agility",
+	["2760"] = "+3 Spell Crit & +4 SP",
+	["2705"] = "+7 Heal +3 SP & +3 Intel",
+	["2752"] = "+3 Crit & +3 Strength",
 		-- rare
+	["3112"] = "+4 Crit & +8 AP",
+	["2742"] = "+9 Heal +3 SP & +4 Intel",
+	["3111"] = "+4 Spell Hit & +5 SP",
+	["2753"] = "+4 Crit & +4 Strength",
+	["2756"] = "+4 Hit & +4 Agility",
+	["3160"] = "+5 SP & +4 Intel",
+	["3159"] = "+8 AP & +4 Crit",
+	["3271"] = "+4 Spell Haste & +5 SP",
+    ["2761"] = "+4 Spell Crit & +5 SP",
+	["3072"] = "+5 Strength & +4 Crit",
+	["3076"] = "+6 SP & +4 Spell Crit",
+	["3055"] = "+5 Agility & +4 Hit",
+	["3046"] = "+11 Heal +4 SP & +4 Intel",
+	["3070"] = "+8 AP & +5 Crit",
+	["3061"] = "+6 SP & +5 Spell Hit",
+	["3069"] = "+11 Heal +4 SP & +4 Resi",
+	["3075"] = "+5 Strength & +4 Defense",
+	["3084"] = "+5 Dodge & +4 Resi",
+	["3062"] = "+6 Crit & +5 Dodge",
+	["3056"] = "+5 Parry & +4 Defense",
+	["3057"] = "+5 Strength & +4 Hit",
+	["3079"] = "+8 AP & +5 Resi",
+	["3087"] = "+5 Strength & +4 Resi",
+	["3066"] = "+6 SP & +5 Spell Penetration",
+	["3050"] = "+6 SP & +4 Intel",
 	["3081"] = "+11 Heal +4 SP & +4 Spell Crit",
+	["3073"] = "+4 Agility & +5 Defense",
+	["3090"] = "+5 Parry & +4 Resi",
+	["3053"] = "+5 Defense & +4 Dodge",
+	["3052"] = "+10 AP & +4 Hit",
+	["3068"] = "+5 Dodge & +4 Hit",
 		-- epic
+	["2946"] = "+10 AP & +5 Crit", -- PvP
+	["2916"] = "+6 SP & +5 Spell Crit", -- PvP
+	["3140"] = "+5 Spell Crit & +6 SP",
+	["3141"] = "+11 Heal +4 SP & +5 Intel",
+	["3144"] = "+5 Crit & +10 AP",
+	["3143"] = "+5 Spell Hit & +6 SP",
+	["3142"] = "+5 Hit & +5 Agility",
+	["3139"] = "+5 Crit & +5 Strength",
+	["3286"] = "+5 Sp.Haste & +6 SP",
 	["3141"] = "+11 Heal +4 SP & +5 Intel",
 	
 	-- Green --
 		-- Uncommon
-	
+	["2757"] = "+3 Crit & +4 Stamina",
+	["2706"] = "+3 Defense & +4 Stamina",
+	["2762"] = "+3 Spell Crit & +4 Spell Penetration",
+	["2707"] = "+1 MP5 & +3 Intel",
 		-- rare
-	
+	["3226"] = "+4 Resi & +6 Stamina",
+	["2744"] = "+4 Intel & +2 MP5",
+	["2758"] = "+4 Crit & +6 Stamina",
+	["2743"] = "+4 Defense & +6 Stamina",
+	["3161"] = "+4 Stamina & +4 Spell Crit",
+	["3157"] = "+4 Intel & +6 Stamina",
+	["2923"] = "+3 Stamina & +4 Spell Crit",
+	["2898"] = "+3 Stamina & +4 Spell Crit",
+	["2921"] = "+3 Stamina & +4 Crit",
+	["2899"] = "+3 Stamina & +4 Crit",
+	["3272"] = "+4 Spell Haste & +6 Stamina",
+	["2763"] = "+4 Spell Crit & +5 Spell Penetration",
+	["3080"] = "+6 Stamina & +5 Resi",
+	["3047"] = "+6 Stamina & +5 Spell Crit",
+	["3082"] = "+5 Defense & +2 MP5",
+	["3091"] = "+5 Spell Crit & +5 Spell Penetration",
+	["3049"] = "+5 Crit & +2 MP5",
+	["3078"] = "+6 Stamina & +5 Defense",
+	["3085"] = "+6 Stamina & +5 Crit",
+	["3077"] = "+5 Intel & +2 MP5",
+	["3088"] = "+5 Spell Hit & +6 Stamina",
+	["3074"] = "+4 Intel & +5 Spirit",
+	["3071"] = "+5 Intel & +6 Stamina",
+	["3089"] = "+5 Spell Hit & +2 MP5",
+	["3058"] = "+5 Spell Crit & +2 MP5",
 		-- epic
-		
+	["3284"] = "+5 Resi & +7 Stamina",
+	["3285"] = "+5 Spell Haste & +7 Stamina",
+	["3147"] = "+5 Intel & +2 MP5",
+	["3145"] = "+5 Defense & +7 Stamina",
+	["3148"] = "+5 Crit & +7 Stamina",
+	["3146"] = "+5 Spell Crit & 6 Spell Penetration",
 		
 	-- Purple --
 		-- Uncommon
+	["3106"] = "+6 AP & +4 Stamina",
+	["3108"] = "+6 AP & +1 MP5",
+	["2710"] = "+3 Agility & +4 Stamina",
+	["2708"] = "+4 SP & +4 Stamina",
+	["2711"] = "+3 Strength & +4 Stamina",
+	["2709"] = "+7 Heal +3 SP & +1 MP5",
 	["3201"] = "+7 Heal +3 SP & +3 Spirit",
 		-- rare
+	["3280"] = "+4 Dodge & +6 Stamina",
+	["2740"] = "+5 SP & +6 Stamina",
+	["2738"] = "+4 Strength & +6 Stamina",
+	["2741"] = "+9 Heal +3 SP & +2 MP5",
+	["3107"] = "+8 AP & +6 Stamina",
+	["2739"] = "+4 Agility & +6 Stamina",
+	["3109"] = "+8 AP & +2 MP5",
+	["3099"] = "+6 SP & +6 Stamina",
+	["3101"] = "+10 AP & +6 Stamina",
+	["3156"] = "+8 AP & +6 Stamina",
+	["3158"] = "+9 Heal +3 SP & +4 Spirit",
+	["3064"] = "+5 Spirit & +9 Heal +3 SP",
+	["3045"] = "+5 Strength & +6 Stamina",
+	["3048"] = "+5 Agility & +6 Stamina",
+	["3086"] = "+11 Heal +4 SP & +2 MP5",
+	["3054"] = "+6 SP & +6 Stamina",
+	["3067"] = "+10 AP & +6 Stamina",
+	["3063"] = "+5 Parry & +6 Stamina",
+	["3100"] = "+11 Heal +4 SP & +6 Stamina",
+	["3060"] = "+5 Dodge & +6 Stamina",
+	["3083"] = "+6 SP & +4 Spirit",
 	["3202"] = "+9 Heal +3 SP & +4 Spirit",
 		-- epic
-	["3137"] = "+5 SP & +7 Stamina",
+	["3318"] = "+11 Heal +4 SP & +5 Spirit",
+	["3136"] = "+10 AP & +2 MP5",
+	["3134"] = "+5 Agility & +7 Stamina",
+	["3135"] = "+10 AP & +7 Stamina",
+	["3133"] = "+5 Strength & +7 Stamina",
+	["3137"] = "+6 SP & +7 Stamina",
 	["3138"] = "+11 Heal +4 SP & +2 MP5",
 	
 	-- Meta --
@@ -2330,6 +2518,7 @@ local gemAttributes = {
 	["3163"] = "+14 Spell Damage & 5% Stun Resist",
 	["2832"] = "+26 Heal +9 SP & 2% Reduced Threat",
 	 -- Skyfire
+	["2969"] = "+20 AP & +Minor Run Speed",
 	["2829"] = "+24 AP & +Minor Run Speed",
 	["3162"] = "+24 AP & 5% Stun Resist",
 	["3155"] = "+Chance Attack Speed Increase",
@@ -2339,58 +2528,255 @@ local gemAttributes = {
 	["3261"] = "+12 Spell Crit & +3% Crit Damage",
 	["2828"] = "+Chance Spell Cast Speed Increase",
 	["2827"] = "+14 Spell Crit & 1% Spell Reflect",
+	-- Prismatic
+	["2947"] = "+3 Resist All",
+	["2948"] = "+4 Resist All",
 }
+
+
 
 local gemImagesByID = {
 	-- Red --
+	    -- Common
+	["2957"] = "Interface\\Icons\\inv_misc_gem_ruby_03",
+	["2960"] = "Interface\\Icons\\inv_misc_gem_ruby_03",
+	["2959"] = "Interface\\Icons\\inv_misc_gem_ruby_03",
+	["2956"] = "Interface\\Icons\\inv_misc_gem_ruby_03",
+	["2958"] = "Interface\\Icons\\inv_misc_gem_ruby_03",
 		-- Uncommon
-	-- "Interface\\Icons\\inv_misc_gem_bloodgem_02",
+	["2971"] = "Interface\\Icons\\inv_misc_gem_bloodgem_02",
+	["2691"] = "Interface\\Icons\\inv_misc_gem_bloodgem_02",
+	["2693"] = "Interface\\Icons\\inv_misc_gem_bloodgem_02",
+	["2692"] = "Interface\\Icons\\inv_misc_gem_bloodgem_02",
+	["2690"] = "Interface\\Icons\\inv_misc_gem_bloodgem_02",
 		-- rare
-	-- "Interface\\Icons\\inv_jewelcrafting_livingruby_03",
+	["3065"] = "Interface\\Icons\\inv_misc_gem_ruby_01",
+	["3103"] = "Interface\\Icons\\inv_misc_gem_ruby_01",
+	["2924"] = "Interface\\Icons\\inv_misc_gem_ruby_01",
+	["2896"] = "Interface\\Icons\\inv_misc_gem_ruby_01",
+	["2944"] = "Interface\\Icons\\inv_misc_gem_bloodstone_02",
+	["2943"] = "Interface\\Icons\\inv_misc_gem_bloodstone_02",
+	["2726"] = "Interface\\Icons\\inv_jewelcrafting_livingruby_03",
+	["2728"] = "Interface\\Icons\\inv_jewelcrafting_livingruby_03",
+	["2725"] = "Interface\\Icons\\inv_jewelcrafting_livingruby_03",
+	["2729"] = "Interface\\Icons\\inv_jewelcrafting_livingruby_03",
+	["2730"] = "Interface\\Icons\\inv_jewelcrafting_livingruby_03",
+	["2754"] = "Interface\\Icons\\inv_jewelcrafting_livingruby_03",
+	["2727"] = "Interface\\Icons\\inv_jewelcrafting_livingruby_03",
 		-- epic
-    ["3118"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
+	["2945"] = "Interface\\Icons\\inv_misc_gem_ruby_02",
+	["3339"] = "Interface\\Icons\\inv_misc_gem_bloodstone_01",
+	["3118"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
 	["3117"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
+	["3119"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
+	["3116"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
+	["3209"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
+	["3211"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
+	["3121"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
+	["3115"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
+	["3208"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
+    ["3210"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
+    ["3120"] = "Interface\\Icons\\INV_Jewelcrafting_CrimsonSpinel_02",
 	
 	-- Yellow --
+	    -- Common
+	["2968"] = "Interface\\Icons\\inv_misc_gem_topaz_03",
+	["2966"] = "Interface\\Icons\\inv_misc_gem_topaz_03",
+	["2965"] = "Interface\\Icons\\inv_misc_gem_topaz_03",
+	["2964"] = "Interface\\Icons\\inv_misc_gem_topaz_03",
+	["2967"] = "Interface\\Icons\\inv_misc_gem_topaz_03",
 		-- Uncommon
-	-- "Interface\\Icons\\inv_misc_gem_goldendraenite_02",
+	["3104"] = "Interface\\Icons\\inv_misc_gem_goldendraenite_02",
+	["2694"] = "Interface\\Icons\\inv_misc_gem_goldendraenite_02",
+	["2695"] = "Interface\\Icons\\inv_misc_gem_goldendraenite_02",
+	["2696"] = "Interface\\Icons\\inv_misc_gem_goldendraenite_02",
+	["2697"] = "Interface\\Icons\\inv_misc_gem_goldendraenite_02",
+	["2942"] = "Interface\\Icons\\inv_misc_gem_goldendraenite_02",
 		-- rare
-	-- "Interface\\Icons\\inv_jewelcrafting_dawnstone_03",
+	["2735"] = "Interface\\Icons\\inv_jewelcrafting_dawnstone_03",
+	["2764"] = "Interface\\Icons\\inv_jewelcrafting_dawnstone_03",
+	["3105"] = "Interface\\Icons\\inv_jewelcrafting_dawnstone_03",
+	["2737"] = "Interface\\Icons\\inv_jewelcrafting_dawnstone_03",
+	["2734"] = "Interface\\Icons\\inv_jewelcrafting_dawnstone_03",
+	["2759"] = "Interface\\Icons\\inv_jewelcrafting_dawnstone_03",
+	["3270"] = "Interface\\Icons\\inv_jewelcrafting_dawnstone_03",
+	["2736"] = "Interface\\Icons\\inv_jewelcrafting_dawnstone_03",
 		-- epic
+	["2891"] = "Interface\\Icons\\inv_misc_gem_topaz_01",
+	["3340"] = "Interface\\Icons\\inv_misc_gem_topaz_01",
+	["2914"] = "Interface\\Icons\\inv_misc_gem_topaz_02",
+	["3129"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3287"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3132"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3128"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3127"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3126"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3220"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3218"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3130"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3217"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3131"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3215"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3221"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3219"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
+	["3216"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
 	["3286"] = "Interface\\Icons\\inv_jewelcrafting_lionseye_02",
 	
 	-- Blue --
+	    -- Common
+	["2962"] = "Interface\\Icons\\inv_misc_gem_crystal_03",
+	["2963"] = "Interface\\Icons\\inv_misc_gem_crystal_03",
+	["2961"] = "Interface\\Icons\\inv_misc_gem_crystal_03",
 		-- Uncommon
-	-- "Interface\\Icons\\inv_misc_gem_azuredraenite_02",
+	["2701"] = "Interface\\Icons\\inv_misc_gem_azuredraenite_02",
+	["2700"] = "Interface\\Icons\\inv_misc_gem_azuredraenite_02",
+	["2698"] = "Interface\\Icons\\inv_misc_gem_azuredraenite_02",
+	["2699"] = "Interface\\Icons\\inv_misc_gem_azuredraenite_02",
 		-- rare
-	-- "Interface\\Icons\\inv_jewelcrafting_starofelune_03",
+	["3268"] = "Interface\\Icons\\inv_jewelcrafting_starofelune_01",
+	["2731"] = "Interface\\Icons\\inv_jewelcrafting_starofelune_03",
+	["2732"] = "Interface\\Icons\\inv_jewelcrafting_starofelune_03",
+	["2733"] = "Interface\\Icons\\inv_jewelcrafting_starofelune_03",
+	["2765"] = "Interface\\Icons\\inv_jewelcrafting_starofelune_03",
 		-- epic
-	-- "Interface\\Icons\\inv_jewelcrafting_empyreansapphire_02",
+	["3262"] = "Interface\\Icons\\inv_misc_gem_pearl_07",
+	["3214"] = "Interface\\Icons\\inv_jewelcrafting_empyreansapphire_02",
+	["3123"] = "Interface\\Icons\\inv_jewelcrafting_empyreansapphire_02",
+	["3124"] = "Interface\\Icons\\inv_jewelcrafting_empyreansapphire_02",
+	["3212"] = "Interface\\Icons\\inv_jewelcrafting_empyreansapphire_02",
+	["3122"] = "Interface\\Icons\\inv_jewelcrafting_empyreansapphire_02",
+	["3125"] = "Interface\\Icons\\inv_jewelcrafting_empyreansapphire_02",
 	
 	-- Orange --
 		-- Uncommon
-	-- "Interface\\Icons\\inv_misc_gem_flamespessarite_02",
+	["3110"] = "Interface\\Icons\\inv_misc_gem_flamespessarite_02",
+	["3113"] = "Interface\\Icons\\inv_misc_gem_flamespessarite_02",
+	["2755"] = "Interface\\Icons\\inv_misc_gem_flamespessarite_02",
+	["2760"] = "Interface\\Icons\\inv_misc_gem_flamespessarite_02",
+	["2705"] = "Interface\\Icons\\inv_misc_gem_flamespessarite_02",
+	["2752"] = "Interface\\Icons\\inv_misc_gem_flamespessarite_02",
 		-- rare
+	["3112"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["2742"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3111"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["2753"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["2756"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3160"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_02",
+	["3159"] = "Interface\\Icons\\inv_misc_gem_opal_01",
+	["3271"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["2761"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3072"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3076"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3055"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3046"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3070"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3061"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3069"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3075"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3084"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3062"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3056"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3057"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3079"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3087"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3066"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3050"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
 	["3081"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3073"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3090"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3053"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3052"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
+	["3068"] = "Interface\\Icons\\inv_jewelcrafting_nobletopaz_03",
 		-- epic
+	["2946"] = "Interface\\Icons\\inv_misc_gem_opal_01",
+	["2916"] = "Interface\\Icons\\inv_misc_gem_opal_02",
+	["3140"] = "Interface\\Icons\\inv_jewelcrafting_pyrestone_02",
+	["3141"] = "Interface\\Icons\\inv_jewelcrafting_pyrestone_02",
+	["3144"] = "Interface\\Icons\\inv_jewelcrafting_pyrestone_02",
+	["3143"] = "Interface\\Icons\\inv_jewelcrafting_pyrestone_02",
+	["3142"] = "Interface\\Icons\\inv_jewelcrafting_pyrestone_02",
+	["3139"] = "Interface\\Icons\\inv_jewelcrafting_pyrestone_02",
+	["3286"] = "Interface\\Icons\\inv_jewelcrafting_pyrestone_02",
 	["3141"] = "Interface\\Icons\\inv_jewelcrafting_pyrestone_02",
 	
 	-- Green --
 		-- Uncommon
-	-- "Interface\\Icons\\inv_misc_gem_deepperidot_02",
+	["2757"] = "Interface\\Icons\\inv_misc_gem_deepperidot_02",
+	["2706"] = "Interface\\Icons\\inv_misc_gem_deepperidot_02",
+	["2762"] = "Interface\\Icons\\inv_misc_gem_deepperidot_02",
+	["2707"] = "Interface\\Icons\\inv_misc_gem_deepperidot_02",
 		-- rare
-	-- "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3226"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["2744"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["2758"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["2743"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3161"] = "Interface\\Icons\\inv_jewelcrafting_talasite_01",
+	["3157"] = "Interface\\Icons\\inv_misc_gem_deepperidot_03",
+	["2923"] = "Interface\\Icons\\inv_misc_gem_deepperidot_03",
+	["2898"] = "Interface\\Icons\\inv_misc_gem_deepperidot_03",
+	["2921"] = "Interface\\Icons\\inv_misc_gem_deepperidot_01",
+	["2899"] = "Interface\\Icons\\inv_misc_gem_deepperidot_01",
+	["3272"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["2763"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3080"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3047"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3082"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3091"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3049"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3078"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3085"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3077"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3088"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3074"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3071"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3089"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
+	["3058"] = "Interface\\Icons\\inv_jewelcrafting_talasite_03",
 		-- epic
-	-- "Interface\\Icons\\inv_jewelcrafting_seasprayemerald_02",
+	["3284"] = "Interface\\Icons\\inv_jewelcrafting_seasprayemerald_02",
+	["3285"] = "Interface\\Icons\\inv_jewelcrafting_seasprayemerald_02",
+	["3147"] = "Interface\\Icons\\inv_jewelcrafting_seasprayemerald_02",
+	["3145"] = "Interface\\Icons\\inv_jewelcrafting_seasprayemerald_02",
+	["3148"] = "Interface\\Icons\\inv_jewelcrafting_seasprayemerald_02",
+	["3146"] = "Interface\\Icons\\inv_jewelcrafting_seasprayemerald_02",
 	
 	-- Purple --
 		-- Uncommon
+	["3106"] = "Interface\\Icons\\inv_misc_gem_ebondraenite_02",
+	["3108"] = "Interface\\Icons\\inv_misc_gem_ebondraenite_02",
+	["2710"] = "Interface\\Icons\\inv_misc_gem_ebondraenite_02",
+	["2708"] = "Interface\\Icons\\inv_misc_gem_ebondraenite_02",
+	["2711"] = "Interface\\Icons\\inv_misc_gem_ebondraenite_02",
+	["2709"] = "Interface\\Icons\\inv_misc_gem_ebondraenite_02",
 	["3201"] = "Interface\\Icons\\inv_misc_gem_pearl_08",
-	-- "Interface\\Icons\\inv_misc_gem_ebondraenite_02",
 		-- rare
+	["3280"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["2740"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["2738"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["2741"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3107"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["2739"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3109"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3099"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3101"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3156"] = "Interface\\Icons\\inv_jewelcrafting_shadowsongamethyst_01",
+	["3158"] = "Interface\\Icons\\inv_misc_gem_sapphire_02",
+	["3064"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3045"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3048"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3086"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3054"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3067"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3063"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3100"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3060"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
+	["3083"] = "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
 	["3202"] = "Interface\\Icons\\inv_misc_gem_pearl_07", -- gem pearl
-	-- "Interface\\Icons\\inv_jewelcrafting_nightseye_03",
 		-- epic
+	["3318"] = "Interface\\Icons\\inv_jewelcrafting_shadowsongamethyst_02",
+	["3136"] = "Interface\\Icons\\inv_jewelcrafting_shadowsongamethyst_02",
+	["3134"] = "Interface\\Icons\\inv_jewelcrafting_shadowsongamethyst_02",
+	["3135"] = "Interface\\Icons\\inv_jewelcrafting_shadowsongamethyst_02",
+	["3133"] = "Interface\\Icons\\inv_jewelcrafting_shadowsongamethyst_02",
 	["3138"] = "Interface\\Icons\\inv_jewelcrafting_shadowsongamethyst_02",
 	["3137"] = "Interface\\Icons\\inv_jewelcrafting_shadowsongamethyst_02",
 	
@@ -2405,6 +2791,7 @@ local gemImagesByID = {
 	["3163"] = "Interface\\Icons\\inv_misc_gem_diamond_06",
 	["2832"] = "Interface\\Icons\\inv_misc_gem_diamond_06",
 	 -- Skyfire
+	["2969"] = "Interface\\Icons\\inv_misc_gem_diamond_07",
 	["2829"] = "Interface\\Icons\\inv_misc_gem_diamond_07",
 	["3162"] = "Interface\\Icons\\inv_misc_gem_diamond_07",
 	["3155"] = "Interface\\Icons\\inv_misc_gem_diamond_07",
@@ -2414,23 +2801,26 @@ local gemImagesByID = {
 	["3261"] = "Interface\\Icons\\inv_misc_gem_diamond_07",
 	["2828"] = "Interface\\Icons\\inv_misc_gem_diamond_07",
 	["2827"] = "Interface\\Icons\\inv_misc_gem_diamond_07",
+	-- Prismatic
+	["2947"] = "Interface\\Icons\\inv_enchant_prismaticsphere",
+	["2948"] = "Interface\\Icons\\inv_enchant_voidsphere",
 }
 
 local enchantTextPositions = {
 	-- left
-    Head = { point = "LEFT", relativePoint = "RIGHT", x = 4, y = 25 },
+    Head = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
 	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
-	Back = { point = "LEFT", relativePoint = "RIGHT", x = 17, y = 25 },
-	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 4, y = 25 },
+	Back = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 25 },
+	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
 	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -35, y = -15 },
 	
 	
 	-- Right
-	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = -7 },
-	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = -5 },
-	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = -5 },
-	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 10 },
-	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 10 },
+	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -7 },
+	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
+	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
+	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
+	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
     
 		
 	-- Bottom
@@ -2442,7 +2832,7 @@ local enchantTextPositions = {
 	
 local gemTextPositions = {
 	-- Left
-    Head = { point = "LEFT", relativePoint = "RIGHT", x = 17, y = 12 },
+    Head = { point = "LEFT", relativePoint = "RIGHT", x = 18, y = 12 },
 	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 30, y = 10 },
 	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 16, y = 12 },
 	Back = { point = "LEFT", relativePoint = "RIGHT", x = 27, y = 10 },
@@ -2806,3 +3196,23 @@ function Fizzle:HideBorders()
 		end
 	end
 end
+
+-- Create a new button and set its parent to PaperDollFrame
+local MyButton = CreateFrame("Button", nil, PaperDollFrame)
+
+-- Set the button's size
+MyButton:SetSize(32, 32)
+
+-- Position the button at the bottom-right corner of the PaperDollFrame
+MyButton:SetPoint("BOTTOMRIGHT", PaperDollFrame, "BOTTOMRIGHT", -10, 10)
+MyButton:SetHighlightTexture("Interface\\BUTTONS\\UI-Common-MouseHilight")
+-- Set the button's normal (unpressed) texture
+MyButton:SetNormalTexture("Interface\\BUTTONS\\UI-SpellbookIcon-PrevPage-Up")
+
+-- Set the button's pushed (pressed) texture
+MyButton:SetPushedTexture("Interface\\BUTTONS\\UI-SpellbookIcon-PrevPage-Down")
+
+-- Optional: Add functionality to the button (replace with your own function)
+MyButton:SetScript("OnClick", function()
+    print("Button clicked!")
+end)

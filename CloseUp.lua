@@ -190,3 +190,196 @@ Apply("TabardModel", nil, nil, nil, nil, "TabardCharacterModel")
 Apply("PetModelFrame")
 Apply("PetStableModel")
 PetPaperDollPetInfo:SetFrameStrata("HIGH")
+
+
+
+-- Table to map race names to texture paths
+local raceTextureMap = {
+    ["Human"] = {
+        topLeft = "Interface\\AddOns\\Fizzle\\Textures\\Human_1.blp",
+        topRight = "Interface\\AddOns\\Fizzle\\Textures\\Human_2.blp",
+        botLeft = "Interface\\AddOns\\Fizzle\\Textures\\Human_3.blp",
+        botRight = "Interface\\AddOns\\Fizzle\\Textures\\Human_4.blp",
+    },
+    ["NightElf"] = {
+        topLeft = "Interface\\AddOns\\Fizzle\\Textures\\nightelf_1.blp",
+        topRight = "Interface\\AddOns\\Fizzle\\Textures\\nightelf_2.blp",
+        botLeft = "Interface\\AddOns\\Fizzle\\Textures\\nightelf_3.blp",
+        botRight = "Interface\\AddOns\\Fizzle\\Textures\\nightelf_4.blp",
+    },
+	["Orc"] = {
+        topLeft = "Interface\\AddOns\\Fizzle\\Textures\\orc_1.blp",
+        topRight = "Interface\\AddOns\\Fizzle\\Textures\\orc_2.blp",
+        botLeft = "Interface\\AddOns\\Fizzle\\Textures\\orc_3.blp",
+        botRight = "Interface\\AddOns\\Fizzle\\Textures\\orc_4.blp",
+    },
+	["Dwarf"] = {
+        topLeft = "Interface\\AddOns\\Fizzle\\Textures\\dwarf_1.blp",
+        topRight = "Interface\\AddOns\\Fizzle\\Textures\\dwarf_2.blp",
+        botLeft = "Interface\\AddOns\\Fizzle\\Textures\\dwarf_3.blp",
+        botRight = "Interface\\AddOns\\Fizzle\\Textures\\dwarf_4.blp",
+    },
+	["Gnome"] = {
+        topLeft = "Interface\\AddOns\\Fizzle\\Textures\\gnome_1.blp",
+        topRight = "Interface\\AddOns\\Fizzle\\Textures\\gnome_2.blp",
+        botLeft = "Interface\\AddOns\\Fizzle\\Textures\\gnome_3.blp",
+        botRight = "Interface\\AddOns\\Fizzle\\Textures\\gnome_4.blp",
+    },
+	["Draenei"] = {
+        topLeft = "Interface\\AddOns\\Fizzle\\Textures\\draenei_1.blp",
+        topRight = "Interface\\AddOns\\Fizzle\\Textures\\draenei_2.blp",
+        botLeft = "Interface\\AddOns\\Fizzle\\Textures\\draenei_3.blp",
+        botRight = "Interface\\AddOns\\Fizzle\\Textures\\draenei_4.blp",
+    },
+	["Troll"] = {
+        topLeft = "Interface\\AddOns\\Fizzle\\Textures\\troll_1.blp",
+        topRight = "Interface\\AddOns\\Fizzle\\Textures\\troll_2.blp",
+        botLeft = "Interface\\AddOns\\Fizzle\\Textures\\troll_3.blp",
+        botRight = "Interface\\AddOns\\Fizzle\\Textures\\troll_4.blp",
+    },
+	["Scourge"] = {
+        topLeft = "Interface\\AddOns\\Fizzle\\Textures\\scourge_1.blp",
+        topRight = "Interface\\AddOns\\Fizzle\\Textures\\scourge_2.blp",
+        botLeft = "Interface\\AddOns\\Fizzle\\Textures\\scourge_3.blp",
+        botRight = "Interface\\AddOns\\Fizzle\\Textures\\scourge_4.blp",
+    },
+	["Tauren"] = {
+        topLeft = "Interface\\AddOns\\Fizzle\\Textures\\tauren_1.blp",
+        topRight = "Interface\\AddOns\\Fizzle\\Textures\\tauren_2.blp",
+        botLeft = "Interface\\AddOns\\Fizzle\\Textures\\tauren_3.blp",
+        botRight = "Interface\\AddOns\\Fizzle\\Textures\\tauren_4.blp",
+    },
+	["BloodElf"] = {
+        topLeft = "Interface\\AddOns\\Fizzle\\Textures\\bloodelf_1.blp",
+        topRight = "Interface\\AddOns\\Fizzle\\Textures\\bloodelf_2.blp",
+        botLeft = "Interface\\AddOns\\Fizzle\\Textures\\bloodelf_3.blp",
+        botRight = "Interface\\AddOns\\Fizzle\\Textures\\bloodelf_4.blp",
+    },
+}
+
+local classTextureMap = {
+	["HUNTER"] = {
+        hunter = "Interface\\AddOns\\Fizzle\\Textures\\petHunter.blp",
+    },
+	["WARLOCK"] = {
+		-- warlock = "Interface\\AddOns\\Fizzle\\Textures\\nightelf_1.blp",
+       warlock = "Interface\\AddOns\\Fizzle\\Textures\\petWarlock.blp",
+    },
+}
+-- Function to handle event
+local function OnEvent(self, event, ...)
+    if event == "PLAYER_ENTERING_WORLD" then
+        local _, race = UnitRace("player")
+        local _, class = UnitClass("player")
+		
+        local texturePaths = raceTextureMap[race]
+        local texturePaths2 = classTextureMap[class]
+
+        if not texturePaths then
+            return
+        end
+        
+        if not texturePaths2 then
+            
+        end
+		CharacterModelFrameRotateRightButton:Hide()
+		CharacterModelFrameRotateLeftButton:Hide()
+
+		for i=1,5 do _G["MagicResFrame" .. i]:Hide()end
+		PlayerStatFrameLeftDropDown:Hide()
+		PlayerStatFrameRightDropDown:Hide()
+
+		CharacterAttributesFrame:Hide()
+		CharacterModelFrame:ClearAllPoints()
+        CharacterModelFrame:SetSize(231, 320)
+		CharacterModelFrame:SetPoint("TOPLEFT", PaperDollFrame, "TOPLEFT", 66, -78)
+		
+		PetModelFrame:ClearAllPoints()
+		PetModelFrame:SetSize(310, 320)
+		PetModelFrame:SetPoint("TOPLEFT", 25, -70)
+        -- Create or update the background textures
+        if not CharacterModelFrame.textureTopLeft then
+			CharacterModelFrame.textureTopLeft = CharacterModelFrame:CreateTexture(nil, "BACKGROUND")
+			CharacterModelFrame.textureTopLeft:SetSize(212, 244)
+			CharacterModelFrame.textureTopLeft:SetPoint("TOPLEFT")
+			CharacterModelFrame.textureTopLeft:SetTexCoord(0.171875, 1, 0.0392156862745098, 1)
+		end
+		CharacterModelFrame.textureTopLeft:SetTexture(texturePaths.topLeft)
+
+		if not CharacterModelFrame.textureTopRight then
+			CharacterModelFrame.textureTopRight = CharacterModelFrame:CreateTexture(nil, "BACKGROUND")
+			CharacterModelFrame.textureTopRight:SetSize(19, 244)
+			CharacterModelFrame.textureTopRight:SetPoint("TOPLEFT", CharacterModelFrame.textureTopLeft, "TOPRIGHT")
+			CharacterModelFrame.textureTopRight:SetTexCoord(0, 0.296875, 0.0392156862745098, 1)
+		end
+		CharacterModelFrame.textureTopRight:SetTexture(texturePaths.topRight)
+
+        if not CharacterModelFrame.textureBotLeft then
+            CharacterModelFrame.textureBotLeft = CharacterModelFrame:CreateTexture(nil, "BACKGROUND")
+            CharacterModelFrame.textureBotLeft:SetSize(212, 128)
+			CharacterModelFrame.textureBotLeft:SetPoint("TOPLEFT", CharacterModelFrame.textureTopLeft, "BOTTOMLEFT")
+			CharacterModelFrame.textureBotLeft:SetTexCoord(0.171875, 1, 0, 1)
+        end
+        CharacterModelFrame.textureBotLeft:SetTexture(texturePaths.botLeft)
+
+        if not CharacterModelFrame.textureBotRight then
+            CharacterModelFrame.textureBotRight = CharacterModelFrame:CreateTexture(nil, "BACKGROUND")
+            CharacterModelFrame.textureBotRight:SetSize(19, 128)
+			CharacterModelFrame.textureBotRight:SetPoint("TOPLEFT", CharacterModelFrame.textureTopLeft, "BOTTOMRIGHT")
+			CharacterModelFrame.textureBotRight:SetTexCoord(0, 0.296875, 0, 1)
+        end
+        CharacterModelFrame.textureBotRight:SetTexture(texturePaths.botRight)
+		
+		if race == "SCOURGE" then
+			CharacterModelFrame.textureTopLeft:SetAlpha(0.2)
+			CharacterModelFrame.textureTopRight:SetAlpha(0.2)
+			CharacterModelFrame.textureBotLeft:SetAlpha(0.2)
+			CharacterModelFrame.textureBotRight:SetAlpha(0.2)
+		elseif race == "BLOODELF" then
+			CharacterModelFrame.textureTopLeft:SetAlpha(0.7)
+			CharacterModelFrame.textureTopRight:SetAlpha(0.7)
+			CharacterModelFrame.textureBotLeft:SetAlpha(0.7)
+			CharacterModelFrame.textureBotRight:SetAlpha(0.7)
+		elseif race == "ORC" or race == "TROLL" then
+			CharacterModelFrame.textureTopLeft:SetAlpha(0.5)
+			CharacterModelFrame.textureTopRight:SetAlpha(0.5)
+			CharacterModelFrame.textureBotLeft:SetAlpha(0.5)
+			CharacterModelFrame.textureBotRight:SetAlpha(0.5)
+		else
+			CharacterModelFrame.textureTopLeft:SetAlpha(0.6)
+			CharacterModelFrame.textureTopRight:SetAlpha(0.6)
+			CharacterModelFrame.textureBotLeft:SetAlpha(0.6)
+			CharacterModelFrame.textureBotRight:SetAlpha(0.6)
+		end
+		
+		
+		if class == "HUNTER" then
+			if not CharacterModelFrame.HunterBackground then
+				PetModelFrame.HunterBackground = PetModelFrame:CreateTexture(nil, "BACKGROUND")
+				PetModelFrame.HunterBackground:SetSize(310, 330)
+				PetModelFrame.HunterBackground:SetPoint("CENTER", PetModelFrame, "CENTER", 0, -10)
+				PetModelFrame.HunterBackground:SetAlpha(0.6)
+			end
+			PetModelFrame.HunterBackground:SetTexture(texturePaths2.hunter)
+		elseif class == "WARLOCK" then
+			if not CharacterModelFrame.WarlockBackground then
+				PetModelFrame.WarlockBackground = PetModelFrame:CreateTexture(nil, "BACKGROUND")
+				PetModelFrame.WarlockBackground:SetSize(310, 330)
+				PetModelFrame.WarlockBackground:SetPoint("CENTER", PetModelFrame, "CENTER", 0, -10)
+				PetModelFrame.WarlockBackground:SetAlpha(0.8)
+			end
+			PetModelFrame.WarlockBackground:SetTexture(texturePaths2.warlock)
+		end
+		
+		
+    end
+end
+
+-- Create a frame to listen for the event
+local frame = CreateFrame("Frame")
+
+-- Register for the event
+frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+-- Set the event handling function
+frame:SetScript("OnEvent", OnEvent)
