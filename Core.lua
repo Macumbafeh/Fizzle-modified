@@ -119,6 +119,7 @@ function Fizzle:OnInitialize()
 	-- Register chat command to open options dialog
 	self:RegisterChatCommand("fizzle", function() InterfaceOptionsFrame_OpenToFrame(LibStub("AceConfigDialog-3.0").BlizOptions["Fizzle"].frame) end)
 	self:RegisterChatCommand("fizz", function() InterfaceOptionsFrame_OpenToFrame(LibStub("AceConfigDialog-3.0").BlizOptions["Fizzle"].frame) end)
+	AllStats_OnLoad()
 end
 
 function Fizzle:OnEnable()
@@ -3197,22 +3198,89 @@ function Fizzle:HideBorders()
 	end
 end
 
--- Create a new button and set its parent to PaperDollFrame
+
+-- Create Button
 local MyButton = CreateFrame("Button", nil, PaperDollFrame)
-
--- Set the button's size
 MyButton:SetSize(32, 32)
-
--- Position the button at the bottom-right corner of the PaperDollFrame
-MyButton:SetPoint("BOTTOMRIGHT", PaperDollFrame, "BOTTOMRIGHT", -10, 10)
+MyButton:SetPoint("BOTTOMRIGHT", PaperDollFrame, "BOTTOMRIGHT", -40, 80)
+MyButton:SetNormalTexture("Interface\\BUTTONS\\UI-SpellbookIcon-NextPage-Up")
+MyButton:SetPushedTexture("Interface\\BUTTONS\\UI-SpellbookIcon-NextPage-Down")
 MyButton:SetHighlightTexture("Interface\\BUTTONS\\UI-Common-MouseHilight")
--- Set the button's normal (unpressed) texture
-MyButton:SetNormalTexture("Interface\\BUTTONS\\UI-SpellbookIcon-PrevPage-Up")
 
--- Set the button's pushed (pressed) texture
-MyButton:SetPushedTexture("Interface\\BUTTONS\\UI-SpellbookIcon-PrevPage-Down")
+-- Create Tooltip Function
+local isExtended = false
 
--- Optional: Add functionality to the button (replace with your own function)
-MyButton:SetScript("OnClick", function()
-    print("Button clicked!")
+local function showTooltip(self)
+    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+    local tooltipText = isExtended and "Hide Character Stats" or "Show Character Stats"
+    GameTooltip:SetText(tooltipText, 1, 1, 1)
+    GameTooltip:Show()
+end
+
+MyButton:SetScript("OnEnter", showTooltip)
+MyButton:SetScript("OnLeave", function() GameTooltip:Hide() end)
+
+-- Create Additional Frame (Replace this with your ScrollFrame if needed)
+	local currentScale = PaperDollFrame:GetScale()
+    local currentWidth = PaperDollFrame:GetWidth()
+    local currentHeight = PaperDollFrame:GetHeight()
+	
+local MyFrame = CreateFrame("Frame", nil, PaperDollFrame)
+MyFrame:SetSize(currentWidth / (1.5 * currentScale), currentHeight / (1.2 * currentScale))
+
+MyFrame:SetPoint("RIGHT", PaperDollFrame, "RIGHT", 219, 30)
+MyFrame:SetBackdrop({
+    bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+    edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+    tile = true, tileSize = 25, edgeSize = 25,
+    insets = { left = 10, right = 10, top = 10, bottom = 10 }
+})
+MyFrame:Hide() -- Hide initially
+
+-- Button OnClick Function
+MyButton:SetScript("OnClick", function(self)
+    isExtended = not isExtended
+    if isExtended then
+        MyFrame:Show()
+        self:SetNormalTexture("Interface\\BUTTONS\\UI-SpellbookIcon-PrevPage-Up")
+		self:SetPushedTexture("Interface\\BUTTONS\\UI-SpellbookIcon-PrevPage-Down")
+    else
+        MyFrame:Hide()
+        self:SetNormalTexture("Interface\\BUTTONS\\UI-SpellbookIcon-NextPage-Up")
+		self:SetPushedTexture("Interface\\BUTTONS\\UI-SpellbookIcon-NextPage-Down")
+    end
+    showTooltip(self) -- Update the tooltip
 end)
+
+function AllStats_OnLoad()
+PaperDollFrame_UpdateStats = NewPaperDollFrame_UpdateStats;
+end
+
+function NewPaperDollFrame_UpdateStats()
+	PrintStats();
+end
+
+function PrintStats()
+function PaperDollFrame_SetAttackSpeed(statFrame, unit)
+	if ( not unit ) then
+		unit = "player";
+	end
+	local speed, offhandSpeed = UnitAttackSpeed(unit);
+	speed = format("%.2f", speed);
+	if ( offhandSpeed ) then
+		offhandSpeed = format("%.2f", offhandSpeed);
+	end
+	local text;	
+	if ( offhandSpeed ) then
+		text = speed.." / "..offhandSpeed;
+	else
+		text = speed;
+	end
+	PaperDollFrame_SetLabelAndText(statFrame, WEAPON_SPEED, text);
+
+	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..ATTACK_SPEED.." "..text..FONT_COLOR_CODE_CLOSE;
+	statFrame.tooltip2 = format(CR_HASTE_RATING_TOOLTIP, GetCombatRating(CR_HASTE_MELEE), GetCombatRatingBonus(CR_HASTE_MELEE));
+	
+	statFrame:Show();
+end
+end
