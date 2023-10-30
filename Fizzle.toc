@@ -15,6 +15,17 @@
 
 embeds.xml
 Locales\locales.xml
+AllStats.xml
 CloseUp.lua
 Core.lua
 Inspect.lua
+core\glow.lua
+
+core\bags.lua
+core\bank.lua
+core\gbank.lua
+core\trade.lua
+core\tradeskill.lua
+core\craft.lua
+core\merchant.lua
+core\mail.lua

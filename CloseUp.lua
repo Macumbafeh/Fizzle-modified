@@ -262,7 +262,6 @@ local classTextureMap = {
         hunter = "Interface\\AddOns\\Fizzle\\Textures\\petHunter.blp",
     },
 	["WARLOCK"] = {
-		-- warlock = "Interface\\AddOns\\Fizzle\\Textures\\nightelf_1.blp",
        warlock = "Interface\\AddOns\\Fizzle\\Textures\\petWarlock.blp",
     },
 }
@@ -285,7 +284,7 @@ local function OnEvent(self, event, ...)
 		CharacterModelFrameRotateRightButton:Hide()
 		CharacterModelFrameRotateLeftButton:Hide()
 
-		for i=1,5 do _G["MagicResFrame" .. i]:Hide()end
+		-- for i=1,5 do _G["MagicResFrame" .. i]:Hide()end
 		PlayerStatFrameLeftDropDown:Hide()
 		PlayerStatFrameRightDropDown:Hide()
 
