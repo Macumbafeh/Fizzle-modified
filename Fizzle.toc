@@ -1,7 +1,7 @@
 ﻿## Interface: 20400
 ## Title: Fizzle - modified
 ## Author: phyber - Modified by Macumba
-## Notes: Show item durability and quality in the character frame.
+## Notes: Show item durability, gems, enchants text in the character frame and quality everywhere else.
 ## Notes-zhTW: 在角色視窗顯示耐久度。
 ## Notes-zhCN: 在人物装备栏中显示物品品质与耐久度。
 ## Version: 20400-1
