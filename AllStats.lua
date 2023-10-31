@@ -8,6 +8,7 @@ function AllStats_OnLoad()
 	CharacterAttributesFrame:Hide();
 	CharacterModelFrame:SetHeight(300);
 	PaperDollFrame_UpdateStats = NewPaperDollFrame_UpdateStats;
+	CharacterFrame:SetScale(1.3)
 end
 
 function NewPaperDollFrame_UpdateStats()
