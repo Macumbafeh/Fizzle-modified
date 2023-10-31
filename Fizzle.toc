@@ -11,6 +11,7 @@
 ## X-RelSite-WoWI: 5018
 ## X-Website: http://phyber.wowinterface.com/
 ## X-WoWIPortal: phyber
+## RequiredDeps: !Compatibility
 ## OptionalDeps: Ace3, LibCrayon-3.0, Voyeur
 
 embeds.xml
