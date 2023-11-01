@@ -20,3 +20,8 @@ L["Show the repair cost minus the 10% faction discount."] = "Affichez le coût d
 -- Inspect.lua
 L["Inspect"] = "Inspection"
 L["Show item quality when inspecting people."] = "Affiche la qualité des objets quand on inspecte quelqu'un."
+
+L["Hide gem Text"] = "Cache le texte des gemmes"
+L["Hide gem stats text."] = "Cache le texte des stats des gemmes."
+L["Hide enchant Text"] = "Cache le texte des enchantements"
+L["Hide enchant stats text."] = "Cache le texte des stats d'enchantement."

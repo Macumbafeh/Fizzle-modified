@@ -19,3 +19,8 @@ L["Show the repair cost minus the 10% faction discount."] = "평판에 의한 10
 -- Inspect.lua
 L["Inspect"] = "살펴보기"
 L["Show item quality when inspecting people."] = "대상을 살펴볼때 아이템의 품질을 표시합니다."
+
+L["Hide gem Text"] = true
+L["Hide gem stats text."] = true
+L["Hide enchant Text"] = true
+L["Hide enchant stats text."] = true
