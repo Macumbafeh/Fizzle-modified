@@ -1,7 +1,7 @@
 local AceGUI = LibStub("AceGUI-3.0")
 
 -- Lua APIs
-local max, select = math.max, select
+local select, max = select, math.max
 
 -- WoW APIs
 local CreateFrame, UIParent = CreateFrame, UIParent
@@ -14,20 +14,22 @@ local CreateFrame, UIParent = CreateFrame, UIParent
 -- Label 	 			--
 --------------------------
 do
-	local Type = "Label"
-	local Version = 12
+	local Type = "InteractiveLabel"
+	local Version = 6
 	
 	local function OnAcquire(self)
 		self:SetHeight(18)
 		self:SetWidth(200)
 		self:SetText("")
 		self:SetImage(nil)
-		self:SetImageSize(16, 16)
 		self:SetColor()
 		self:SetFontObject()
+		self:SetHighlight()
+		self:SetHighlightTexCoord()
 	end
 	
 	local function OnRelease(self)
+		self:SetDisabled(false)
 		self.frame:ClearAllPoints()
 		self.frame:Hide()
 	end
@@ -53,10 +55,18 @@ do
 				height = image:GetHeight() + label:GetHeight()
 			else
 				--image on the left
-				image:SetPoint("TOPLEFT",frame,"TOPLEFT",0,0)
-				label:SetPoint("TOPLEFT",image,"TOPRIGHT",4,0)
+				local imageheight = image:GetHeight()
+				local labelheight = label:GetHeight()
+				--center image with label
+				if imageheight > labelheight then
+					image:SetPoint("TOPLEFT",frame,"TOPLEFT",0,0)
+					label:SetPoint("LEFT",image,"RIGHT",0,0)
+				else
+					label:SetPoint("TOPLEFT",frame,"TOPLEFT",imagewidth,0)
+					image:SetPoint("RIGHT",label,"LEFT",0,0)
+				end
 				label:SetWidth(width - imagewidth)
-				height = max(image:GetHeight(), label:GetHeight())
+				height = max(imageheight, labelheight)
 			end
 		else
 			--no image shown
@@ -97,8 +107,6 @@ do
 			local n = select('#', ...)
 			if n == 4 or n == 8 then
 				image:SetTexCoord(...)
-			else
-				image:SetTexCoord(0, 1, 0, 1)
 			end
 		else
 			self.imageshown = nil
@@ -119,11 +127,54 @@ do
 		self.image:SetHeight(height)
 		UpdateImageAnchor(self)
 	end
+	
+	local function SetHighlight(self, ...)
+		self.highlight:SetTexture(...)
+	end
+	
+	local function SetHighlightTexCoord(self, ...)
+		if select('#', ...) >= 1 then
+			self.highlight:SetTexCoord(...)
+		else
+			self.highlight:SetTexCoord(0, 1, 0, 1)
+		end
+	end
+	
+	local function SetDisabled(self,disabled)
+		self.disabled = disabled
+		if disabled then
+			self.frame:EnableMouse(false)
+			self.label:SetTextColor(0.5, 0.5, 0.5)
+		else
+			self.frame:EnableMouse(true)
+			self.label:SetTextColor(1, 1, 1)
+		end
+	end
+	
+	local function OnEnter(this)
+		this.obj.highlight:Show()
+		this.obj:Fire("OnEnter")
+	end
+	
+	local function OnLeave(this)
+		this.obj.highlight:Hide()
+		this.obj:Fire("OnLeave")
+	end
+	
+	local function OnClick(this, ...)
+		this.obj:Fire("OnClick", ...)
+		AceGUI:ClearFocus()
+	end
 
 	local function Constructor()
 		local frame = CreateFrame("Frame",nil,UIParent)
 		local self = {}
 		self.type = Type
+		
+		frame:EnableMouse(true)
+		frame:SetScript("OnEnter", OnEnter)
+		frame:SetScript("OnLeave", OnLeave)
+		frame:SetScript("OnMouseDown", OnClick)
 		
 		self.OnRelease = OnRelease
 		self.OnAcquire = OnAcquire
@@ -135,6 +186,9 @@ do
 		self.SetImageSize = SetImageSize
 		self.SetFont = SetFont
 		self.SetFontObject = SetFontObject
+		self.SetHighlight = SetHighlight
+		self.SetHighlightTexCoord = SetHighlightTexCoord
+		self.SetDisabled = SetDisabled
 		frame.obj = self
 		
 		frame:SetHeight(18)
@@ -145,6 +199,13 @@ do
 		label:SetJustifyH("LEFT")
 		label:SetJustifyV("TOP")
 		self.label = label
+		
+		local highlight = frame:CreateTexture(nil, "OVERLAY")
+		highlight:SetTexture(nil)
+		highlight:SetAllPoints()
+		highlight:SetBlendMode("ADD")
+		highlight:Hide()
+		self.highlight = highlight
 		
 		local image = frame:CreateTexture(nil,"BACKGROUND")
 		self.image = image

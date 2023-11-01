@@ -1,5 +1,17 @@
 local AceGUI = LibStub("AceGUI-3.0")
 
+-- Lua APIs
+local pairs, ipairs, assert, type = pairs, ipairs, assert, type
+
+-- WoW APIs
+local PlaySound = PlaySound
+local CreateFrame, UIParent = CreateFrame, UIParent
+local _G = _G
+
+-- Global vars/functions that we don't upvalue since they might get hooked, or upgraded
+-- List them here for Mikk's FindGlobals script
+-- GLOBALS: PanelTemplates_TabResize, PanelTemplates_SetDisabledTabState, PanelTemplates_SelectTab, PanelTemplates_DeselectTab
+
 -------------
 -- Widgets --
 -------------
@@ -24,15 +36,13 @@ local AceGUI = LibStub("AceGUI-3.0")
 
 ]]
 
-local WotLK = select(4, GetBuildInfo()) >= 30000
-
 --------------------------
 -- Tab Group            --
 --------------------------
 
 do
 	local Type = "TabGroup"
-	local Version = 15
+	local Version = 25
 
 	local PaneBackdrop  = {
 		bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
@@ -53,16 +63,16 @@ do
 			self.localstatus[k] = nil
 		end
 		self.tablist = nil
+		for _, tab in pairs(self.tabs) do
+			tab:Hide()
+		end
+		self:SetTitle()
 	end
 	
 	local function Tab_SetText(self, text)
 		self:_SetText(text)
-		-- TODO: Remove when 3.0 hits live
-		if WotLK then
-			PanelTemplates_TabResize(self, 0)
-		else
-			PanelTemplates_TabResize(0, self)
-		end
+		local width = self.obj.frame.width or self.obj.frame:GetWidth() or 0
+		PanelTemplates_TabResize(self, 0, nil, width)
 	end
 	
 	local function UpdateTabLook(self)
@@ -82,6 +92,7 @@ do
 	
 	local function Tab_OnClick(self)
 		if not (self.selected or self.disabled) then
+			PlaySound("igCharacterInfoTab")
 			self.obj:SelectTab(self.value)
 		end
 	end
@@ -101,15 +112,25 @@ do
 		self:Fire("OnTabLeave", self.tabs[this.id].value, this)
 	end
 	
+	local function Tab_OnShow(this)
+		_G[this:GetName().."HighlightTexture"]:SetWidth(this:GetTextWidth() + 30)
+	end
+	
 	local function CreateTab(self, id)
 		local tabname = "AceGUITabGroup"..self.num.."Tab"..id
 		local tab = CreateFrame("Button",tabname,self.border,"OptionsFrameTabButtonTemplate")
 		tab.obj = self
 		tab.id = id
 		
+		tab.text = _G[tabname .. "Text"]
+		tab.text:ClearAllPoints()
+		tab.text:SetPoint("LEFT", tab, "LEFT", 14, -3)
+		tab.text:SetPoint("RIGHT", tab, "RIGHT", -12, -3)
+		
 		tab:SetScript("OnClick",Tab_OnClick)
 		tab:SetScript("OnEnter",Tab_OnEnter)
 		tab:SetScript("OnLeave",Tab_OnLeave)
+		tab:SetScript("OnShow", Tab_OnShow)
 		
 		tab._SetText = tab.SetText
 		tab.SetText = Tab_SetText
@@ -121,6 +142,12 @@ do
 	
 	local function SetTitle(self, text)
 		self.titletext:SetText(text or "")
+		if text and text ~= "" then
+			self.alignoffset = 25
+		else
+			self.alignoffset = 18
+		end
+		self:BuildTabs()
 	end
 	
 	-- called to set an external table to store status in
@@ -138,7 +165,7 @@ do
 				v:SetSelected(true)
 				found = true
 			else
-				v:SetSelected(false)	
+				v:SetSelected(false)
 			end
 		end
 		status.selected = value
@@ -155,18 +182,14 @@ do
 
 	local widths = {}
 	local rowwidths = {}
-	local rowends = {}		
+	local rowends = {}
 	local function BuildTabs(self)
+		local hastitle = (self.titletext:GetText() and self.titletext:GetText() ~= "")
 		local status = self.status or self.localstatus
 		local tablist = self.tablist
-		
 		local tabs = self.tabs
 		
-		for i, v in ipairs(tabs) do
-			v:Hide()
-		end
 		if not tablist then return end
-
 		
 		local width = self.frame.width or self.frame:GetWidth() or 0
 		
@@ -187,13 +210,17 @@ do
 				tab = self:CreateTab(i)
 				tabs[i] = tab
 			end
-		
+			
 			tab:Show()
 			tab:SetText(v.text)
 			tab:SetDisabled(v.disabled)
 			tab.value = v.value
 			
-			widths[i] = tab:GetWidth() - 10 --tabs are anchored 10 pixels from the right side of the previous one to reduce spacing
+			widths[i] = tab:GetWidth() - 6 --tabs are anchored 10 pixels from the right side of the previous one to reduce spacing, but add a fixed 4px padding for the text
+		end
+		
+		for i = (#tablist)+1, #tabs, 1 do
+			tabs[i]:Hide()
 		end
 		
 		--First pass, find the minimum number of rows needed to hold all tabs and the initial tab layout
@@ -207,7 +234,7 @@ do
 				rowwidths[numrows] = usedwidth + 10 --first tab in each row takes up an extra 10px
 				rowends[numrows] = i - 1
 				numrows = numrows + 1
-				usedwidth = 0		
+				usedwidth = 0
 			end
 			usedwidth = usedwidth + widths[i]
 		end
@@ -220,10 +247,12 @@ do
 			if rowends[numrows-1] == numtabs-1 then
 				--if there are more than 2 tabs in the 2nd last row
 				if (numrows == 2 and rowends[numrows-1] > 2) or (rowends[numrows] - rowends[numrows-1] > 2) then
-					--move 1 tab from the second last row to the last
-					rowends[numrows-1] = rowends[numrows-1] - 1
-					rowwidths[numrows] = rowwidths[numrows] + widths[numtabs-1]
-					rowwidths[numrows-1] = rowwidths[numrows-1] - widths[numtabs-1]
+					--move 1 tab from the second last row to the last, if there is enough space
+					if (rowwidths[numrows] + widths[numtabs-1]) <= width then
+						rowends[numrows-1] = rowends[numrows-1] - 1
+						rowwidths[numrows] = rowwidths[numrows] + widths[numtabs-1]
+						rowwidths[numrows-1] = rowwidths[numrows-1] - widths[numtabs-1]
+					end
 				end
 			end
 		end
@@ -236,27 +265,28 @@ do
 				local tab = tabs[tabno]
 				tab:ClearAllPoints()
 				if first then
-					tab:SetPoint("TOPLEFT",self.frame,"TOPLEFT",0,-7-(row-1)*20 )
+					tab:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 0, -(hastitle and 14 or 7)-(row-1)*20 )
 					first = false
 				else
-					tab:SetPoint("LEFT",tabs[tabno-1],"RIGHT",-10,0)
+					tab:SetPoint("LEFT", tabs[tabno-1], "RIGHT", -10, 0)
 				end
 			end
-			--equal padding for each tab to fill the available width
-			local padding = (width - rowwidths[row]) / (endtab - starttab+1)
+			
+			-- equal padding for each tab to fill the available width,
+			-- if the used space is above 75% already
+			local padding = 0
+			if not (numrows == 1 and rowwidths[1] < width*0.75) then
+				padding = (width - rowwidths[row]) / (endtab - starttab+1)
+			end
+			
 			for i = starttab, endtab do
-				-- TODO: Remove when 3.0 hits live
-				if WotLK then
-					PanelTemplates_TabResize(tabs[i], padding)
-				else
-					PanelTemplates_TabResize(padding, tabs[i])
-				end
-			end	
+				PanelTemplates_TabResize(tabs[i], padding + 4, nil, width)
+			end
 			starttab = endtab + 1
 		end
 		
-		self.borderoffset = 10+((numrows)*20)
-		self.border:SetPoint("TOPLEFT",self.frame,"TOPLEFT",3,-self.borderoffset)
+		self.borderoffset = (hastitle and 17 or 10)+((numrows)*20)
+		self.border:SetPoint("TOPLEFT",self.frame,"TOPLEFT",1,-self.borderoffset)
 	end
 	
 	local function BuildTabsOnUpdate(this)
@@ -286,6 +316,11 @@ do
 		content:SetHeight(contentheight)
 		content.height = contentheight
 	end
+	
+	local function LayoutFinished(self, width, height)
+		if self.noAutoHeight then return end
+		self:SetHeight((height or 0) + (self.borderoffset + 23))
+	end
 
 	local function Constructor()
 		local frame = CreateFrame("Frame",nil,UIParent)
@@ -304,6 +339,7 @@ do
 		self.BuildTabs = BuildTabs
 		self.SetStatusTable = SetStatusTable
 		self.SetTabs = SetTabs
+		self.LayoutFinished = LayoutFinished
 		self.frame = frame
 		
 		self.OnWidthSet = OnWidthSet
@@ -315,19 +351,22 @@ do
 		frame:SetWidth(100)
 		frame:SetFrameStrata("FULLSCREEN_DIALOG")
 		
+		self.alignoffset = 18
+		
 		local titletext = frame:CreateFontString(nil,"OVERLAY","GameFontNormal")
 		titletext:SetPoint("TOPLEFT",frame,"TOPLEFT",14,0)
 		titletext:SetPoint("TOPRIGHT",frame,"TOPRIGHT",-14,0)
 		titletext:SetJustifyH("LEFT")
 		titletext:SetHeight(18)
+		titletext:SetText("")
 		
-		self.titletext = titletext	
+		self.titletext = titletext
 		
 		local border = CreateFrame("Frame",nil,frame)
 		self.border = border
 		self.borderoffset = 27
-		border:SetPoint("TOPLEFT",frame,"TOPLEFT",3,-27)
-		border:SetPoint("BOTTOMRIGHT",frame,"BOTTOMRIGHT",-3,3)
+		border:SetPoint("TOPLEFT",frame,"TOPLEFT",1,-27)
+		border:SetPoint("BOTTOMRIGHT",frame,"BOTTOMRIGHT",-1,3)
 		
 		border:SetBackdrop(PaneBackdrop)
 		border:SetBackdropColor(0.1,0.1,0.1,0.5)
@@ -339,8 +378,8 @@ do
 		local content = CreateFrame("Frame",nil,border)
 		self.content = content
 		content.obj = self
-		content:SetPoint("TOPLEFT",border,"TOPLEFT",10,-10)
-		content:SetPoint("BOTTOMRIGHT",border,"BOTTOMRIGHT",-10,10)
+		content:SetPoint("TOPLEFT",border,"TOPLEFT",10,-7)
+		content:SetPoint("BOTTOMRIGHT",border,"BOTTOMRIGHT",-10,7)
 		
 		AceGUI:RegisterAsContainer(self)
 		return self

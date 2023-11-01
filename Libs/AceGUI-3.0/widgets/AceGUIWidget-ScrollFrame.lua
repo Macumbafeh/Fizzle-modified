@@ -1,5 +1,13 @@
 local AceGUI = LibStub("AceGUI-3.0")
 
+-- Lua APIs
+local pairs, assert, type = pairs, assert, type
+local min, max, floor = math.min, math.max, math.floor
+
+-- WoW APIs
+local CreateFrame, UIParent = CreateFrame, UIParent
+
+
 -------------
 -- Widgets --
 -------------
@@ -29,7 +37,7 @@ local AceGUI = LibStub("AceGUI-3.0")
 --------------------------
 do
 	local Type = "ScrollFrame"
-	local Version = 3
+	local Version = 9
 	
 	local function OnAcquire(self)
 
@@ -39,35 +47,40 @@ do
 		self.frame:ClearAllPoints()
 		self.frame:Hide()
 		self.status = nil
+		-- do SetScroll after niling status, but before clearing localstatus
+		-- so the scroll value isnt populated back into status, but not kept in localstatus either
+		self:SetScroll(0)
 		for k in pairs(self.localstatus) do
 			self.localstatus[k] = nil
 		end
+		self.scrollframe:SetPoint("BOTTOMRIGHT",self.frame,"BOTTOMRIGHT",0,0)
+		self.scrollbar:Hide()
+		self.scrollBarShown = nil
+		self.content.height, self.content.width = nil, nil
 	end
 	
 	local function SetScroll(self, value)
-		
 		local status = self.status or self.localstatus
-		
-		local frame, child = self.scrollframe, self.content
-		local viewheight = frame:GetHeight()
-		local height = child:GetHeight()
+		local viewheight = self.scrollframe:GetHeight()
+		local height = self.content:GetHeight()
 		local offset
+		
 		if viewheight > height then
 			offset = 0
 		else
 			offset = floor((height - viewheight) / 1000.0 * value)
 		end
-		child:ClearAllPoints()
-		child:SetPoint("TOPLEFT",frame,"TOPLEFT",0,offset)
-		child:SetPoint("TOPRIGHT",frame,"TOPRIGHT",0,offset)
+		self.content:ClearAllPoints()
+		self.content:SetPoint("TOPLEFT", self.scrollframe, "TOPLEFT", 0, offset)
+		self.content:SetPoint("TOPRIGHT", self.scrollframe, "TOPRIGHT", 0, offset)
 		status.offset = offset
 		status.scrollvalue = value
 	end
 	
 	local function MoveScroll(self, value)
 		local status = self.status or self.localstatus
-		local frame, child = self.scrollframe, self.content
-		local height, viewheight = frame:GetHeight(), child:GetHeight()
+		local height, viewheight = self.scrollframe:GetHeight(), self.content:GetHeight()
+		
 		if height > viewheight then
 			self.scrollbar:Hide()
 		else
@@ -77,41 +90,48 @@ do
 			if value < 0 then
 				delta = -1
 			end
-			self.scrollbar:SetValue(math.min(math.max(status.scrollvalue + delta*(1000/(diff/45)),0), 1000))
+			self.scrollbar:SetValue(min(max(status.scrollvalue + delta*(1000/(diff/45)),0), 1000))
 		end
 	end
 	
 	
 	local function FixScroll(self)
+		if self.updateLock then return end
+		self.updateLock = true
 		local status = self.status or self.localstatus
-		local frame, child = self.scrollframe, self.content
-		local height, viewheight = frame:GetHeight(), child:GetHeight()
-		local offset = status.offset
-		if not offset then
-			offset = 0
-		end
+		local height, viewheight = self.scrollframe:GetHeight(), self.content:GetHeight()
+		local offset = status.offset or 0
 		local curvalue = self.scrollbar:GetValue()
 		if viewheight < height then
-			self.scrollbar:Hide()
-			self.scrollbar:SetValue(0)
-			--self.scrollframe:SetPoint("BOTTOMRIGHT",self.frame,"BOTTOMRIGHT",0,0)
+			if self.scrollBarShown then
+				self.scrollBarShown = nil
+				self.scrollbar:Hide()
+				self.scrollbar:SetValue(0)
+				self.scrollframe:SetPoint("BOTTOMRIGHT",self.frame,"BOTTOMRIGHT",0,0)
+				self:DoLayout()
+			end
 		else
-			self.scrollbar:Show()
-			--self.scrollframe:SetPoint("BOTTOMRIGHT",self.frame,"BOTTOMRIGHT",-16,0)
+			if not self.scrollBarShown then
+				self.scrollBarShown = true
+				self.scrollbar:Show()
+				self.scrollframe:SetPoint("BOTTOMRIGHT", self.frame,"BOTTOMRIGHT",-20,0)
+				self:DoLayout()
+			end
 			local value = (offset / (viewheight - height) * 1000)
 			if value > 1000 then value = 1000 end
 			self.scrollbar:SetValue(value)
 			self:SetScroll(value)
 			if value < 1000 then
-				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT",frame,"TOPLEFT",0,offset)
-				child:SetPoint("TOPRIGHT",frame,"TOPRIGHT",0,offset)
+				self.content:ClearAllPoints()
+				self.content:SetPoint("TOPLEFT", self.scrollframe, "TOPLEFT", 0, offset)
+				self.content:SetPoint("TOPRIGHT", self.scrollframe, "TOPRIGHT", 0, offset)
 				status.offset = offset
 			end
 		end
+		self.updateLock = nil
 	end
 
-	local function OnMouseWheel(this,value)
+	local function OnMouseWheel(this, value)
 		this.obj:MoveScroll(value)
 	end
 
@@ -123,14 +143,14 @@ do
 		this:SetScript("OnUpdate", nil)
 		this.obj:FixScroll()
 	end
+	
 	local function OnSizeChanged(this)
-		--this:SetScript("OnUpdate", FixScrollOnUpdate)
-		this.obj:FixScroll()
+		this:SetScript("OnUpdate", FixScrollOnUpdate)
 	end
 	
-	local function LayoutFinished(self,width,height)
+	local function LayoutFinished(self, width, height)
 		self.content:SetHeight(height or 0 + 20)
-		self:FixScroll()
+		self.scrollframe:SetScript("OnUpdate", FixScrollOnUpdate)
 	end
 	
 	-- called to set an external table to store status in
@@ -141,9 +161,6 @@ do
 			status.scrollvalue = 0
 		end
 	end
-	
-	
-	local createdcount = 0
 	
 	local function OnWidthSet(self, width)
 		local content = self.content
@@ -157,7 +174,7 @@ do
 	end
 	
 	local function Constructor()
-		local frame = CreateFrame("Frame",nil,UIParent)
+		local frame = CreateFrame("Frame", nil, UIParent)
 		local self = {}
 		self.type = Type
 	
@@ -172,50 +189,49 @@ do
 		self.OnWidthSet = OnWidthSet
 		self.OnHeightSet = OnHeightSet
 		
-		self.localstatus = {} 	
+		self.localstatus = {}
 		self.frame = frame
 		frame.obj = self
 
 		--Container Support
-		local scrollframe = CreateFrame("ScrollFrame",nil,frame)
-		local content = CreateFrame("Frame",nil,scrollframe)
-		createdcount = createdcount + 1
-		local scrollbar = CreateFrame("Slider",("AceConfigDialogScrollFrame%dScrollBar"):format(createdcount),scrollframe,"UIPanelScrollBarTemplate")
-		local scrollbg = scrollbar:CreateTexture(nil,"BACKGROUND")
-		scrollbg:SetAllPoints(scrollbar)
-		scrollbg:SetTexture(0,0,0,0.4)
-		self.scrollframe = scrollframe
-		self.content = content
-		self.scrollbar = scrollbar
-		
-		scrollbar.obj = self
+		local scrollframe = CreateFrame("ScrollFrame", nil, frame)
 		scrollframe.obj = self
-		content.obj = self
-		
-		scrollframe:SetScrollChild(content)
-		scrollframe:SetPoint("TOPLEFT",frame,"TOPLEFT",0,0)
-		scrollframe:SetPoint("BOTTOMRIGHT",self.frame,"BOTTOMRIGHT",-16,0)
+		scrollframe:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
+		scrollframe:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, 0)
 		scrollframe:EnableMouseWheel(true)
 		scrollframe:SetScript("OnMouseWheel", OnMouseWheel)
 		scrollframe:SetScript("OnSizeChanged", OnSizeChanged)
+		self.scrollframe = scrollframe
 		
-		
-		content:SetPoint("TOPLEFT",scrollframe,"TOPLEFT",0,0)
-		content:SetPoint("TOPRIGHT",scrollframe,"TOPRIGHT",0,0)
+		local content = CreateFrame("Frame", nil, scrollframe)
+		content.obj = self
+		content:SetPoint("TOPLEFT", scrollframe, "TOPLEFT", 0, 0)
+		content:SetPoint("TOPRIGHT", scrollframe, "TOPRIGHT", 0, 0)
 		content:SetHeight(400)
+		self.content = content
+		scrollframe:SetScrollChild(content)
 		
-		scrollbar:SetPoint("TOPLEFT",scrollframe,"TOPRIGHT",0,-16)
-		scrollbar:SetPoint("BOTTOMLEFT",scrollframe,"BOTTOMRIGHT",0,16)
+		local num = AceGUI:GetNextWidgetNum(Type)
+		local name = ("AceConfigDialogScrollFrame%dScrollBar"):format(num)
+		local scrollbar = CreateFrame("Slider", name, scrollframe, "UIPanelScrollBarTemplate")
+		scrollbar.obj = self
+		scrollbar:SetPoint("TOPLEFT", scrollframe, "TOPRIGHT", 4, -16)
+		scrollbar:SetPoint("BOTTOMLEFT", scrollframe, "BOTTOMRIGHT", 4, 16)
 		scrollbar:SetScript("OnValueChanged", OnScrollValueChanged)
-		scrollbar:SetMinMaxValues(0,1000)
+		scrollbar:SetMinMaxValues(0, 1000)
 		scrollbar:SetValueStep(1)
 		scrollbar:SetValue(0)
 		scrollbar:SetWidth(16)
+		scrollbar:Hide()
+		self.scrollbar = scrollbar
+		
+		local scrollbg = scrollbar:CreateTexture(nil, "BACKGROUND")
+		scrollbg:SetAllPoints(scrollbar)
+		scrollbg:SetTexture(0, 0, 0, 0.4)
 		
 		self.localstatus.scrollvalue = 0
 		
-
-		self:FixScroll()
+		--self:FixScroll()
 		AceGUI:RegisterAsContainer(self)
 		--AceGUI:RegisterAsWidget(self)
 		return self

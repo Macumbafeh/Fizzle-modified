@@ -22,6 +22,7 @@ local slots = {
 	"Trinket1",
 	"Relic",
 	"Tabard",
+	"Shirt",
 }
 local booted = false
 -- Make some blizz functions more local
@@ -38,8 +39,8 @@ end
 
 function mod:OnEnable()
 	if IsAddOnLoaded("Blizzard_InspectUI") then
-		self:SecureHook("InspectFrame_OnShow")
-		self:SecureHook("InspectFrame_OnHide")
+		self:SecureHookScript(InspectFrame, "OnShow", "InspectFrame_OnShow")
+		self:SecureHookScript(InspectFrame, "OnHide", "InspectFrame_OnHide")
 		self:InspectFrame_OnShow()
 	else
 		self:RegisterEvent("ADDON_LOADED")
@@ -71,10 +72,7 @@ end
 function mod:UpdateBorders()
 	if not InspectFrame:IsVisible() then return end
 	if not UnitIsPlayer("target") then return end
-	if not self:IsHooked("InspectFrame_UnitChanged") then
-		self:SecureHook("InspectFrame_UnitChanged", "UpdateBorders")
-	end
-	self:RegisterEvent("UNIT_INVENTORY_CHANGED", "UpdateBorders")
+	-- Now colour the borders.
 	for _, item in ipairs(slots) do
 		local id
 		if _G["Character".. item .."Slot"] then
@@ -83,20 +81,29 @@ function mod:UpdateBorders()
 		if id then
 			local link = GetInventoryItemLink("target", id)
 			local border = _G[item .."FizzspectB"]
-			if link then
+			local iLevelStr = _G[item.."FizzspectiLevel"]
+			if link and border then
 				local itemID = GetItemID(link)
-				local quality = select(3, GetItemInfo(itemID))
+				local _, _, quality, iLevel = GetItemInfo(itemID)
 				
 				if quality then
 					local r, g, b = GetItemQualityColor(quality)
 					border:SetVertexColor(r, g, b)
 					border:Show()
+					if Fizzle.db.profile.inspectiLevel then
+						iLevelStr:SetText(iLevel)
+						iLevelStr:Show()
+					end
 				else
 					border:Hide()
+					iLevelStr:Hide()
 				end
 			else
 				if border then
 					border:Hide()
+				end
+				if iLevelStr then
+					iLevelStr:Hide()
 				end
 			end
 		end
@@ -106,10 +113,9 @@ end
 function mod:ADDON_LOADED()
 	-- If the Blizzard InspectUI is loading, fire up the addon!
 	if arg1 == "Blizzard_InspectUI" then
-		self:SecureHook("InspectFrame_OnShow")
-		self:SecureHook("InspectFrame_OnHide")
+		self:SecureHookScript(InspectFrame, "OnShow", "InspectFrame_OnShow")
+		self:SecureHookScript(InspectFrame, "OnHide", "InspectFrame_OnHide")
 		self:UnregisterEvent("ADDON_LOADED")
-		self:InspectFrame_OnShow()
 	end
 end
 
@@ -118,9 +124,14 @@ function mod:InspectFrame_OnShow()
 	if not booted then
 		self:CreateBorders()
 	end
-	
 	-- Update the borders
 	self:UpdateBorders()
+	-- Watch for inventory changes
+	self:RegisterEvent("UNIT_INVENTORY_CHANGED", "UpdateBorders")
+	-- Watch for target changes.
+	if not self:IsHooked("InspectFrame_UnitChanged") then
+		self:SecureHook("InspectFrame_UnitChanged", "UpdateBorders")
+	end
 end
 
 function mod:InspectFrame_OnHide()

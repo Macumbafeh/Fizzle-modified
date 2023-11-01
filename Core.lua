@@ -1,5 +1,6 @@
 -- Create the addon
-Fizzle = LibStub("AceAddon-3.0"):NewAddon("Fizzle", "AceEvent-3.0", "AceHook-3.0", "AceConsole-3.0")
+Fizzle = LibStub("AceAddon-3.0"):NewAddon("Fizzle", "AceEvent-3.0", "AceBucket-3.0", "AceHook-3.0", "AceConsole-3.0")
+local self, Fizzle = Fizzle, Fizzle							   
 local defaults = {
 	profile = {
 		Percent = true,
@@ -12,10 +13,11 @@ local defaults = {
 		modules = {
 			["Inspect"] = true,
 		},
+		inspectiLevel = false,				
 	},
 }
 local L = LibStub("AceLocale-3.0"):GetLocale("Fizzle")
-local crayon = LibStub("LibCrayon-3.0")
+
 local fontSize = 12
 local _G = _G
 local sformat = string.format
@@ -51,7 +53,10 @@ local function getOptions()
 				order = 100,
 				width = "full",
 				get = function() return db.Percent end,
-				set = function() db.Percent = not db.Percent end,
+				set = function()
+					db.Percent = not db.Percent
+					Fizzle:UpdateItems()
+				end,
 			},
 			border = {
 				name = L["Border"],
@@ -60,7 +65,10 @@ local function getOptions()
 				order = 200,
 				width = "full",
 				get = function() return db.Border end,
-				set = function() db.Border = not db.Border end,
+				set = function()
+					db.Border = not db.Border
+					Fizzle:BorderToggle()
+				end,
 			},
 			invert = {
 				name = L["Invert"],
@@ -69,7 +77,10 @@ local function getOptions()
 				order = 300,
 				width = "full",
 				get = function() return db.Invert end,
-				set = function() db.Invert = not db.Invert end,
+				set = function()
+					db.Invert = not db.Invert
+					Fizzle:UpdateItems()
+				end,
 			},
 			hidetext = {
 				name = L["Hide Text"],
@@ -78,7 +89,10 @@ local function getOptions()
 				order = 400,
 				width = "full",
 				get = function() return db.HideText end,
-				set = function() db.HideText = not db.HideText end,
+				set = function()
+					db.HideText = not db.HideText
+					Fizzle:UpdateItems()
+				end,
 			},
 			showfull = {
 				name = L["Show Full"],
@@ -87,7 +101,10 @@ local function getOptions()
 				order = 500,
 				width = "full",
 				get = function() return db.DisplayWhenFull end,
-				set = function() db.DisplayWhenFull = not db.DisplayWhenFull end,
+				set = function()
+					db.DisplayWhenFull = not db.DisplayWhenFull
+					Fizzle:UpdateItems()
+				end,
 			},
 			-- Inspect module toggle
 			inspect = {
@@ -104,6 +121,18 @@ local function getOptions()
 					else
 						Fizzle:DisableModule("Inspect")
 					end
+				end,
+			},
+			inspectilevel = {
+				name = "Inspect iLevels",
+				desc = "Show the iLevel on an inspected characters items.",
+				type = "toggle",
+				disabled = function() return not db.modules["Inspect"] end,
+				order = 610,
+				width = "full",
+				get = function() return db.inspectiLevel end,
+				set = function()
+					db.inspectiLevel = not db.inspectiLevel
 				end,
 			},
 			gem = {
@@ -137,13 +166,13 @@ function Fizzle:OnInitialize()
 	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable("Fizzle", getOptions)
 	LibStub("AceConfigDialog-3.0"):AddToBlizOptions("Fizzle", GetAddOnMetadata("Fizzle", "Title"))
 	-- Register chat command to open options dialog
-	self:RegisterChatCommand("fizzle", function() InterfaceOptionsFrame_OpenToFrame(LibStub("AceConfigDialog-3.0").BlizOptions["Fizzle"].frame) end)
-	self:RegisterChatCommand("fizz", function() InterfaceOptionsFrame_OpenToFrame(LibStub("AceConfigDialog-3.0").BlizOptions["Fizzle"].frame) end)
+	self:RegisterChatCommand("fizzle", function() InterfaceOptionsFrame_OpenToCategory(GetAddOnMetadata("Fizzle", "Title")) end)
+	self:RegisterChatCommand("fizz", function() InterfaceOptionsFrame_OpenToCategory(GetAddOnMetadata("Fizzle", "Title")) end)
 end
 
 function Fizzle:OnEnable()
-	self:SecureHook("CharacterFrame_OnShow")
-	self:SecureHook("CharacterFrame_OnHide")
+	self:SecureHookScript(CharacterFrame, "OnShow", "CharacterFrame_OnShow")
+	self:SecureHookScript(CharacterFrame, "OnHide", "CharacterFrame_OnHide")
 	if not bordersCreated then
 		self:MakeTypeTable()
 	end
@@ -158,14 +187,21 @@ end
 
 function Fizzle:CreateBorder(slottype, slot, name, hasText)
 	local gslot = _G[slottype..slot.."Slot"]
+	local height = 68
+	local width = 68
+	-- Ammo slot is smaller than the rest.
+	if slot == "Ammo" then
+		height = 58
+		width = 58
+	end
 	if gslot then
 		-- Create border
 		local border = gslot:CreateTexture(slot .. name .. "B", "OVERLAY")
 		border:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
 		border:SetBlendMode("ADD")
 		border:SetAlpha(0.75)
-		border:SetHeight(68)
-		border:SetWidth(68)
+		border:SetHeight(height)
+		border:SetWidth(width)
 		border:SetPoint("CENTER", gslot, "CENTER", 0, 1)
 		border:Hide()
 
@@ -176,6 +212,12 @@ function Fizzle:CreateBorder(slottype, slot, name, hasText)
 			str:SetFont(font, fontSize, flags)
 			str:SetPoint("CENTER", gslot, "BOTTOM", 0, 8)
 		end
+
+		-- Strings for iLevels
+		local iLevelStr = gslot:CreateFontString(slot .. name .. "iLevel", "OVERLAY")
+		local font, _, flags = NumberFontNormal:GetFont()
+		iLevelStr:SetFont(font, fontSize, flags)
+		iLevelStr:SetPoint("CENTER", gslot, "TOP", 0, -5)
 	end
 end
 
@@ -206,6 +248,7 @@ function Fizzle:MakeTypeTable()
 		"Trinket1",
 		"Relic",
 		"Tabard",
+		"Shirt",  
 	}
         
 	itemslot = {
@@ -235,6 +278,18 @@ function Fizzle:MakeTypeTable()
 	end
 end
 
+local function GetThresholdColour(percent)
+	if percent < 0 then
+		return 1, 0, 0
+	elseif percent <= 0.5 then
+		return 1, percent * 2, 0
+	elseif percent >= 1 then
+		return 0, 1, 0
+	else
+		return 2 - percent * 2, 1, 0
+	end
+end
+		
 local enchantAttributes = {
 	["1"] = "Rockbiter 3",
 	["2"] = "Frostbr& 1",
@@ -2854,7 +2909,7 @@ local gemTextPositions = {
 	-- Left
     Head = { point = "LEFT", relativePoint = "RIGHT", x = 18, y = 12 },
 	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 30, y = 10 },
-	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 16, y = 12 },
+	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
 	Back = { point = "LEFT", relativePoint = "RIGHT", x = 27, y = 10 },
 	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 17, y = 12 },
 	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -22, y = 45 },
@@ -2930,7 +2985,7 @@ function Fizzle:UpdateItems()
 				local text
 			
 				-- Colour our string depending on current durability percentage
-				str:SetTextColor(crayon:GetThresholdColor(v1/v2))
+				str:SetTextColor(GetThresholdColour(v1/v2))
 
 				if db.Invert then
 					v1 = v2 - v1
@@ -3162,11 +3217,13 @@ end
 end
 function Fizzle:CharacterFrame_OnShow()
 	self:RegisterEvent("UNIT_INVENTORY_CHANGED", "UpdateItems")
+	self:RegisterBucketEvent("UPDATE_INVENTORY_DURABILITY", 0.5, "UpdateItems")																		
 	self:UpdateItems()
 end
 
 function Fizzle:CharacterFrame_OnHide()
-	self:UnregisterEvent("UNIT_INVENTORY_CHANGED", "UpdateItems")
+	self:UnregisterEvent("UNIT_INVENTORY_CHANGED")
+	self:UnregisterBucket("UPDATE_INVENTORY_DURABILITY")
 end
 
 -- Border colouring split into two functions so I only need to iterate over each table once.

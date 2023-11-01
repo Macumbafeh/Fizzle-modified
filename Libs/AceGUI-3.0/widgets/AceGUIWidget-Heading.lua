@@ -1,14 +1,19 @@
 local AceGUI = LibStub("AceGUI-3.0")
 
+-- WoW APIs
+local CreateFrame, UIParent = CreateFrame, UIParent
+
 --------------------------
 -- Heading 	 			--
 --------------------------
 do
 	local Type = "Heading"
-	local Version = 3
+	local Version = 5
 	
 	local function OnAcquire(self)
 		self:SetText("")
+		self:SetFullWidth()
+		self:SetHeight(18)
 	end
 	
 	local function OnRelease(self)

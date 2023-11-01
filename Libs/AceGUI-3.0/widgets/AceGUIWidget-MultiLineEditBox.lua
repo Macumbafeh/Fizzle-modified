@@ -3,33 +3,20 @@
 --Multiline Editbox Widget, Originally by bam
 
 --]]
-local assert, error, ipairs, next, pairs, select, tonumber, tostring, type, unpack, pcall, xpcall =
-		assert, error, ipairs, next, pairs, select, tonumber, tostring, type, unpack, pcall, xpcall
-local getmetatable, setmetatable, rawequal, rawget, rawset, getfenv, setfenv, loadstring, debugstack =
-		getmetatable, setmetatable, rawequal, rawget, rawset, getfenv, setfenv, loadstring, debugstack
-local math, string, table = math, string, table
-local find, format, gmatch, gsub, tolower, match, toupper, join, split, trim =
-		string.find, string.format, string.gmatch, string.gsub, string.lower, string.match, string.upper, string.join, string.split, string.trim
-local concat, insert, maxn, remove, sort = table.concat, table.insert, table.maxn, table.remove, table.sort
-local max, min, abs, ceil, floor = math.max, math.min, math.abs, math.ceil, math.floor
-
-local LibStub = assert(LibStub)
-
-local ChatFontNormal = ChatFontNormal
-local ClearCursor = ClearCursor
-local CreateFrame = CreateFrame
-local GetCursorInfo = GetCursorInfo
-local GetSpellName = GetSpellName
-local UIParent = UIParent
-local UISpecialFrames = UISpecialFrames
-
--- No global variables after this!
-
-local _G = getfenv()
-
 local AceGUI = LibStub("AceGUI-3.0")
 
-local Version = 6
+-- Lua APIs
+local format, pairs, tostring = string.format, pairs, tostring
+
+-- WoW APIs
+local GetCursorInfo, ClearCursor, GetSpellName = GetCursorInfo, ClearCursor, GetSpellName
+local CreateFrame, UIParent = CreateFrame, UIParent
+
+-- Global vars/functions that we don't upvalue since they might get hooked, or upgraded
+-- List them here for Mikk's FindGlobals script
+-- GLOBALS: ChatFontNormal, ACCEPT
+
+local Version = 11
 ---------------------
 -- Common Elements --
 ---------------------
@@ -101,11 +88,14 @@ do
 			self:Fire("OnEnterPressed",name)
 			ClearCursor()
 		end
-		self.button:Disable()
+		--self.button:Disable()
 		AceGUI:ClearFocus()
 	end
 	
 	function MultiLineEditBox:OnAcquire()
+		self:SetWidth(200)
+		self:SetHeight(116)
+		self:SetNumLines(4)
 		self:SetDisabled(false)
 		self:ShowButton(true)
 	end
@@ -120,11 +110,17 @@ do
 		self.disabled = disabled
 		if disabled then
 			self.editbox:EnableMouse(false)
+			self.scrollframe:EnableMouse(false)
 			self.editbox:ClearFocus()
 			self.editbox:SetTextColor(0.5, 0.5, 0.5)
+			self.label:SetTextColor(0.5,0.5,0.5)
+			self.button:Disable()
 		else
 			self.editbox:EnableMouse(true)
+			self.scrollframe:EnableMouse(true)
 			self.editbox:SetTextColor(1, 1, 1)
+			self.label:SetTextColor(1,.82,0)
+			self.button:Enable()
 		end
 	end
 
@@ -150,6 +146,11 @@ do
 			self.label:Show()
 			self.label:SetText(text)
 		end
+	end
+	
+	function MultiLineEditBox:SetNumLines(number)
+		number = number or 4
+		self:SetHeight(60 + (14*number))
 	end
 
 	function MultiLineEditBox:GetText()
@@ -187,23 +188,25 @@ do
 		scrollframe:SetPoint("TOPLEFT", 5, -6)
 		scrollframe:SetPoint("BOTTOMRIGHT", -28, 6)
 		scrollframe.obj = self
+		self.scrollframe = scrollframe
 		
-		local scrollchild = CreateFrame("Frame", nil, scrollframe)
-		scrollframe:SetScrollChild(scrollchild)
-		scrollchild:SetHeight(2)
-		scrollchild:SetWidth(2)
+		--local scrollchild = CreateFrame("Frame", nil, scrollframe)
+		--scrollframe:SetScrollChild(scrollchild)
+		--scrollchild:SetHeight(2)
+		--scrollchild:SetWidth(2)
 	
-		local label = frame:CreateFontString(nil,"OVERLAY","GameFontHighlight")
-		label:SetPoint("TOPLEFT",frame,"TOPLEFT",14,0)
-		label:SetPoint("TOPRIGHT",frame,"TOPRIGHT",-14,0)
+		local label = frame:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
+		label:SetPoint("TOPLEFT",frame,"TOPLEFT",0,-2)
+		label:SetPoint("TOPRIGHT",frame,"TOPRIGHT",0,-2)
 		label:SetJustifyH("LEFT")
 		label:SetHeight(18)
 		self.label = label
 			
-		local editbox = CreateFrame("EditBox", nil, scrollchild)
+		local editbox = CreateFrame("EditBox", nil, scrollframe)
 		self.editbox = editbox
 		editbox.obj = self
 		editbox:SetPoint("TOPLEFT")
+		editbox:SetPoint("BOTTOMLEFT")
 		editbox:SetHeight(50)
 		editbox:SetWidth(50)
 		editbox:SetMultiLine(true)
@@ -212,6 +215,7 @@ do
 		editbox:EnableMouse(true)
 		editbox:SetAutoFocus(false)
 		editbox:SetFontObject(ChatFontNormal)
+		scrollframe:SetScrollChild(editbox)
 
 		local button = CreateFrame("Button",nil,scrollframe,"UIPanelButtonTemplate")
 		button:SetWidth(80)
@@ -219,6 +223,7 @@ do
 		button:SetPoint("BOTTOMLEFT",frame,"BOTTOMLEFT",0,2)
 		button:SetText(ACCEPT)
 		button:SetScript("OnClick", Button_OnClick)
+		button:SetFrameLevel(editbox:GetFrameLevel() + 1)
 		button:Disable()
 		button:Hide()
 		self.button = button
@@ -233,8 +238,8 @@ do
 		editbox:SetScript("OnLeave", function(this) this.obj:Fire("OnLeave") end)
 		
 		local function FixSize()
-			scrollchild:SetHeight(scrollframe:GetHeight())
-			scrollchild:SetWidth(scrollframe:GetWidth())
+			--scrollchild:SetHeight(scrollframe:GetHeight())
+			--scrollchild:SetWidth(scrollframe:GetWidth())
 			editbox:SetWidth(scrollframe:GetWidth())
 		end
 		scrollframe:SetScript("OnShow", FixSize)
@@ -245,9 +250,11 @@ do
 			scrollframe:UpdateScrollChildRect()
 			local value = editbox:GetText()
 			if value ~= self.lasttext then
-			self:Fire("OnTextChanged", value)
-			self.lasttext = value
-			self.button:Enable()
+				self:Fire("OnTextChanged", value)
+				self.lasttext = value
+				if not self.disabled then
+					self.button:Enable()
+				end
 			end
 		end)
 	
@@ -258,36 +265,36 @@ do
 			local cursorOffset, cursorHeight
 			local idleTime
 			local function FixScroll(_, elapsed)
-			if cursorOffset and cursorHeight then
-				idleTime = 0
-				local height = scrollframe:GetHeight()
-				local range = scrollframe:GetVerticalScrollRange()
-				local scroll = scrollframe:GetVerticalScroll()
-				local size = height + range
-				cursorOffset = -cursorOffset
-				while cursorOffset < scroll do
-				scroll = scroll - (height / 2)
-				if scroll < 0 then scroll = 0 end
-				scrollframe:SetVerticalScroll(scroll)
+				if cursorOffset and cursorHeight then
+					idleTime = 0
+					local height = scrollframe:GetHeight()
+					local range = scrollframe:GetVerticalScrollRange()
+					local scroll = scrollframe:GetVerticalScroll()
+					local size = height + range
+					cursorOffset = -cursorOffset
+					while cursorOffset < scroll do
+						scroll = scroll - (height / 2)
+						if scroll < 0 then scroll = 0 end
+						scrollframe:SetVerticalScroll(scroll)
+					end
+					while cursorOffset + cursorHeight > scroll + height and scroll < range do
+						scroll = scroll + (height / 2)
+						if scroll > range then scroll = range end
+						scrollframe:SetVerticalScroll(scroll)
+					end
+				elseif not idleTime or idleTime > 2 then
+					frame:SetScript("OnUpdate", nil)
+					idleTime = nil
+				else
+					idleTime = idleTime + elapsed
 				end
-				while cursorOffset + cursorHeight > scroll + height and scroll < range do
-				scroll = scroll + (height / 2)
-				if scroll > range then scroll = range end
-				scrollframe:SetVerticalScroll(scroll)
-				end
-			elseif not idleTime or idleTime > 2 then
-				frame:SetScript("OnUpdate", nil)
-				idleTime = nil
-			else
-				idleTime = idleTime + elapsed
-			end
-			cursorOffset = nil
+				cursorOffset = nil
 			end
 			editbox:SetScript("OnCursorChanged", function(_, x, y, w, h)
-			cursorOffset, cursorHeight = y, h
-			if not idleTime then
-				frame:SetScript("OnUpdate", FixScroll)
-			end
+				cursorOffset, cursorHeight = y, h
+				if not idleTime then
+					frame:SetScript("OnUpdate", FixScroll)
+				end
 			end)
 		end
 	

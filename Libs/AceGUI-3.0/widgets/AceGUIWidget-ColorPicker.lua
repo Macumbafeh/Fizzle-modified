@@ -1,15 +1,24 @@
 local AceGUI = LibStub("AceGUI-3.0")
 
+-- WoW APIs
+local CreateFrame, UIParent = CreateFrame, UIParent
+
+-- Global vars/functions that we don't upvalue since they might get hooked, or upgraded
+-- List them here for Mikk's FindGlobals script
+-- GLOBALS: ShowUIPanel, HideUIPanel, ColorPickerFrame, OpacitySliderFrame
+
 --------------------------
 -- ColorPicker		  --
 --------------------------
 do
 	local Type = "ColorPicker"
-	local Version = 9
+	local Version = 11
 	
 	local function OnAcquire(self)
 		self.HasAlpha = false
 		self:SetColor(0,0,0,1)
+		self:SetHeight(24)
+		self:SetWidth(200)
 	end
 	
 	local function SetLabel(self, text)
@@ -94,8 +103,10 @@ do
 	local function SetDisabled(self, disabled)
 		self.disabled = disabled
 		if self.disabled then
+			self.frame:Disable()
 			self.text:SetTextColor(0.5,0.5,0.5)
 		else
+			self.frame:Enable()
 			self.text:SetTextColor(1,1,1)
 		end
 	end

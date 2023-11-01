@@ -1,5 +1,17 @@
 local AceGUI = LibStub("AceGUI-3.0")
 
+-- Lua APIs
+local next, pairs, ipairs, assert, type = next, pairs, ipairs, assert, type
+local math_min, math_max, floor = math.min, math.max, floor
+local select, tremove, unpack = select, table.remove, unpack
+
+-- WoW APIs
+local CreateFrame, UIParent = CreateFrame, UIParent
+
+-- Global vars/functions that we don't upvalue since they might get hooked, or upgraded
+-- List them here for Mikk's FindGlobals script
+-- GLOBALS: GameTooltip, FONT_COLOR_CODE_CLOSE
+
 -- Recycling functions
 local new, del
 do
@@ -21,15 +33,13 @@ do
 	end
 end
 
-local WotLK = select(4, GetBuildInfo()) >= 30000
-
 --------------
 -- TreeView --
 --------------
 
 do
 	local Type = "TreeGroup"
-	local Version = 16
+	local Version = 23
 	
 	local DEFAULT_TREE_WIDTH = 175
 	local DEFAULT_TREE_SIZABLE = true
@@ -115,20 +125,20 @@ do
 		status[button.uniquevalue] = not status[button.uniquevalue]
 		self:RefreshTree()
 	end
-    
-    local function EnableButtonTooltips(self, enable)
-    	self.enabletooltips = enable
-    end
-    
-    local function Button_OnEnter(this)
-    	local self = this.obj
-    	self:Fire("OnButtonEnter", this.uniquevalue, this)
-    	
-    	if self.enabletooltips then
-	        GameTooltip:SetOwner(this, "ANCHOR_NONE")
-	        GameTooltip:SetPoint("LEFT",this,"RIGHT")
-	        GameTooltip:SetText(this.text:GetText(), 1, .82, 0, 1)
-	    
+
+	local function EnableButtonTooltips(self, enable)
+		self.enabletooltips = enable
+	end
+
+	local function Button_OnEnter(this)
+		local self = this.obj
+		self:Fire("OnButtonEnter", this.uniquevalue, this)
+
+		if self.enabletooltips then
+			GameTooltip:SetOwner(this, "ANCHOR_NONE")
+			GameTooltip:SetPoint("LEFT",this,"RIGHT")
+			GameTooltip:SetText(this.text:GetText() or "", 1, .82, 0, 1)
+
 			GameTooltip:Show()
 		end
 	end
@@ -145,10 +155,15 @@ do
     
 	local buttoncount = 1
 	local function CreateButton(self)
-		local button = CreateFrame("Button",("AceGUI30TreeButton%d"):format(buttoncount),self.treeframe, WotLK and "OptionsListButtonTemplate" or "InterfaceOptionsButtonTemplate")
+		local button = CreateFrame("Button",("AceGUI30TreeButton%d"):format(buttoncount),self.treeframe, "OptionsListButtonTemplate")
 		buttoncount = buttoncount + 1
 		button.obj = self
-
+		
+		local icon = button:CreateTexture(nil, "OVERLAY")
+		icon:SetWidth(14)
+		icon:SetHeight(14)
+		button.icon = icon
+		
 		button:SetScript("OnClick",ButtonOnClick)
 		button:SetScript("OnDoubleClick", ButtonOnDoubleClick)
 		button:SetScript("OnEnter",Button_OnEnter)
@@ -165,6 +180,8 @@ do
 		local toggle = button.toggle
 		local frame = self.frame
 		local text = treeline.text or ""
+		local icon = treeline.icon
+		local iconCoords = treeline.iconCoords
 		local level = treeline.level
 		local value = treeline.value
 		local uniquevalue = treeline.uniquevalue
@@ -180,26 +197,17 @@ do
 			button:UnlockHighlight()
 			button.selected = false
 		end
-		local normalText = button.text
 		local normalTexture = button:GetNormalTexture()
 		local line = button.line
 		button.level = level
 		if ( level == 1 ) then
-			if WotLK then
-				button:SetNormalFontObject("GameFontNormal")
-			else
-				button:SetTextFontObject("GameFontNormal")
-			end
+			button:SetNormalFontObject("GameFontNormal")
 			button:SetHighlightFontObject("GameFontHighlight")
-			button.text:SetPoint("LEFT", 8, 2)
+			button.text:SetPoint("LEFT", (icon and 16 or 0) + 8, 2)
 		else
-			if WotLK then
-				button:SetNormalFontObject("GameFontHighlightSmall")
-			else
-				button:SetTextFontObject("GameFontHighlightSmall")
-			end
+			button:SetNormalFontObject("GameFontHighlightSmall")
 			button:SetHighlightFontObject("GameFontHighlightSmall")
-			button.text:SetPoint("LEFT", 8 * level, 2)
+			button.text:SetPoint("LEFT", (icon and 16 or 0) + 8 * level, 2)
 		end
 		
 		if disabled then
@@ -208,6 +216,19 @@ do
 		else
 			button.text:SetText(text)
 			button:EnableMouse(true)
+		end
+		
+		if icon then
+			button.icon:SetTexture(icon)
+			button.icon:SetPoint("LEFT", button, "LEFT", 8 * level, (level == 1) and 0 or 1)
+		else
+			button.icon:SetTexture(nil)
+		end
+		
+		if iconCoords then
+			button.icon:SetTexCoord(unpack(iconCoords))
+		else
+			button.icon:SetTexCoord(0, 1, 0, 1)
 		end
 		
 		if canExpand then
@@ -296,7 +317,8 @@ do
 			},
 		}
 	]]
-	local function SetTree(self, tree)
+	local function SetTree(self, tree, filter)
+		self.filter = filter
 		if tree then 
 			assert(type(tree) == "table") 
 		end
@@ -304,33 +326,54 @@ do
 		self:RefreshTree()
 	end
 	
+	local function ShouldDisplayLevel(tree)
+		local result = false
+		for k, v in ipairs(tree) do
+			if v.children == nil and v.visible ~= false then
+				result = true
+			elseif v.children then
+				result = result or ShouldDisplayLevel(v.children)
+			end
+			if result then return result end
+		end
+		return false
+	end
+	
+	local function addLine(self, v, tree, level, parent)
+		local line = new()
+		line.value = v.value
+		line.text = v.text
+		line.icon = v.icon
+		line.iconCoords = v.iconCoords
+		line.disabled = v.disabled
+		line.tree = tree
+		line.level = level
+		line.parent = parent
+		line.visible = v.visible
+		line.uniquevalue = GetButtonUniqueValue(line)
+		if v.children then
+			line.hasChildren = true
+		else
+			line.hasChildren = nil
+		end		
+		self.lines[#self.lines+1] = line
+		return line
+	end
+	
 	local function BuildLevel(self, tree, level, parent)
-		local lines = self.lines
-
-		local status = (self.status or self.localstatus)
-		local groups = status.groups
+		local groups = (self.status or self.localstatus).groups
 		local hasChildren = self.hasChildren
 		
 		for i, v in ipairs(tree) do
-			local line = new()
-			lines[#lines+1] = line
-			line.value = v.value
-			line.text = v.text
-			line.disabled = v.disabled
-			line.tree = tree
-			line.level = level
-			line.parent = parent
-			line.uniquevalue = GetButtonUniqueValue(line)
-			
 			if v.children then
-				line.hasChildren = true
-			else
-				line.hasChildren = nil
-			end
-			if v.children then
-				if groups[line.uniquevalue] then
-					self:BuildLevel(v.children, level+1, line)
+				if not self.filter or ShouldDisplayLevel(v.children) then
+					local line = addLine(self, v, tree, level, parent)
+					if groups[line.uniquevalue] then
+						self:BuildLevel(v.children, level+1, line)
+					end
 				end
+			elseif v.visible ~= false or not self.filter then
+				addLine(self, v, tree, level, parent)
 			end
 		end
 	end
@@ -347,7 +390,7 @@ do
 	end
 	
 	local function RefreshTree(self)
-		local buttons = self.buttons
+		local buttons = self.buttons 
 		local lines = self.lines
 		
 		for i, v in ipairs(buttons) do
@@ -373,7 +416,7 @@ do
 		
 		local numlines = #lines
 		
-		local maxlines = (math.floor(((self.treeframe:GetHeight()or 0) - 20 ) / 18))
+		local maxlines = (floor(((self.treeframe:GetHeight()or 0) - 20 ) / 18))
 		
 		local first, last
 		
@@ -446,6 +489,7 @@ do
 	end
 	
 	local function Select(self, uniquevalue, ...)
+		self.filter = false
 		local status = self.status or self.localstatus
 		local groups = status.groups
 		for i = 1, select('#', ...) do
@@ -462,7 +506,7 @@ do
 	
 	--Selects a tree node by UniqueValue
 	local function SelectByValue(self, uniquevalue)
-		self:Select(uniquevalue,string.split("\001", uniquevalue))
+		self:Select(uniquevalue, ("\001"):split(uniquevalue))
 	end
 	
 
@@ -485,6 +529,7 @@ do
 		local content = self.content
 		local treeframe = self.treeframe
 		local status = self.status or self.localstatus
+		status.fullwidth = width
 		
 		local contentwidth = width - status.treewidth - 20
 		if contentwidth < 0 then
@@ -493,7 +538,7 @@ do
 		content:SetWidth(contentwidth)
 		content.width = contentwidth
 		
-		local maxtreewidth = math.min(400, width - 50)
+		local maxtreewidth = math_min(400, width - 50)
 		
 		if maxtreewidth > 100 and status.treewidth > maxtreewidth then
 			self:SetTreeWidth(maxtreewidth, status.treesizable)
@@ -519,7 +564,7 @@ do
 			local scrollbar = self.scrollbar
 			local min, max = scrollbar:GetMinMaxValues()
 			local value = scrollbar:GetValue()
-			local newvalue = math.min(max,math.max(min,value - delta))
+			local newvalue = math_min(max,math_max(min,value - delta))
 			if value ~= newvalue then
 				scrollbar:SetValue(newvalue)
 			end
@@ -544,6 +589,11 @@ do
 		local status = self.status or self.localstatus
 		status.treewidth = treewidth
 		status.treesizable = resizable
+		
+		-- recalculate the content width
+		if status.fullwidth then
+			self:OnWidthSet(status.fullwidth)
+		end
 	end
 	
 	local function draggerLeave(this)
@@ -570,10 +620,20 @@ do
 		treeframe:SetHeight(0)
 		treeframe:SetPoint("TOPLEFT",frame,"TOPLEFT",0,0)
 		treeframe:SetPoint("BOTTOMLEFT",frame,"BOTTOMLEFT",0,0)
-		treeframe.obj:Fire("OnTreeResize",treeframe:GetWidth())
 		
 		local status = self.status or self.localstatus
 		status.treewidth = treeframe:GetWidth()
+		
+		treeframe.obj:Fire("OnTreeResize",treeframe:GetWidth())
+		-- recalculate the content width
+		treeframe.obj:OnWidthSet(status.fullwidth)
+		-- update the layout of the content
+		treeframe.obj:DoLayout()
+	end
+	
+	local function LayoutFinished(self, width, height)
+		if self.noAutoHeight then return end
+		self:SetHeight((height or 0) + 20)
 	end
 
 	local createdcount = 0
@@ -587,6 +647,7 @@ do
 		self.hasChildren = {}
 		self.localstatus = {}
 		self.localstatus.groups = {}
+		self.filter = false
 		
 		local treeframe = CreateFrame("Frame",nil,frame)
 		treeframe.obj = self
@@ -634,8 +695,10 @@ do
 		self.SelectByValue = SelectByValue
 		self.SelectByPath = SelectByPath
 		self.OnWidthSet = OnWidthSet
-		self.OnHeightSet = OnHeightSet		
+		self.OnHeightSet = OnHeightSet
 		self.EnableButtonTooltips = EnableButtonTooltips
+		--self.Filter = Filter
+		self.LayoutFinished = LayoutFinished
 		
 		self.frame = frame
 		frame.obj = self

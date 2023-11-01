@@ -1,5 +1,16 @@
 local AceGUI = LibStub("AceGUI-3.0")
 
+-- Lua APIs
+local select = select
+
+-- WoW APIs
+local PlaySound = PlaySound
+local CreateFrame, UIParent = CreateFrame, UIParent
+
+-- Global vars/functions that we don't upvalue since they might get hooked, or upgraded
+-- List them here for Mikk's FindGlobals script
+-- GLOBALS: SetDesaturation, GameFontHighlight
+
 --------------------------
 -- Check Box			--
 --------------------------
@@ -10,11 +21,14 @@ local AceGUI = LibStub("AceGUI-3.0")
 ]]
 do
 	local Type = "CheckBox"
-	local Version = 4
+	local Version = 16
 	
 	local function OnAcquire(self)
 		self:SetValue(false)
 		self.tristate = nil
+		self:SetHeight(24)
+		self:SetWidth(200)
+		self:SetImage()
 	end
 	
 	local function OnRelease(self)
@@ -26,21 +40,18 @@ do
 		self.checked = nil
 		self:SetType()
 		self:SetDisabled(false)
+		self:SetDescription(nil)
 	end
   
 	local function CheckBox_OnEnter(this)
 		local self = this.obj
-		if not self.disabled then
-			self.highlight:Show()
-		end
+		self.highlight:Show()
 		self:Fire("OnEnter")
 	end
 	
 	local function CheckBox_OnLeave(this)
 		local self = this.obj
-		if not self.down then
-			self.highlight:Hide()
-		end
+		self.highlight:Hide()
 		self:Fire("OnLeave")
 	end
 	
@@ -48,6 +59,13 @@ do
 		local self = this.obj
 		if not self.disabled then
 			self:ToggleChecked()
+			
+			if self.checked then
+				PlaySound("igMainMenuOptionCheckBoxOn")
+			else -- for both nil and false (tristate)
+				PlaySound("igMainMenuOptionCheckBoxOff")
+			end
+			
 			self:Fire("OnValueChanged",self.checked)
 			self.text:SetPoint("LEFT",self.check,"RIGHT",0,0)
 		end
@@ -66,9 +84,11 @@ do
 	local function SetDisabled(self,disabled)
 		self.disabled = disabled
 		if disabled then
+			self.frame:Disable()
 			self.text:SetTextColor(0.5,0.5,0.5)
 			SetDesaturation(self.check, true)
 		else
+			self.frame:Enable()
 			self.text:SetTextColor(1,1,1)
 			if self.tristate and self.checked == nil then
 				SetDesaturation(self.check, true)
@@ -83,23 +103,18 @@ do
 		self.checked = value
 		if value then
 			SetDesaturation(self.check, false)
-			check:SetWidth(24)
-			check:SetHeight(24)
 			self.check:Show()
 		else
 			--Nil is the unknown tristate value
 			if self.tristate and value == nil then
 				SetDesaturation(self.check, true)
-				check:SetWidth(20)
-				check:SetHeight(20)
 				self.check:Show()
 			else
 				SetDesaturation(self.check, false)
-				check:SetWidth(24)
-				check:SetHeight(24)
 				self.check:Hide()
 			end
 		end
+		SetDisabled(self, self.disabled)
 	end
 	
 	local function SetTriState(self, enabled)
@@ -117,16 +132,24 @@ do
 		local highlight = self.highlight
 	
 		if type == "radio" then
+			checkbg:SetHeight(16)
+			checkbg:SetWidth(16)
 			checkbg:SetTexture("Interface\\Buttons\\UI-RadioButton")
 			checkbg:SetTexCoord(0,0.25,0,1)
+			check:SetHeight(16)
+			check:SetWidth(16)
 			check:SetTexture("Interface\\Buttons\\UI-RadioButton")
-			check:SetTexCoord(0.5,0.75,0,1)
+			check:SetTexCoord(0.25,0.5,0,1)
 			check:SetBlendMode("ADD")
 			highlight:SetTexture("Interface\\Buttons\\UI-RadioButton")
 			highlight:SetTexCoord(0.5,0.75,0,1)
 		else
+			checkbg:SetHeight(24)
+			checkbg:SetWidth(24)
 			checkbg:SetTexture("Interface\\Buttons\\UI-CheckBox-Up")
 			checkbg:SetTexCoord(0,1,0,1)
+			check:SetHeight(24)
+			check:SetWidth(24)
 			check:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
 			check:SetTexCoord(0,1,0,1)
 			check:SetBlendMode("BLEND")
@@ -155,6 +178,65 @@ do
 		self.text:SetText(label)
 	end
 	
+	local function SetDescription(self, desc)
+		if desc then
+			if not self.desc then
+				local desc = self.frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+				desc:ClearAllPoints()
+				desc:SetPoint("TOPLEFT", self.check, "TOPRIGHT", 5, -21)
+				desc:SetWidth(self.frame.width - 30)
+				desc:SetJustifyH("LEFT")
+				desc:SetJustifyV("TOP")
+				self.desc = desc
+			end
+			self.desc:Show()
+			--self.text:SetFontObject(GameFontNormal)
+			self.desc:SetText(desc)
+			self:SetHeight(28 + self.desc:GetHeight())
+		else
+			if self.desc then
+				self.desc:SetText("")
+				self.desc:Hide()
+			end
+			self.text:SetFontObject(GameFontHighlight)
+			self:SetHeight(24)
+		end
+	end
+	
+	local function SetImage(self, path, ...)
+		local image = self.image
+		image:SetTexture(path)
+		
+		if image:GetTexture() then
+			local n = select('#', ...)
+			if n == 4 or n == 8 then
+				image:SetTexCoord(...)
+			else
+				image:SetTexCoord(0, 1, 0, 1)
+			end
+		end
+		self:AlignImage()
+	end
+	
+	local function AlignImage(self)
+		local img = self.image:GetTexture()
+		self.text:ClearAllPoints()
+		if not img then
+			self.text:SetPoint("LEFT", self.check, "RIGHT", 0, 0)
+			self.text:SetPoint("RIGHT", self.frame, "RIGHT", 0, 0)
+		else
+			self.text:SetPoint("LEFT", self.image,"RIGHT", 1, 0)
+			self.text:SetPoint("RIGHT", self.frame,"RIGHT", 0, 0)
+		end
+	end
+	
+	local function OnWidthSet(self, width)
+		if self.desc and self.desc:GetText() ~= "" and self.desc:GetText() ~= nil then
+			self.desc:SetWidth(width - 30)
+			self:SetHeight(28 + self.desc:GetHeight())
+		end
+	end
+	
 	local function Constructor()
 		local frame = CreateFrame("Button",nil,UIParent)
 		local self = {}
@@ -170,6 +252,10 @@ do
 		self.ToggleChecked = ToggleChecked
 		self.SetLabel = SetLabel
 		self.SetTriState = SetTriState
+		self.SetDescription = SetDescription
+		self.OnWidthSet = OnWidthSet
+		self.SetImage = SetImage
+		self.AlignImage = AlignImage
 		
 		self.frame = frame
 		frame.obj = self
@@ -186,7 +272,7 @@ do
 		self.checkbg = checkbg
 		checkbg:SetWidth(24)
 		checkbg:SetHeight(24)
-		checkbg:SetPoint("LEFT",frame,"LEFT",0,0)
+		checkbg:SetPoint("TOPLEFT",frame,"TOPLEFT",0,0)
 		checkbg:SetTexture("Interface\\Buttons\\UI-CheckBox-Up")
 		local check = frame:CreateTexture(nil,"OVERLAY")
 		self.check = check
@@ -195,12 +281,18 @@ do
 		check:SetPoint("CENTER",checkbg,"CENTER",0,0)
 		check:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
 	
-		local highlight = frame:CreateTexture(nil, "BACKGROUND")
+		local highlight = frame:CreateTexture(nil, "OVERLAY")
 		self.highlight = highlight
 		highlight:SetTexture("Interface\\Buttons\\UI-CheckBox-Highlight")
 		highlight:SetBlendMode("ADD")
 		highlight:SetAllPoints(checkbg)
 		highlight:Hide()
+		
+		local image = frame:CreateTexture(nil, "OVERLAY")
+		self.image = image
+		image:SetHeight(16)
+		image:SetWidth(16)
+		image:SetPoint("LEFT", check, "RIGHT", 1, 0)
 		
 		text:SetJustifyH("LEFT")
 		frame:SetHeight(24)
@@ -208,7 +300,7 @@ do
 		text:SetHeight(18)
 		text:SetPoint("LEFT",check,"RIGHT",0,0)
 		text:SetPoint("RIGHT",frame,"RIGHT",0,0)
-
+		
 		AceGUI:RegisterAsWidget(self)
 		return self
 	end

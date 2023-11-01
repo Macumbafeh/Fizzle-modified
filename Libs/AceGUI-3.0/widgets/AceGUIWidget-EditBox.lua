@@ -1,5 +1,37 @@
 local AceGUI = LibStub("AceGUI-3.0")
 
+-- Lua APIs
+local tostring = tostring
+
+-- WoW APIs
+local PlaySound = PlaySound
+local GetCursorInfo, ClearCursor, GetSpellName = GetCursorInfo, ClearCursor, GetSpellName
+local CreateFrame, UIParent = CreateFrame, UIParent
+local _G = _G
+
+-- Global vars/functions that we don't upvalue since they might get hooked, or upgraded
+-- List them here for Mikk's FindGlobals script
+-- GLOBALS: AceGUIEditBoxInsertLink, ChatFontNormal, OKAY
+
+local Type = "EditBox"
+local Version = 14
+
+if not AceGUIEditBoxInsertLink then
+	-- upgradeable hook
+	hooksecurefunc("ChatEdit_InsertLink", function(...) return _G.AceGUIEditBoxInsertLink(...) end)
+end
+
+function _G.AceGUIEditBoxInsertLink(text)
+	for i = 1, AceGUI:GetNextWidgetNum(Type)-1 do
+		local editbox = _G["AceGUI-3.0EditBox"..i]
+		if editbox and editbox:IsVisible() and editbox:HasFocus() then
+			editbox:Insert(text)
+			return true
+		end
+	end
+end
+
+
 --------------------------
 -- Edit box			 --
 --------------------------
@@ -10,11 +42,11 @@ local AceGUI = LibStub("AceGUI-3.0")
 
 ]]
 do
-	local Type = "EditBox"
-	local Version = 8
-
 	local function OnAcquire(self)
+		self:SetHeight(26)
+		self:SetWidth(200)
 		self:SetDisabled(false)
+		self:SetLabel()
 		self.showbutton = true
 	end
 	
@@ -22,6 +54,7 @@ do
 		self.frame:ClearAllPoints()
 		self.frame:Hide()
 		self:SetDisabled(false)
+		self:SetText()
 	end
 	
 	local function Control_OnEnter(this)
@@ -53,6 +86,7 @@ do
 		local value = this:GetText()
 		local cancel = self:Fire("OnEnterPressed",value)
 		if not cancel then
+			PlaySound("igMainMenuOptionCheckBoxOn")		
 			HideButton(self)
 		end
 	end
@@ -86,7 +120,7 @@ do
 	local function EditBox_OnTextChanged(this)
 		local self = this.obj
 		local value = this:GetText()
-		if value ~= self.lasttext then
+		if tostring(value) ~= tostring(self.lasttext) then
 			self:Fire("OnTextChanged",value)
 			self.lasttext = value
 			ShowButton(self)
@@ -114,21 +148,19 @@ do
 		HideButton(self)
 	end
 	
-	local function SetWidth(self, width)
-		self.frame:SetWidth(width)
-	end
-	
 	local function SetLabel(self, text)
 		if text and text ~= "" then
 			self.label:SetText(text)
 			self.label:Show()
 			self.editbox:SetPoint("TOPLEFT",self.frame,"TOPLEFT",7,-18)
-			self.frame:SetHeight(44)
+			self:SetHeight(44)
+			self.alignoffset = 30
 		else
 			self.label:SetText("")
 			self.label:Hide()
 			self.editbox:SetPoint("TOPLEFT",self.frame,"TOPLEFT",7,0)
-			self.frame:SetHeight(26)
+			self:SetHeight(26)
+			self.alignoffset = 12
 		end
 	end
 	
@@ -147,7 +179,6 @@ do
 
 		self.SetDisabled = SetDisabled
 		self.SetText = SetText
-		self.SetWidth = SetWidth
 		self.SetLabel = SetLabel
 		
 		self.frame = frame
