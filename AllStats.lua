@@ -265,12 +265,20 @@ clickableFrame4:SetScript("OnLeave", function()
 end)
 clickableFrame4:RegisterForClicks("AnyUp")
 
+--[[-- Defenses
+local Defenses = MyFrame:CreateTexture(nil, "OVERLAY")
+Defenses:SetSize(140, 22)
+Defenses:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\PaperDollInfoPart1.blp")
+Defenses:SetPoint("TOPLEFT", Spell, "TOPLEFT", 0, -110)
+Defenses:SetTexCoord(0, 0.7734375, 0.453125, 0.6015625)]]
+
 -- Defenses
 local Defenses = MyFrame:CreateTexture(nil, "OVERLAY")
 Defenses:SetSize(140, 22)
 Defenses:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\PaperDollInfoPart1.blp")
 Defenses:SetPoint("TOPLEFT", Spell, "TOPLEFT", 0, -110)
 Defenses:SetTexCoord(0, 0.7734375, 0.453125, 0.6015625)
+
 
 -- Create the DefensesText frame
 local DefensesText = CreateFrame("Frame", "DefensesText", UIParent, "StatFrameTemplate")

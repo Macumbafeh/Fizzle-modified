@@ -4,14 +4,13 @@
 ## Notes: Show item durability, gems, enchants text in the character frame and quality everywhere else.
 ## Notes-zhTW: 在角色視窗顯示耐久度。
 ## Notes-zhCN: 在人物装备栏中显示物品品质与耐久度。
-## Version: 20400-1
+## Version: 20400-2
 ## SavedVariablesPerCharacter: FizzleDB
 ## X-Category: Inventory
 ## X-Embeds: Ace3, LibCrayon-3.0
 ## X-RelSite-WoWI: 5018
 ## X-Website: http://phyber.wowinterface.com/
 ## X-WoWIPortal: phyber
-## RequiredDeps: !Compatibility
 ## OptionalDeps: Ace3, LibCrayon-3.0, Voyeur
 
 embeds.xml
