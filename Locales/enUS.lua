@@ -20,3 +20,8 @@ L["Show the repair cost minus the 10% faction discount."] = true
 -- Inspect.lua
 L["Inspect"] = true
 L["Show item quality when inspecting people."] = true
+
+L["Hide gem Text"] = true
+L["Hide gem stats text."] = true
+L["Hide enchant Text"] = true
+L["Hide enchant stats text."] = true
