@@ -1,4 +1,4 @@
-﻿## Interface: 20400
+﻿## Interface: 30300
 ## Title: Fizzle - modified
 ## Author: phyber - Modified by Macumba
 ## Notes: Show item durability, gems, enchants text in the character frame and quality everywhere else.
