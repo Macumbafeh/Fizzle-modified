@@ -3030,22 +3030,38 @@ else
 	local usedSockets = 0  -- Initialize count of used sockets
     for i = 1, tooltip:NumLines() do
         local line = _G["MyTooltipTextLeft"..i]:GetText()
-		print("Tooltip line", i, "pd:", line)  -- Print out the tooltip line for inspection
-        if line and string.find(line, "Socket") and not string.find(line, "Socket Bonus") then
-            socketCount = socketCount + 1
-			if string.find(line, "Meta Socket") then
+		local a, b = string.split("-", line) 
+
+    
+		-- print(a, line, a == "M√©ta" )
+		-- print(a == "MÈta", line)
+		-- print (a)
+		-- print(line, "Ch√¢sse rouge and M√©ta-ch√¢sse")
+		-- print("Tooltip line", i, ":", line)  -- Print out the tooltip line for inspection
+		-- print(a, b)
+		
+        if line and (string.find(line, "Socket") and not string.find(line, "Socket Bonus")) or ((string.find(line, "Ch√¢sse") or string.find(line, "Ch‚sse") or (a == "M√©ta") or (a == "MÈta")) and not string.find(line, "Bonus de sertissage")) then
+		socketCount = socketCount + 1
+        -- Match both French and English terms for socket colors
+			if string.find(line, "Meta Socket") or (a == "M√©ta") or (a == "MÈta") then
+				-- print("Detected meta socket")
 				table.insert(socketColors, "Meta")
-            elseif string.find(line, "Red Socket") then
-                table.insert(socketColors, "Red")
-            elseif string.find(line, "Blue Socket") then
-                table.insert(socketColors, "Blue")
-            elseif string.find(line, "Yellow Socket") then
-                table.insert(socketColors, "Yellow")
-            else
-                table.insert(socketColors, "Unknown")
-            end
+			elseif string.find(line, "Red Socket") or string.find(line, "Ch√¢sse rouge") or string.find(line, "Ch‚sse rouge") then
+				-- print("Detected red socket")
+				table.insert(socketColors, "Red")
+			elseif string.find(line, "Blue Socket") or string.find(line, "Ch√¢sse bleue") or string.find(line, "Ch‚sse bleue") then
+				-- print("Detected blue socket")
+				table.insert(socketColors, "Blue")
+			elseif string.find(line, "Yellow Socket") or string.find(line, "Ch√¢sse jaune") or string.find(line, "Ch‚sse jaune") then
+				-- print("Detected yellow socket")
+				table.insert(socketColors, "Yellow")
+			else
+				table.insert(socketColors, "Unknown")
+			end
         end
     end
+
+
 
 
     
@@ -3086,11 +3102,8 @@ else
     end
 
     -- Calculate the number of empty sockets
-    local emptySockets = math.max(0, socketCount - usedSockets)
-
-print("Socket count4:", socketCount)
-print("Socket used2:", usedSockets)
-
+    local emptySockets = socketCount - usedSockets
+	
     -- Second loop to deal with empty sockets
     for i = 1, emptySockets do
 				local socketColor = table.remove(socketColors) or "Unknown"

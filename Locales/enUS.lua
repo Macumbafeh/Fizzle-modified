@@ -25,3 +25,10 @@ L["Hide gem Text"] = true
 L["Hide gem stats text."] = true
 L["Hide enchant Text"] = true
 L["Hide enchant stats text."] = true
+
+L["Socket"] = "Socket"
+L["Socket Bonus"] = "Socket Bonus"
+L["Meta Socket"] = "Meta Socket"
+L["Red Socket"] = "Red Socket"
+L["Blue Socket"] = "Blue Socket"
+L["Yellow Socket"] = "Yellow Socket"
