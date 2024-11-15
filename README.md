@@ -4,8 +4,6 @@ Modified version with CloseUp/AllStats-modified/Oglow addons included for WOTLK 
 - It display also Gems and Enchants text in character frame.
 - Add a Background in the Character frame and Character Pet Frame.
 
-- It display also Gems and Enchants text in character frame.
-- Add a Background in the Character frame and Character Pet Frame.
 
 ## Features
 This is Fizzle addon with some other addons integrated and some other features :
