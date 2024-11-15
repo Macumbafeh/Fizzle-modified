@@ -4,6 +4,7 @@ Modified version with CloseUp/AllStats-modified/Oglow addons included for TBC 2.
 - It display also Gems and Enchants text in character frame.
 - Add a Background in the Character frame and Character Pet Frame.
 
+## Features
 This is Fizzle addon with some other addons integrated and some other features :
 
 - Default Fizzle feature : Show item durability and quality in the character frame and inspect frame.
