@@ -1,6 +1,7 @@
 -- Create the addon
 Fizzle = LibStub("AceAddon-3.0"):NewAddon("Fizzle", "AceEvent-3.0", "AceBucket-3.0", "AceHook-3.0", "AceConsole-3.0")
-local self, Fizzle = Fizzle, Fizzle							   
+local self, Fizzle = Fizzle, Fizzle		
+			   
 local defaults = {
 	profile = {
 		Percent = true,
@@ -10,6 +11,7 @@ local defaults = {
 		DisplayWhenFull = true,
 		gem = false,
 		enchant = false,
+		iLevel = true,
 		modules = {
 			["Inspect"] = true,
 		},
@@ -153,6 +155,15 @@ local function getOptions()
 				get = function() return db.HideEnchantText end,
 				set = function() db.HideEnchantText = not db.HideEnchantText end,
 			},
+			iLevel = {
+				name = L["Show iLevel Text"],
+				desc = L["Show iLevel stats text."],
+				type = "toggle",
+				order = 800,
+				width = "full",
+				get = function() return db.ShowiLevel end,
+				set = function() db.ShowiLevel = not db.ShowiLevel end,
+			},
 		}
 	}
 	return options
@@ -216,7 +227,7 @@ function Fizzle:CreateBorder(slottype, slot, name, hasText)
 		-- Strings for iLevels
 		local iLevelStr = gslot:CreateFontString(slot .. name .. "iLevel", "OVERLAY")
 		local font, _, flags = NumberFontNormal:GetFont()
-		iLevelStr:SetFont(font, fontSize, flags)
+		iLevelStr:SetFont(font, 14, flags)
 		iLevelStr:SetPoint("CENTER", gslot, "TOP", 0, -5)
 	end
 end
@@ -239,6 +250,8 @@ function Fizzle:MakeTypeTable()
 		"Finger0",
 		"Finger1",
 		"Neck",
+		"Trinket0",
+		"Trinket1",
 	}
          
 	-- Items without durability but with some quality, needed for border colouring.
@@ -2911,7 +2924,7 @@ local gemTextPositions = {
 	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 30, y = 10 },
 	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
 	Back = { point = "LEFT", relativePoint = "RIGHT", x = 27, y = 10 },
-	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 17, y = 12 },
+	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
 	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -22, y = 45 },
 	
 	
@@ -2965,6 +2978,17 @@ function table.reverse(arr)
         j = j - 1
     end
 end
+
+local function GetItemID(itemLink)
+    if itemLink then
+        local itemID = tonumber(string.match(itemLink, "item:(%d+)"))
+        return itemID
+    end
+    return nil
+end		
+
+
+
 
 function Fizzle:UpdateItems()
 	-- Don't update unless the charframe is open.
@@ -3208,6 +3232,45 @@ else
 			end
 		end
          
+		 -- iLevel
+		 if itemLink then
+                local itemID = GetItemID(itemLink)
+                local _, _, quality, iLevel = GetItemInfo(itemID)
+
+                if iLevel then
+                    local iLevelStr = _G[item .. "FizzleiLevel"] or str:GetParent():CreateFontString(item .. "FizzleiLevel", "OVERLAY")
+                    local font, fontSize, flags = NumberFontNormal:GetFont()
+                    iLevelStr:SetFont(font, fontSize, flags)
+
+                    -- Position the item level text
+                    iLevelStr:SetPoint("BOTTOMLEFT", str:GetParent(), "BOTTOMLEFT", 5, 23)
+
+                    -- Set the text color
+                    local r, g, b = GetItemQualityColor(quality)
+                    iLevelStr:SetTextColor(r, g, b)
+
+                    -- Set the item level text
+                    if db.ShowiLevel then
+                        iLevelStr:SetText(iLevel)
+                        iLevelStr:Show()
+                    else
+                        iLevelStr:Hide()
+                    end
+                else
+                    -- Hide the item level text if item info is not available yet
+                    local iLevelStr = _G[item .. "FizzleiLevel"]
+                    if iLevelStr then
+                        iLevelStr:Hide()
+                    end
+                end
+            else
+                -- Hide the item level text if there's no item
+                local iLevelStr = _G[item .. "FizzleiLevel"]
+                if iLevelStr then
+                    iLevelStr:Hide()
+                end
+            end
+			
 		-- Colour the borders of ND items
 		if db.Border then
 			self:ColourBordersND()
