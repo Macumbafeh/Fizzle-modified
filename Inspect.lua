@@ -90,6 +90,8 @@ function mod:UpdateBorders()
 					local r, g, b = GetItemQualityColor(quality)
 					border:SetVertexColor(r, g, b)
 					border:Show()
+					-- Set the text color
+                    iLevelStr:SetTextColor(r, g, b)
 					if Fizzle.db.profile.inspectiLevel then
 						iLevelStr:SetText(iLevel)
 						iLevelStr:Show()

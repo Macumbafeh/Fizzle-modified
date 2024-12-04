@@ -227,7 +227,7 @@ function Fizzle:CreateBorder(slottype, slot, name, hasText)
 		-- Strings for iLevels
 		local iLevelStr = gslot:CreateFontString(slot .. name .. "iLevel", "OVERLAY")
 		local font, _, flags = NumberFontNormal:GetFont()
-		iLevelStr:SetFont(font, 14, flags)
+		iLevelStr:SetFont(font, 16, flags)
 		iLevelStr:SetPoint("CENTER", gslot, "TOP", 0, -5)
 	end
 end
@@ -3240,10 +3240,10 @@ else
                 if iLevel then
                     local iLevelStr = _G[item .. "FizzleiLevel"] or str:GetParent():CreateFontString(item .. "FizzleiLevel", "OVERLAY")
                     local font, fontSize, flags = NumberFontNormal:GetFont()
-                    iLevelStr:SetFont(font, fontSize, flags)
+                    iLevelStr:SetFont(font, 13.5, flags)
 
                     -- Position the item level text
-                    iLevelStr:SetPoint("BOTTOMLEFT", str:GetParent(), "BOTTOMLEFT", 5, 23)
+                    iLevelStr:SetPoint("BOTTOMLEFT", str:GetParent(), "BOTTOMLEFT", 5, 24)
 
                     -- Set the text color
                     local r, g, b = GetItemQualityColor(quality)
@@ -3344,5 +3344,3 @@ function Fizzle:HideBorders()
 		end
 	end
 end
-
-
