@@ -25,3 +25,5 @@ L["Hide gem Text"] = true
 L["Hide gem stats text."] = true
 L["Hide enchant Text"] = true
 L["Hide enchant stats text."] = true
+L["Show iLevel Text"] = true
+L["Show iLevel stats text."] = true
