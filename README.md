@@ -26,3 +26,8 @@ Other Features :
 
 
 ![image](https://github.com/Macumbafeh/Fizzle-modified/assets/47739411/1c6b5adf-9360-454a-b4c9-6f523ed68f83)
+
+[new] added iLevel text on items and an option to enable/Disable
+
+![image](https://github.com/user-attachments/assets/e8924769-b016-4e73-a51f-931ce88fd155)
+
