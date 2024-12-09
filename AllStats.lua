@@ -484,6 +484,7 @@ local function ShowOrHideTexture()
 		clickableFrame2:Show()
 		clickableFrame:Show()
 		clickableFrame5:Show()
+		
     else
         texture:Hide()
 		texture2:Hide()
@@ -926,7 +927,7 @@ if AllStatsFrameStatRangeDamage:IsVisible() then
 	AllStatsFrameStatRangeHit:Hide()
 	AllStatsFrameStatRangeCrit:Hide()
 	Spell:SetPoint("TOPLEFT", Ranged, "TOPLEFT", 0, -19)
-	AllStatsFrameStatSpellDamage:SetPoint("TOPLEFT", AllStatsFrameStatRangeCrit, "BOTTOMLEFT", 0, 52)
+	AllStatsFrameStatSpellDamage:SetPoint("TOPLEFT", AllStatsFrameStat5, "BOTTOMLEFT", 0, -62)
 end
 end
 
