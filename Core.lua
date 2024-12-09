@@ -2921,7 +2921,7 @@ local enchantTextPositions = {
 local gemTextPositions = {
 	-- Left
     Head = { point = "LEFT", relativePoint = "RIGHT", x = 18, y = 12 },
-	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 30, y = 10 },
+	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 15, y = 10 },
 	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
 	Back = { point = "LEFT", relativePoint = "RIGHT", x = 27, y = 10 },
 	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
@@ -2931,8 +2931,8 @@ local gemTextPositions = {
 	-- Right
 	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
 	Waist = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
-	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 28 },
-	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 18 },
+	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
+	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
 	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 20 },
 	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 20 },
     
@@ -2947,17 +2947,17 @@ local gemTextPositions = {
 local emptysocketPositions = {
 	-- Left
     Head = { point = "LEFT", relativePoint = "RIGHT", x = 5, y = -10 },
-	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = -10 },
+	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 2, y = -10 },
 	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 5, y = 12 },
-	Back = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = -10 },
-	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 5, y = -10 },
+	Back = { point = "LEFT", relativePoint = "RIGHT", x = 5, y = -10 },
+	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 6, y = -10 },
 	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = 5, y = -10 },
 	
 	
 	-- Right
 	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 12 },
 	Waist = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 12 },
-	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 20 },
+	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 15 },
 	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 10 },
 	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
 	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
