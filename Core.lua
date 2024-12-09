@@ -3004,7 +3004,7 @@ function Fizzle:UpdateItems()
 			local v1, v2 = GetInventoryItemDurability(id)
 			v1, v2 = tonumber(v1) or 0, tonumber(v2) or 0
 			local percent = v1 / v2 * 100
-
+			local isDurabilityShown = false
 			if (((v2 ~= 0) and ((percent ~= 100) or db.DisplayWhenFull)) and not db.HideText) then
 				local text
 			
@@ -3024,9 +3024,11 @@ function Fizzle:UpdateItems()
 				end
 
 				str:SetText(text)
+				isDurabilityShown = true
 			else
 				-- No durability in slot, so hide the text.
 				str:SetText("")
+				isDurabilityShown = false
 			end
              
 			--Finally, colour the borders
@@ -3055,7 +3057,11 @@ else
     if enchantID and enchantID ~= "0" then
         if enchantText then
             -- Update enchant text
-            enchantStr:SetPoint(position.point, str, position.relativePoint, position.x, position.y)
+			if not isDurabilityShown then
+				enchantStr:SetPoint(position.point, str, position.relativePoint, position.x + 17, position.y + 11)
+			else
+				enchantStr:SetPoint(position.point, str, position.relativePoint, position.x, position.y + 11)
+            end
             enchantStr:SetTextColor(0.1, 0.9, 0.1, 1)
 			if not db.HideEnchantText then
 				enchantStr:SetText(enchantText)
@@ -3109,19 +3115,33 @@ else
 	local usedSockets = 0  -- Initialize count of used sockets
     for i = 1, tooltip:NumLines() do
         local line = _G["MyTooltipTextLeft"..i]:GetText()
-        if line and string.find(line, "Socket") and not string.find(line, "Socket Bonus") then
-            socketCount = socketCount + 1
-			if string.find(line, "Meta Socket") then
+        local a, b = string.split("-", line) 
+    
+		-- print(a, line, a == "MÃ©ta" )
+		-- print(a == "Méta", line)
+		-- print (a)
+		-- print(line, "ChÃ¢sse rouge and MÃ©ta-chÃ¢sse")
+		-- print("Tooltip line", i, ":", line)  -- Print out the tooltip line for inspection
+		-- print(a, b)
+		
+        if line and (string.find(line, "Socket") and not string.find(line, "Socket Bonus")) or ((string.find(line, "ChÃ¢sse") or string.find(line, "Châsse") or (a == "MÃ©ta") or (a == "Méta")) and not string.find(line, "Bonus de sertissage")) then
+		socketCount = socketCount + 1
+        -- Match both French and English terms for socket colors
+			if string.find(line, "Meta Socket") or (a == "MÃ©ta") or (a == "Méta") then
+				-- print("Detected meta socket")
 				table.insert(socketColors, "Meta")
-            elseif string.find(line, "Red Socket") then
-                table.insert(socketColors, "Red")
-            elseif string.find(line, "Blue Socket") then
-                table.insert(socketColors, "Blue")
-            elseif string.find(line, "Yellow Socket") then
-                table.insert(socketColors, "Yellow")
-            else
-                table.insert(socketColors, "Unknown")
-            end
+            elseif string.find(line, "Red Socket") or string.find(line, "ChÃ¢sse rouge") or string.find(line, "Châsse rouge") then
+				-- print("Detected red socket")
+				table.insert(socketColors, "Red")
+			elseif string.find(line, "Blue Socket") or string.find(line, "ChÃ¢sse bleue") or string.find(line, "Châsse bleue") then
+				-- print("Detected blue socket")
+				table.insert(socketColors, "Blue")
+			elseif string.find(line, "Yellow Socket") or string.find(line, "ChÃ¢sse jaune") or string.find(line, "Châsse jaune") then
+				-- print("Detected yellow socket")
+				table.insert(socketColors, "Yellow")
+			else
+				table.insert(socketColors, "Unknown")
+			end
         end
     end
 
@@ -3134,8 +3154,17 @@ else
             if gemAttributes[gemID] then
                 local gemStr = str:GetParent():CreateFontString(nil, "OVERLAY")
                 local font, _, flags = NumberFontNormal:GetFont()
+				-- Determine the anchor frame
+				local anchorFrame = str
+				local anchorPoint = position.relativePoint
+				if not isDurabilityShown then
+					gemStr:SetPoint(position.point, anchorFrame, position.relativePoint, position.x + 17, position.y + yOffset + 11)
+				else
+					gemStr:SetPoint(position.point, anchorFrame, position.relativePoint, position.x, position.y + yOffset + 11)
+				end
                 gemStr:SetFont(font, fontSize, flags)
-                gemStr:SetPoint(position.point, str, position.relativePoint, position.x, position.y + yOffset)
+
+                
                 gemStr:SetTextColor(1, 0.8, 0, 1)
 				if not db.HideGemText then
 					gemStr:SetText(gemAttributes[gemID])
@@ -3153,6 +3182,7 @@ else
 
                 table.insert(gemElements[item], gemStr)
                 table.insert(gemElements[item], gemImage)
+				
 				
                 yOffset = yOffset - 11  -- Move Y offset down for the next line
                 
@@ -3188,8 +3218,14 @@ else
                 gemImage:SetTexture(texturePath)
                 gemImage:SetWidth(12)
                 gemImage:SetHeight(12)
-                gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x, position.y + yOffset)
-				gemImage:Show()
+				if not isDurabilityShown then
+					gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x + 17, position.y + yOffset + 11)
+				
+				else
+					gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x, position.y + yOffset + 11)
+				
+				end
+                gemImage:Show()
 
                 table.insert(gemElements[item], gemImage)
                 socketCount = usedSockets - 1  -- Decrement remaining sockets to be displayed
@@ -3217,7 +3253,13 @@ else
                 gemImage:SetTexture(texturePath)
                 gemImage:SetWidth(12)
                 gemImage:SetHeight(12)
-                gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x, position.y + yOffset)
+               if not isDurabilityShown then
+					gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x + 17, position.y + yOffset + 11)
+				
+				else
+					gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x, position.y + yOffset + 11)
+				
+				end
 				gemImage:Show()
 
                 table.insert(gemElements[item], gemImage)
@@ -3240,10 +3282,16 @@ else
                 if iLevel then
                     local iLevelStr = _G[item .. "FizzleiLevel"] or str:GetParent():CreateFontString(item .. "FizzleiLevel", "OVERLAY")
                     local font, fontSize, flags = NumberFontNormal:GetFont()
-                    iLevelStr:SetFont(font, 13.5, flags)
-
+                    iLevelStr:SetFont(font, 13.5, "OUTLINE")
+					
                     -- Position the item level text
-                    iLevelStr:SetPoint("BOTTOMLEFT", str:GetParent(), "BOTTOMLEFT", 5, 24)
+					--[[ if not isDurabilityShown then
+						iLevelStr:SetPoint("BOTTOMLEFT", str:GetParent(), "BOTTOMLEFT", 7, 14)
+					else
+						iLevelStr:SetPoint("BOTTOMLEFT", str:GetParent(), "BOTTOMLEFT", 5, 24)
+					end ]]
+                   
+				   iLevelStr:SetPoint("BOTTOMLEFT", str:GetParent(), "BOTTOMLEFT", 7, 25)
 
                     -- Set the text color
                     local r, g, b = GetItemQualityColor(quality)
