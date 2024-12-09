@@ -322,13 +322,13 @@ DefenseFrame2:SetPoint("TOPLEFT", Defenses, "BOTTOMLEFT", 68.5, 120)
 DefenseFrame2:SetFrameStrata("LOW")
 
 local tframe = DefenseFrame2:CreateTexture(nil, "ARTWORK")
-tframe:SetTexture("Interface\\PaperDollInfoFrame\\UI-Character-General-BottomRight")
+tframe:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\UI-Character-General-BottomRight.blp")
 -- tframe:SetPoint("BOTTOM", MyFrame, "BOTTOM", 20, -37)
 tframe:SetAllPoints(DefenseFrame2)
 
 -- Top Right
 local tframe2 = MyFrame:CreateTexture(nil, "ARTWORK")
-tframe2:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\UI-Character-General-BottomRight.blp")
+tframe2:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\UI-Character-General-TopRight.blp")
 tframe2:SetPoint("TOP", MyFrame, "TOP", 20, 87)
 
 
