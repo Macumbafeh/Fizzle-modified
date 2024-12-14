@@ -109,7 +109,7 @@ _G[scrollbarName.."ScrollBar"]:SetBackdrop({
 -- BaseStat
 local BaseStat = MyFrame:CreateTexture(nil, "OVERLAY")
 BaseStat:SetSize(140, 22)
-BaseStat:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\PaperDollInfoPart1.blp")
+BaseStat:SetTexture("Interface\\AddOns\\AllStats\\PaperDollInfoPart1.blp")
 BaseStat:SetPoint("TOPLEFT", MyFrame, "TOPLEFT", 0, 5)
 BaseStat:SetTexCoord(0, 0.7734375, 0.453125, 0.6015625)
 
@@ -148,7 +148,7 @@ clickableFrame:RegisterForClicks("AnyUp")
 -- Melee
 local Melee = MyFrame:CreateTexture(nil, "OVERLAY")
 Melee:SetSize(140, 22)
-Melee:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\PaperDollInfoPart1.blp")
+Melee:SetTexture("Interface\\AddOns\\AllStats\\PaperDollInfoPart1.blp")
 Melee:SetPoint("TOPLEFT", MyFrame, "TOPLEFT", 0, -93)
 Melee:SetTexCoord(0, 0.7734375, 0.453125, 0.6015625)
 
@@ -188,7 +188,7 @@ clickableFrame2:RegisterForClicks("AnyUp")
 -- Ranged
 local Ranged = MyFrame:CreateTexture(nil, "OVERLAY")
 Ranged:SetSize(140, 22)
-Ranged:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\PaperDollInfoPart1.blp")
+Ranged:SetTexture("Interface\\AddOns\\AllStats\\PaperDollInfoPart1.blp")
 Ranged:SetPoint("TOPLEFT", Melee, "TOPLEFT", 0, -111)
 Ranged:SetTexCoord(0, 0.7734375, 0.453125, 0.6015625)
 
@@ -228,7 +228,7 @@ clickableFrame3:RegisterForClicks("AnyUp")
 -- Spell
 local Spell = MyFrame:CreateTexture(nil, "OVERLAY")
 Spell:SetSize(140, 22)
-Spell:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\PaperDollInfoPart1.blp")
+Spell:SetTexture("Interface\\AddOns\\AllStats\\PaperDollInfoPart1.blp")
 Spell:SetPoint("TOPLEFT", Ranged, "TOPLEFT", 0, -92)
 Spell:SetTexCoord(0, 0.7734375, 0.453125, 0.6015625)
 
@@ -265,20 +265,12 @@ clickableFrame4:SetScript("OnLeave", function()
 end)
 clickableFrame4:RegisterForClicks("AnyUp")
 
---[[-- Defenses
-local Defenses = MyFrame:CreateTexture(nil, "OVERLAY")
-Defenses:SetSize(140, 22)
-Defenses:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\PaperDollInfoPart1.blp")
-Defenses:SetPoint("TOPLEFT", Spell, "TOPLEFT", 0, -110)
-Defenses:SetTexCoord(0, 0.7734375, 0.453125, 0.6015625)]]
-
 -- Defenses
 local Defenses = MyFrame:CreateTexture(nil, "OVERLAY")
 Defenses:SetSize(140, 22)
-Defenses:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\PaperDollInfoPart1.blp")
+Defenses:SetTexture("Interface\\AddOns\\AllStats\\PaperDollInfoPart1.blp")
 Defenses:SetPoint("TOPLEFT", Spell, "TOPLEFT", 0, -110)
 Defenses:SetTexCoord(0, 0.7734375, 0.453125, 0.6015625)
-
 
 -- Create the DefensesText frame
 local DefensesText = CreateFrame("Frame", "DefensesText", UIParent, "StatFrameTemplate")
@@ -322,13 +314,13 @@ DefenseFrame2:SetPoint("TOPLEFT", Defenses, "BOTTOMLEFT", 68.5, 120)
 DefenseFrame2:SetFrameStrata("LOW")
 
 local tframe = DefenseFrame2:CreateTexture(nil, "ARTWORK")
-tframe:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\UI-Character-General-BottomRight.blp")
+tframe:SetTexture("Interface\\AddOns\\AllStats\\UI-Character-General-BottomRight.blp")
 -- tframe:SetPoint("BOTTOM", MyFrame, "BOTTOM", 20, -37)
 tframe:SetAllPoints(DefenseFrame2)
 
 -- Top Right
 local tframe2 = MyFrame:CreateTexture(nil, "ARTWORK")
-tframe2:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\UI-Character-General-TopRight.blp")
+tframe2:SetTexture("Interface\\AddOns\\AllStats\\UI-Character-General-TopRight.blp")
 tframe2:SetPoint("TOP", MyFrame, "TOP", 20, 87)
 
 
@@ -339,13 +331,13 @@ DefenseFrame3:SetPoint("TOPLEFT", Ranged, "BOTTOMLEFT", 68.5, 210)
 DefenseFrame3:SetFrameStrata("LOW")
 
 local tframe3 = DefenseFrame3:CreateTexture(nil, "ARTWORK")
-tframe3:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\UI-Character-General-BottomRight1.blp")
+tframe3:SetTexture("Interface\\AddOns\\AllStats\\UI-Character-General-BottomRight1.blp")
 -- tframe3:SetPoint("TOP", MyFrame, "TOP", 20, -80)
 tframe3:SetAllPoints(DefenseFrame3)
 
 -- Middle Right
 --[[local tframe3bis = MyFrame:CreateTexture(nil, "ARTWORK")
-tframe3bis:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\UI-Character-General-BottomRight1.blp")
+tframe3bis:SetTexture("Interface\\AddOns\\AllStats\\UI-Character-General-BottomRight1.blp")
 tframe3bis:SetPoint("TOP", MyFrame, "TOP", 20, -160)]]
 
 -- Bottom Left
@@ -355,7 +347,7 @@ DefenseFrame:SetPoint("TOPLEFT", Defenses, "BOTTOMLEFT", -65, 120)
 DefenseFrame:SetFrameStrata("LOW")
 
 local tframe4 = DefenseFrame:CreateTexture(nil, "ARTWORK")
-tframe4:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\UI-Character-General-middleLeft2.blp")
+tframe4:SetTexture("Interface\\AddOns\\AllStats\\UI-Character-General-middleLeft2.blp")
 -- tframe4:SetTexture("Interface\\PaperDollInfoFrame\\UI-Character-General-BottomLeft")
 -- tframe4:SetPoint("BOTTOM", DefenseFrame, "BOTTOM", -80, -37)
 tframe4:SetAllPoints(DefenseFrame)
@@ -368,18 +360,18 @@ DefenseFrame5:SetPoint("TOPLEFT", Ranged, "BOTTOMLEFT", 0, 210)
 DefenseFrame5:SetFrameStrata("LOW")
 
 local tframe5 = DefenseFrame5:CreateTexture(nil, "ARTWORK")
-tframe5:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\UI-Character-General-middleLeft.blp")
+tframe5:SetTexture("Interface\\AddOns\\AllStats\\UI-Character-General-middleLeft.blp")
 -- tframe5:SetPoint("BOTTOM", MyFrame, "BOTTOM", -50, 180)
 tframe5:SetAllPoints(DefenseFrame5)
 
 -- Middle Left
 --[[local tframe5bis = MyFrame:CreateTexture(nil, "ARTWORK")
-tframe5bis:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\UI-Character-General-middleLeft.blp")
+tframe5bis:SetTexture("Interface\\AddOns\\AllStats\\UI-Character-General-middleLeft.blp")
 tframe5bis:SetPoint("BOTTOM", MyFrame, "BOTTOM", -50, 100)]]
 
 -- Top Left
 local tframe6 = MyFrame:CreateTexture(nil, "ARTWORK")
-tframe6:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\UI-Character-General-BottomRight2.blp")
+tframe6:SetTexture("Interface\\AddOns\\AllStats\\UI-Character-General-BottomRight2.blp")
 tframe6:SetPoint("BOTTOM", MyFrame, "BOTTOM", -50, 343)
 
 
@@ -479,11 +471,6 @@ local function ShowOrHideTexture()
 		tframe4:Show()
 		tframe5:Show()
 		tframe6:Show()
-		clickableFrame4:Show()
-		clickableFrame3:Show()
-		clickableFrame2:Show()
-		clickableFrame:Show()
-		clickableFrame5:Show()
 		
     else
         texture:Hide()
@@ -507,11 +494,6 @@ local function ShowOrHideTexture()
 		tframe4:Hide()
 		tframe5:Hide()
 		tframe6:Hide()
-		clickableFrame4:Hide()
-		clickableFrame3:Hide()
-		clickableFrame2:Hide()
-		clickableFrame:Hide()
-		clickableFrame5:Hide()
     end
 end
 
@@ -521,15 +503,15 @@ local function UpdateTexture(texture)
 
     -- Your mapping from class and spec to texture
     local textureMap = {
-        WARRIOR = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorArms-TopLeft.blp",
-        SHAMAN = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\ShamanRestoration-TopLeft.blp",
-		PALADIN = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\PaladinProtection-TopLeft.blp",
-        HUNTER = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterBeastMastery-TopLeft.blp",
-		ROGUE = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\RogueSubtlety-TopLeft.blp",
-        MAGE = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\MageArcane-TopLeft.blp",
-		WARLOCK = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarlockSummoning-TopLeft.blp",
-        PRIEST = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\PriestDiscipline-TopLeft.blp",
-		DRUID = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\DruidBalance-TopLeft.blp",
+        WARRIOR = "Interface\\AddOns\\AllStats\\Talent\\WarriorArms-TopLeft.blp",
+        SHAMAN = "Interface\\AddOns\\AllStats\\Talent\\ShamanRestoration-TopLeft.blp",
+		PALADIN = "Interface\\AddOns\\AllStats\\Talent\\PaladinProtection-TopLeft.blp",
+        HUNTER = "Interface\\AddOns\\AllStats\\Talent\\HunterBeastMastery-TopLeft.blp",
+		ROGUE = "Interface\\AddOns\\AllStats\\Talent\\RogueSubtlety-TopLeft.blp",
+        MAGE = "Interface\\AddOns\\AllStats\\Talent\\MageArcane-TopLeft.blp",
+		WARLOCK = "Interface\\AddOns\\AllStats\\Talent\\WarlockSummoning-TopLeft.blp",
+        PRIEST = "Interface\\AddOns\\AllStats\\Talent\\PriestDiscipline-TopLeft.blp",
+		DRUID = "Interface\\AddOns\\AllStats\\Talent\\DruidBalance-TopLeft.blp",
         -- etc.
     }
 
@@ -539,7 +521,7 @@ local function UpdateTexture(texture)
 		texture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     else
         -- Default texture if class is not found in the map
-        texture:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\nightelf_1.blp")
+        texture:SetTexture("Interface\\AddOns\\AllStats\\nightelf_1.blp")
     end
 end
 
@@ -548,15 +530,15 @@ local function UpdateTexture2(texture2)
 
     -- Your mapping from class and spec to texture
     local textureMap2 = {
-        WARRIOR = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorFury-TopLeft.blp",
-        SHAMAN = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\ShamanElementalCombat-TopLeft.blp",
-		PALADIN = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\PaladinCombat-TopLeft.blp",
-        HUNTER = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterSurvival-TopLeft.blp",
-		ROGUE = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\RogueAssassination-TopLeft.blp",
-        MAGE = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\MageFire-TopLeft.blp",
-		WARLOCK = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarlockCurses-TopLeft.blp",
-        PRIEST = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\PriestHoly-TopLeft.blp",
-		DRUID = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\DruidFeralCombat-TopLeft.blp",
+        WARRIOR = "Interface\\AddOns\\AllStats\\Talent\\WarriorFury-TopLeft.blp",
+        SHAMAN = "Interface\\AddOns\\AllStats\\Talent\\ShamanElementalCombat-TopLeft.blp",
+		PALADIN = "Interface\\AddOns\\AllStats\\Talent\\PaladinCombat-TopLeft.blp",
+        HUNTER = "Interface\\AddOns\\AllStats\\Talent\\HunterSurvival-TopLeft.blp",
+		ROGUE = "Interface\\AddOns\\AllStats\\Talent\\RogueAssassination-TopLeft.blp",
+        MAGE = "Interface\\AddOns\\AllStats\\Talent\\MageFire-TopLeft.blp",
+		WARLOCK = "Interface\\AddOns\\AllStats\\Talent\\WarlockCurses-TopLeft.blp",
+        PRIEST = "Interface\\AddOns\\AllStats\\Talent\\PriestHoly-TopLeft.blp",
+		DRUID = "Interface\\AddOns\\AllStats\\Talent\\DruidFeralCombat-TopLeft.blp",
     }
 
 
@@ -566,7 +548,7 @@ local function UpdateTexture2(texture2)
 		texture2:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     else
         -- Default texture if class is not found in the map
-        texture2:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\nightelf_1.blp")
+        texture2:SetTexture("Interface\\AddOns\\AllStats\\nightelf_1.blp")
     end
 end
 
@@ -575,15 +557,15 @@ local function UpdateTexture3(texture3)
 
     -- Your mapping from class and spec to texture
     local textureMap3 = {
-        WARRIOR = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterMarksmanship-TopLeft.blp",
-        SHAMAN = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterMarksmanship-TopLeft.blp",
-		PALADIN = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterMarksmanship-TopLeft.blp",
-		HUNTER = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterMarksmanship-TopLeft.blp",
-		ROGUE = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterMarksmanship-TopLeft.blp",
-        MAGE = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterMarksmanship-TopLeft.blp",
-		WARLOCK = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterMarksmanship-TopLeft.blp",
-        PRIEST = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterMarksmanship-TopLeft.blp",
-		DRUID = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterMarksmanship-TopLeft.blp",
+        WARRIOR = "Interface\\AddOns\\AllStats\\Talent\\HunterMarksmanship-TopLeft.blp",
+        SHAMAN = "Interface\\AddOns\\AllStats\\Talent\\HunterMarksmanship-TopLeft.blp",
+		PALADIN = "Interface\\AddOns\\AllStats\\Talent\\HunterMarksmanship-TopLeft.blp",
+		HUNTER = "Interface\\AddOns\\AllStats\\Talent\\HunterMarksmanship-TopLeft.blp",
+		ROGUE = "Interface\\AddOns\\AllStats\\Talent\\HunterMarksmanship-TopLeft.blp",
+        MAGE = "Interface\\AddOns\\AllStats\\Talent\\HunterMarksmanship-TopLeft.blp",
+		WARLOCK = "Interface\\AddOns\\AllStats\\Talent\\HunterMarksmanship-TopLeft.blp",
+        PRIEST = "Interface\\AddOns\\AllStats\\Talent\\HunterMarksmanship-TopLeft.blp",
+		DRUID = "Interface\\AddOns\\AllStats\\Talent\\HunterMarksmanship-TopLeft.blp",
     }
 
     -- Update the texture
@@ -592,7 +574,7 @@ local function UpdateTexture3(texture3)
 		texture3:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     else
         -- Default texture if class is not found in the map
-        texture3:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterMarksmanship-TopLeft.blp")
+        texture3:SetTexture("Interface\\AddOns\\AllStats\\Talent\\HunterMarksmanship-TopLeft.blp")
     end
 end
 
@@ -601,15 +583,15 @@ local function UpdateTexture4(texture4)
 
     -- Your mapping from class and spec to texture
     local textureMap4 = {
-        WARRIOR = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\ShamanEnhancement-TopLeft.blp",
-        SHAMAN = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\ShamanEnhancement-TopLeft.blp",
-		PALADIN = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\ShamanEnhancement-TopLeft.blp",
-        HUNTER = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\ShamanEnhancement-TopLeft.blp",
-		ROGUE = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\ShamanEnhancement-TopLeft.blp",
-        MAGE = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\MageFrost-TopLeft.blp",
-		WARLOCK = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarlockDestruction-TopLeft.blp",
-        PRIEST = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\PriestShadow-TopLeft.blp",
-		DRUID = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\DruidRestoration-TopLeft.blp",
+        WARRIOR = "Interface\\AddOns\\AllStats\\Talent\\ShamanEnhancement-TopLeft.blp",
+        SHAMAN = "Interface\\AddOns\\AllStats\\Talent\\ShamanEnhancement-TopLeft.blp",
+		PALADIN = "Interface\\AddOns\\AllStats\\Talent\\ShamanEnhancement-TopLeft.blp",
+        HUNTER = "Interface\\AddOns\\AllStats\\Talent\\ShamanEnhancement-TopLeft.blp",
+		ROGUE = "Interface\\AddOns\\AllStats\\Talent\\ShamanEnhancement-TopLeft.blp",
+        MAGE = "Interface\\AddOns\\AllStats\\Talent\\MageFrost-TopLeft.blp",
+		WARLOCK = "Interface\\AddOns\\AllStats\\Talent\\WarlockDestruction-TopLeft.blp",
+        PRIEST = "Interface\\AddOns\\AllStats\\Talent\\PriestShadow-TopLeft.blp",
+		DRUID = "Interface\\AddOns\\AllStats\\Talent\\DruidRestoration-TopLeft.blp",
     }
 
 
@@ -619,7 +601,7 @@ local function UpdateTexture4(texture4)
 		texture4:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     else
         -- Default texture if class is not found in the map
-        texture4:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\Talent\\ShamanEnhancement-TopLeft.blp")
+        texture4:SetTexture("Interface\\AddOns\\AllStats\\Talent\\ShamanEnhancement-TopLeft.blp")
     end
 end
 
@@ -628,15 +610,15 @@ local function UpdateTexture5(texture5)
 
     -- Your mapping from class and spec to texture
     local textureMap5 = {
-        WARRIOR = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorProtection-TopLeft.blp",
-        SHAMAN = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorProtection-TopLeft.blp",
-		PALADIN = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorProtection-TopLeft.blp",
-		HUNTER = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorProtection-TopLeft.blp",
-		ROGUE = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorProtection-TopLeft.blp",
-        MAGE = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorProtection-TopLeft.blp",
-		WARLOCK = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorProtection-TopLeft.blp",
-        PRIEST = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorProtection-TopLeft.blp",
-		DRUID = "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorProtection-TopLeft.blp",
+        WARRIOR = "Interface\\AddOns\\AllStats\\Talent\\WarriorProtection-TopLeft.blp",
+        SHAMAN = "Interface\\AddOns\\AllStats\\Talent\\WarriorProtection-TopLeft.blp",
+		PALADIN = "Interface\\AddOns\\AllStats\\Talent\\WarriorProtection-TopLeft.blp",
+		HUNTER = "Interface\\AddOns\\AllStats\\Talent\\WarriorProtection-TopLeft.blp",
+		ROGUE = "Interface\\AddOns\\AllStats\\Talent\\WarriorProtection-TopLeft.blp",
+        MAGE = "Interface\\AddOns\\AllStats\\Talent\\WarriorProtection-TopLeft.blp",
+		WARLOCK = "Interface\\AddOns\\AllStats\\Talent\\WarriorProtection-TopLeft.blp",
+        PRIEST = "Interface\\AddOns\\AllStats\\Talent\\WarriorProtection-TopLeft.blp",
+		DRUID = "Interface\\AddOns\\AllStats\\Talent\\WarriorProtection-TopLeft.blp",
     }
 
     -- Update the texture
@@ -645,15 +627,15 @@ local function UpdateTexture5(texture5)
 		texture5:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     else
         -- Default texture if class is not found in the map
-        texture5:SetTexture("Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorProtection-TopLeft.blp")
-		-- ranged "Interface\\AddOns\\Fizzle\\Textures\\Talent\\HunterMarksmanship-TopLeft.blp",
-		-- spell "Interface\\AddOns\\Fizzle\\Textures\\Talent\\ShamanEnhancement-TopLeft.blp",
-		-- Defenses "Interface\\AddOns\\Fizzle\\Textures\\Talent\\WarriorProtection-TopLeft.blp",
+        texture5:SetTexture("Interface\\AddOns\\AllStats\\Talent\\WarriorProtection-TopLeft.blp")
+		-- ranged "Interface\\AddOns\\AllStats\\Talent\\HunterMarksmanship-TopLeft.blp",
+		-- spell "Interface\\AddOns\\AllStats\\Talent\\ShamanEnhancement-TopLeft.blp",
+		-- Defenses "Interface\\AddOns\\AllStats\\Talent\\WarriorProtection-TopLeft.blp",
     end
 end
 
 local function OnEvent(self, event, arg1)
-    if event == "ADDON_LOADED" and arg1 == "Fizzle" then
+    if event == "ADDON_LOADED" and arg1 == "AllStats" then
         if AllStatsFrame then
             frame1 = CreateFrame("Frame", "MyNewFrame", UIParent)
             frame1:SetSize(135, 102)
@@ -793,6 +775,11 @@ clickableFrame2:SetScript("OnClick", function(self, button)
 			AllStatsFrameStatMeleeExpert:Show()
 			Ranged:SetPoint("TOPLEFT", Melee, "TOPLEFT", 0, -111)
 			AllStatsFrameStatRangeDamage:SetPoint("TOPLEFT", AllStatsFrameStatMeleeExpert, "BOTTOMLEFT", 0, -21.5)
+			if not AllStatsFrameStatRangeDamage:IsVisible() then
+				AllStatsFrameStatSpellDamage:SetPoint("TOPLEFT", clickableFrame4, "BOTTOMLEFT", 40, 1)
+			else
+				AllStatsFrameStatSpellDamage:SetPoint("TOPLEFT", clickableFrame4, "BOTTOMLEFT", 40, 1)
+			end
 		end
     end
 end)
@@ -817,7 +804,7 @@ clickableFrame3:SetScript("OnClick", function(self, button)
 			AllStatsFrameStatRangeHit:Hide()
 			AllStatsFrameStatRangeCrit:Hide()
 			Spell:SetPoint("TOPLEFT", Ranged, "TOPLEFT", 0, -19)
-			AllStatsFrameStatSpellDamage:SetPoint("TOPLEFT", AllStatsFrameStatRangeCrit, "BOTTOMLEFT", 0, 52)
+			AllStatsFrameStatSpellDamage:SetPoint("TOPLEFT", clickableFrame4, "BOTTOMLEFT", 40, 1)
 		else
 			frame3:Show()
 			texture3:Show()
@@ -827,7 +814,7 @@ clickableFrame3:SetScript("OnClick", function(self, button)
 			AllStatsFrameStatRangeHit:Show()
 			AllStatsFrameStatRangeCrit:Show()
 			Spell:SetPoint("TOPLEFT", Ranged, "TOPLEFT", 0, -92)
-			AllStatsFrameStatSpellDamage:SetPoint("TOPLEFT", AllStatsFrameStatRangeCrit, "BOTTOMLEFT", 0, -21)
+			AllStatsFrameStatSpellDamage:SetPoint("TOPLEFT", clickableFrame4, "BOTTOMLEFT", 40, 1)
 		end
     end
 end)
