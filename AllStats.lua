@@ -728,6 +728,11 @@ clickableFrame:SetScript("OnClick", function(self, button)
 			AllStatsFrameStat5:Hide()
 			Melee:SetPoint("TOPLEFT", MyFrame, "TOPLEFT", 0, -14)
 			AllStatsFrameStatMeleeDamage:SetPoint("TOPLEFT", AllStatsFrameStat5, "BOTTOMLEFT", 0, 56)
+			if not AllStatsFrameStat1:IsVisible() then
+				AllStatsFrameStatSpellDamage:SetPoint("TOPLEFT", clickableFrame4, "BOTTOMLEFT", 40, 1)
+			else
+				AllStatsFrameStatSpellDamage:SetPoint("TOPLEFT", clickableFrame4, "BOTTOMLEFT", 40, 1)
+			end
 		else
 			frame1:Show()
 			texture:Show()
@@ -738,6 +743,7 @@ clickableFrame:SetScript("OnClick", function(self, button)
 			AllStatsFrameStat5:Show()
 			Melee:SetPoint("TOPLEFT", MyFrame, "TOPLEFT", 0, -93)
 			AllStatsFrameStatMeleeDamage:SetPoint("TOPLEFT", AllStatsFrameStat5, "BOTTOMLEFT", 0, -24)
+			
 		end
 	end
 end)
