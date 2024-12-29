@@ -2905,7 +2905,7 @@ local enchantTextPositions = {
 	
 	-- Right
 	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -7 },
-	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
+	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -7 },
 	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
 	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
 	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
@@ -2931,7 +2931,7 @@ local gemTextPositions = {
 	-- Right
 	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
 	Waist = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
-	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
+	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 15 },
 	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
 	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 20 },
 	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 20 },
@@ -3058,7 +3058,11 @@ else
         if enchantText then
             -- Update enchant text
 			if not isDurabilityShown then
-				enchantStr:SetPoint(position.point, str, position.relativePoint, position.x + 17, position.y + 11)
+				if position and position.point == "RIGHT" then
+					enchantStr:SetPoint(position.point, str, position.relativePoint, position.x - 15, position.y + 11)
+				elseif position and position.point == "LEFT" then
+					enchantStr:SetPoint(position.point, str, position.relativePoint, position.x + 15, position.y + 11)
+				end
 			else
 				enchantStr:SetPoint(position.point, str, position.relativePoint, position.x, position.y + 11)
             end
@@ -3158,7 +3162,11 @@ else
 				local anchorFrame = str
 				local anchorPoint = position.relativePoint
 				if not isDurabilityShown then
-					gemStr:SetPoint(position.point, anchorFrame, position.relativePoint, position.x + 17, position.y + yOffset + 11)
+					if position and position.point == "RIGHT" then
+						gemStr:SetPoint(position.point, anchorFrame, position.relativePoint, position.x - 15, position.y + yOffset + 11)
+					elseif position and position.point == "LEFT" then
+						gemStr:SetPoint(position.point, anchorFrame, position.relativePoint, position.x + 15, position.y + yOffset + 11)
+					end
 				else
 					gemStr:SetPoint(position.point, anchorFrame, position.relativePoint, position.x, position.y + yOffset + 11)
 				end
@@ -3219,8 +3227,11 @@ else
                 gemImage:SetWidth(12)
                 gemImage:SetHeight(12)
 				if not isDurabilityShown then
-					gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x + 17, position.y + yOffset + 11)
-				
+					if position and position.point == "RIGHT" then
+						gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x - 15, position.y + yOffset + 11)
+					elseif position and position.point == "LEFT" then
+						gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x + 15, position.y + yOffset + 11)
+					end
 				else
 					gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x, position.y + yOffset + 11)
 				
@@ -3254,8 +3265,11 @@ else
                 gemImage:SetWidth(12)
                 gemImage:SetHeight(12)
                if not isDurabilityShown then
-					gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x + 17, position.y + yOffset + 11)
-				
+					if position and position.point == "RIGHT" then
+						gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x - 15, position.y + yOffset + 11)
+					elseif position and position.point == "LEFT" then
+						gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x + 15, position.y + yOffset + 11)
+					end
 				else
 					gemImage:SetPoint(emptySocketPosition.point, str, emptySocketPosition.relativePoint, emptySocketPosition.x, position.y + yOffset + 11)
 				
