@@ -2898,8 +2898,8 @@ local enchantTextPositions = {
 	-- left
     Head = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
 	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
-	Back = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 25 },
-	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
+	Back = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = -13 },
+	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = -23 },
 	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -35, y = -15 },
 	
 	
@@ -2923,7 +2923,7 @@ local gemTextPositions = {
     Head = { point = "LEFT", relativePoint = "RIGHT", x = 18, y = 12 },
 	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 15, y = 10 },
 	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
-	Back = { point = "LEFT", relativePoint = "RIGHT", x = 27, y = 10 },
+	Back = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 10 },
 	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
 	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -22, y = 45 },
 	
