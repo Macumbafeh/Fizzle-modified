@@ -2900,7 +2900,7 @@ local enchantTextPositions = {
 	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
 	Back = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = -13 },
 	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = -23 },
-	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -35, y = -15 },
+	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -35, y = -25 },
 	
 	
 	-- Right
