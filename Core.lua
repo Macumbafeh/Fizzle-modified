@@ -3509,23 +3509,24 @@ local gemImagesByID = {
 
 local enchantTextPositions = {
 	-- left
-    Head = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
-	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 25 },
-	Back = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = -13 },
-	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = -23 },
+    Head = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 17 },
+	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 13 },
+	Back = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 10 },
+	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 13 },
 	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -35, y = -25 },
 	
 	
 	-- Right
-	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -7 },
-	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -7 },
-	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = -5 },
-	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
-	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 10 },
+	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 16 },
+	Waist = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 16 },
+	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 18 },
+	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 15 },
+	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 15 },
+	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 15 },
     
 		
 	-- Bottom
-	MainHand = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = -10 },
+	MainHand = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = -12 },
 	SecondaryHand = { point = "LEFT", relativePoint = "RIGHT", x = -35, y = -15 },
 	Ranged = { point = "TOP", relativePoint = "TOP", x = 67, y = -5 },
 	}
@@ -3533,21 +3534,21 @@ local enchantTextPositions = {
 	
 local gemTextPositions = {
 	-- Left
-    Head = { point = "LEFT", relativePoint = "RIGHT", x = 18, y = 12 },
-	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 15, y = 10 },
-	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
-	Back = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 10 },
-	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 12 },
+    Head = { point = "LEFT", relativePoint = "RIGHT", x = 18, y = 7 },
+	Neck = { point = "LEFT", relativePoint = "RIGHT", x = 18, y = 5 },
+	Shoulder = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 2 },
+	Back = { point = "LEFT", relativePoint = "RIGHT", x = 7, y = 0 },
+	Chest = { point = "LEFT", relativePoint = "RIGHT", x = 20, y = 3 },
 	Wrist = { point = "LEFT", relativePoint = "RIGHT", x = -22, y = 45 },
 	
 	
 	-- Right
-	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
-	Waist = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
-	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 15 },
-	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 15 },
-	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 20 },
-	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 20 },
+	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 6 },
+	Waist = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 6 },
+	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 8 },
+	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 5 },
+	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 5 },
+	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 5 },
     
 		
 	-- Bottom

@@ -290,11 +290,11 @@ local function OnEvent(self, event, ...)
 
 		CharacterAttributesFrame:Hide()
 		CharacterModelFrame:ClearAllPoints()
-        CharacterModelFrame:SetSize(231, 320)
+        CharacterModelFrame:SetSize(231, 310)
 		CharacterModelFrame:SetPoint("TOPLEFT", PaperDollFrame, "TOPLEFT", 66, -78)
 		
 		PetModelFrame:ClearAllPoints()
-		PetModelFrame:SetSize(310, 320)
+		PetModelFrame:SetSize(310, 310)
 		PetModelFrame:SetPoint("TOPLEFT", 25, -70)
         -- Create or update the background textures
         if not CharacterModelFrame.textureTopLeft then
