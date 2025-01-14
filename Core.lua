@@ -3520,7 +3520,7 @@ local enchantTextPositions = {
 	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 16 },
 	Waist = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 16 },
 	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 18 },
-	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 15 },
+	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -8, y = 15 },
 	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 15 },
 	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -20, y = 15 },
     
@@ -3546,7 +3546,7 @@ local gemTextPositions = {
 	Hands = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 6 },
 	Waist = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 6 },
 	Legs = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 8 },
-	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -5, y = 5 },
+	Feet = { point = "RIGHT", relativePoint = "LEFT", x = -7, y = 5 },
 	Finger0 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 5 },
 	Finger1 = { point = "RIGHT", relativePoint = "LEFT", x = -18, y = 5 },
     
