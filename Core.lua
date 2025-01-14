@@ -3232,6 +3232,8 @@ local gemAttributes = {
 	-- Prismatic
 	["2947"] = "+3 Resist All",
 	["2948"] = "+4 Resist All",
+	-- wotlk
+	["3563"] = "+12 SP & +10 Haste",
 }
 
 
@@ -3505,6 +3507,9 @@ local gemImagesByID = {
 	-- Prismatic
 	["2947"] = "Interface\\Icons\\inv_enchant_prismaticsphere",
 	["2948"] = "Interface\\Icons\\inv_enchant_voidsphere",
+
+	-- wotlk
+	["3563"] = "Interface\\Icons\\inv_jewelcrafting_gem_39",
 }
 
 local enchantTextPositions = {
